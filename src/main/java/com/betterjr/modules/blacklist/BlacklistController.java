@@ -52,4 +52,18 @@ public class BlacklistController {
         }
     }
 
+    @RequestMapping(value = "/modifyBlacklist", method = RequestMethod.POST)
+    public @ResponseBody String modifyBlacklist(HttpServletRequest request) {
+        Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
+        logger.info("黑名单修改,入参：" + anMap.toString());
+        try {
+
+            return scfBlacklistService.webSaveModifyBlacklist(anMap);
+        }
+        catch (Exception e) {
+            logger.error("黑名单修改失败", e);
+            return AjaxObject.newError("黑名单修改失败").toJson();
+        }
+    }
+
 }
