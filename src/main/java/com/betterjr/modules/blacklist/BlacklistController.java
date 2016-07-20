@@ -75,8 +75,23 @@ public class BlacklistController {
             return scfBlacklistService.webSaveActivateBlacklist(id);
         }
         catch (Exception e) {
-            logger.error("黑名单修改失败", e);
+            logger.error("黑名单激活失败", e);
             return AjaxObject.newError("黑名单激活失败").toJson();
+        }
+    }
+
+    @RequestMapping(value = "/cancelBlacklist", method = RequestMethod.POST)
+    public @ResponseBody String cancelBlacklist(Long id) {
+        logger.info("黑名单注销,入参: " + id);
+
+        try {
+
+            return scfBlacklistService.webSaveCancelBlacklist(id);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            logger.error("黑名单注销失败", e);
+            return AjaxObject.newError("黑名单注销失败").toJson();
         }
     }
 
