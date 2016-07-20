@@ -22,7 +22,7 @@ public class BlacklistController {
     private static final Logger logger = LoggerFactory.getLogger(BlacklistController.class);
 
     @Reference(interfaceClass = IBlacklistService.class)
-    private IBlacklistService iScfBlacklistService;
+    private IBlacklistService scfBlacklistService;
 
     @RequestMapping(value = "/queryBlacklist", method = RequestMethod.POST)
     public @ResponseBody String queryBlacklist(HttpServletRequest request, String flag, int pageNum, int pageSize) {
@@ -30,11 +30,25 @@ public class BlacklistController {
         logger.info("黑名单信息查询,入参：" + anMap.toString());
         try {
 
-            return iScfBlacklistService.webQueryBlacklist(anMap, flag, pageNum, pageSize);
+            return scfBlacklistService.webQueryBlacklist(anMap, flag, pageNum, pageSize);
         }
         catch (Exception e) {
             logger.error("黑名单信息查询失败", e);
             return AjaxObject.newError("黑名单信息查询失败").toJson();
+        }
+    }
+
+    @RequestMapping(value = "/addBlacklist", method = RequestMethod.POST)
+    public @ResponseBody String addBlacklist(HttpServletRequest request) {
+        Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
+        logger.info("黑名单录入,入参: " + anMap.toString());
+        try {
+
+            return scfBlacklistService.webAddBlacklist(anMap);
+        }
+        catch (Exception e) {
+            logger.error("黑名单录入失败", e);
+            return AjaxObject.newError("黑名单录入失败").toJson();
         }
     }
 
