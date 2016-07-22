@@ -15,7 +15,8 @@
 	<!-- 扫描spring注解 -->
 	<context:component-scan
 		base-package="com.betterjr.modules.test;
-		com.betterjr.modules.sys.security">
+					com.betterjr.modules.customer;
+					com.betterjr.modules.sys.security">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
