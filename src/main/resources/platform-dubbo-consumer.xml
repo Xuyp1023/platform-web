@@ -13,7 +13,7 @@
 	<dubbo:application name="platform-dubbo-consumer" />
 
 	<!-- 声明所有引用的默认设置 -->
-	<dubbo:consumer version="1.2" />
+	<dubbo:consumer version="1.8" />
 
 	<!-- 设定只有一个集群的注册中心， address="N/A" 表示不启用注册中心 -->
 	<dubbo:registry address="zookeeper://192.168.2.43:2181"
@@ -22,6 +22,8 @@
 
 	<!-- 扫描dubbo注解 -->
 	<dubbo:annotation
-		package="com.betterjr.modules.account.dubboclient,com.betterjr.dubbo.extend.filter.user" />
+		package="com.betterjr.modules.account.dubboclient,
+        com.betterjr.modules.sys.dubboclient,
+        com.betterjr.dubbo.extend.filter.user" />
 
 </beans>
