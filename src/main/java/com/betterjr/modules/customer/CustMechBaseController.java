@@ -72,13 +72,13 @@ public class CustMechBaseController {
      * @param custNo
      * @return
      */
-    @RequestMapping(value = "/addInstead", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addInstead(HttpServletRequest request, Long custNo) {
+    @RequestMapping(value = "/addInsteadRecord", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String addInsteadRecord(HttpServletRequest request, Long insteadRecordId) {
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("公司基本信息-代录-添加 入参:reqParam=" + reqParam.toString() + " custNo=" + String.valueOf(custNo));
+            logger.debug("公司基本信息-代录-添加 入参:reqParam=" + reqParam.toString() + " insteadRecordId=" + String.valueOf(insteadRecordId));
 
-            return custMechBaseService.webAddInsteadRecord(reqParam, custNo);
+            return custMechBaseService.webAddInsteadRecord(reqParam, insteadRecordId);
         }
         catch (final Exception e) {
             logger.error("公司基本信息-代录-添加 错误", e);
@@ -92,12 +92,12 @@ public class CustMechBaseController {
      * @param custNo
      * @return
      */
-    @RequestMapping(value = "/findInstead", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String findInstead(Long custNo, Long tempId) {
+    @RequestMapping(value = "/findInsteadRecord", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String findInsteadRecord(Long id) {
         try {
-            logger.debug("公司基本信息-代录-查询 入参:custNo=" + String.valueOf(custNo) + " tempId=" + String.valueOf(tempId));
+            logger.debug("公司基本信息-代录-查询 入参:id=" + String.valueOf(id));
 
-            return custMechBaseService.webFindInsteadRecord(custNo, tempId);
+            return custMechBaseService.webFindInsteadRecord(id);
         }
         catch (final Exception e) {
             logger.error("公司基本信息-代录-查询  错误", e);
@@ -132,10 +132,10 @@ public class CustMechBaseController {
      * @return
      */
     @RequestMapping(value = "/findChangeApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String findChangeApply(Long custNo, Long id) {
+    public @ResponseBody String findChangeApply(Long id) {
         try {
-            logger.debug("公司基本信息-变更-查询 入参:custNo=" + String.valueOf(custNo) + " id=" + String.valueOf(id));
-            return custMechBaseService.webFindChangeApply(custNo, id);
+            logger.debug("公司基本信息-变更-查询 入参: id=" + String.valueOf(id));
+            return custMechBaseService.webFindChangeApply(id);
         }
         catch (final Exception e) {
             logger.error("公司基本信息-变更-查询 错误", e);
@@ -144,7 +144,7 @@ public class CustMechBaseController {
     }
 
     /**
-     * 公司基本信息-变更-查询
+     * 公司基本信息-变更列表-查询
      * 
      * @param custNo
      * @return
