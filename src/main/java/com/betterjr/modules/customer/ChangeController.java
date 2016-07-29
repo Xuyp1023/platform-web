@@ -21,9 +21,9 @@ import com.betterjr.common.web.Servlets;
  *
  */
 @Controller
-@RequestMapping("/Platform/CustChange")
-public class CustChangeController {
-    private static final Logger logger = LoggerFactory.getLogger(CustChangeController.class);
+@RequestMapping("/Platform/Change")
+public class ChangeController {
+    private static final Logger logger = LoggerFactory.getLogger(ChangeController.class);
     
     @Reference(interfaceClass = ICustChangeService.class)
     private ICustChangeService custChangeService;
