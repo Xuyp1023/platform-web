@@ -62,12 +62,12 @@ public class LawInfoController {
      * @return
      */
     @RequestMapping(value = "/saveChangeApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveChangeApply(HttpServletRequest request, Long custNo, String fileList) {
+    public @ResponseBody String saveChangeApply(HttpServletRequest request, Long applyId, String fileList) {
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("法人信息-变更修改 入参:reqParam=" + reqParam.toString() + " custNo=" + String.valueOf(custNo) + " fileList=" + fileList);
+            logger.debug("法人信息-变更修改 入参:reqParam=" + reqParam.toString() + " applyId=" + String.valueOf(applyId) + " fileList=" + fileList);
 
-            return custMechLawService.webSaveChangeApply(reqParam, custNo, fileList);
+            return custMechLawService.webSaveChangeApply(reqParam, applyId, fileList);
         }
         catch (final Exception e) {
             logger.error("法人信息-变更修改 错误", e);
