@@ -12,6 +12,7 @@
 	<!-- 扫描dubbo注解 -->
 	<dubbo:annotation package="com.betterjr.modules.test,
 	           com.betterjr.modules.customer,
+	           com.betterjr.modules.document,
 	           com.betterjr.modules.blacklist" />
 
 </beans>
