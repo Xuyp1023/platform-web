@@ -26,9 +26,6 @@ import com.betterjr.modules.account.dubbo.interfaces.ICustInfoService;
 public class BaseInfoController {
     private static final Logger logger = LoggerFactory.getLogger(BaseInfoController.class);
 
-    @Reference(interfaceClass = ICustInfoService.class)
-    private ICustInfoService custInfoService;
-
     @Reference(interfaceClass = ICustMechBaseService.class)
     private ICustMechBaseService custMechBaseService;
 
@@ -40,7 +37,7 @@ public class BaseInfoController {
     @RequestMapping(value = "/queryCustList", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String queryCustList() {
         try {
-            return custInfoService.webQueryCustInfo();
+            return custMechBaseService.webQueryCustInfo();
         }
         catch (final Exception e) {
             logger.error("公司列表-查询出错", e);
