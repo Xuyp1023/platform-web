@@ -80,6 +80,23 @@ public class InsteadController {
     }
     
     /**
+     * 代录申请-查询代录申请列表[自己机构拥有的]
+     * 
+     * @return
+     */
+    @RequestMapping(value = "/queryInsteadApplyOwnList", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String queryInsteadApplyOwnList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
+        try {
+            Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+            return custInsteadService.webQueryInsteadApplyOwnList(anParam, flag, pageNum, pageSize);
+        }
+        catch (final Exception e) {
+            logger.error("代录申请-查询代录申请列表[待审核] 出错", e);
+            return AjaxObject.newError("代录申请-查询代录申请列表[待审核] 出错").toJson();
+        }
+    }
+    
+    /**
      * 代录申请-查询代录申请列表[待审核]
      * 
      * @return
@@ -178,21 +195,7 @@ public class InsteadController {
         }
     }
     
-    /**
-     * 代录申请 代录提交复核
-     * @return
-     */
-    @RequestMapping(value = "/submitTypeInInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String submitTypeInInsteadApply(Long id) {
-        try {
-            return custInsteadService.webSubmitTypeInInsteadApply(id);
-        }
-        catch (final Exception e) {
-            logger.error("代录申请 代录提交复核 出错", e);
-            return AjaxObject.newError("代录申请 代录提交复核 出错").toJson();
-        }
-    }
-    
+
     /**
      * 代录申请 复核通过
      * @return
@@ -250,6 +253,51 @@ public class InsteadController {
         catch (final Exception e) {
             logger.error("代录申请 确认驳回 出错", e);
             return AjaxObject.newError("代录申请 确认驳回 出错").toJson();
+        }
+    }
+    
+    /**
+     * 代录申请 复核提交
+     * @return
+     */
+    @RequestMapping(value = "/submitReviewInsteadApply", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String submitReviewInsteadApply(Long id) {
+        try {
+            return custInsteadService.webSubmitReviewInsteadApply(id);
+        }
+        catch (final Exception e) {
+            logger.error("代录申请 代录复核提交 出错", e);
+            return AjaxObject.newError("代录申请 代录复核提交 出错").toJson();
+        }
+    }
+    
+    /**
+     * 代录申请 确认提交
+     * @return
+     */
+    @RequestMapping(value = "/submitConfirmInsteadApply", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String submitConfirmInsteadApply(Long id) {
+        try {
+            return custInsteadService.webSubmitConfirmInsteadApply(id);
+        }
+        catch (final Exception e) {
+            logger.error("代录申请 代录确认提交 出错", e);
+            return AjaxObject.newError("代录申请 代录确认提交 出错").toJson();
+        }
+    }
+    
+    /**
+     * 代录申请 录入提交
+     * @return
+     */
+    @RequestMapping(value = "/submitTypeInInsteadApply", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String submitTypeInInsteadApply(Long id) {
+        try {
+            return custInsteadService.webSubmitTypeInInsteadApply(id);
+        }
+        catch (final Exception e) {
+            logger.error("代录申请 录入提交 出错", e);
+            return AjaxObject.newError("代录申请 录入提交 出错").toJson();
         }
     }
     
