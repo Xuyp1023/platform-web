@@ -76,4 +76,20 @@ public class ChangeController {
             return AjaxObject.newError("变更申请-审核驳回出错").toJson();
         }
     }
+    
+    /**
+     * 变更申请 - 作废
+     * 
+     * @return
+     */
+    @RequestMapping(value = "/cancelChangeApply", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String cancelChangeApply(HttpServletRequest request, Long id, String reason) {
+        try {
+            return custChangeService.webCancelChangeApply(id, reason);
+        }
+        catch (final Exception e) {
+            logger.error("变更申请-审核通过出错", e);
+            return AjaxObject.newError("变更申请-审核通过出错").toJson();
+        }
+    }
 }

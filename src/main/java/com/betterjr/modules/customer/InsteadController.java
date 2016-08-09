@@ -61,7 +61,7 @@ public class InsteadController {
             return AjaxObject.newError("代录申请-添加代录出错").toJson();
         }
     }
-
+    
     /**
      * 代录申请-查询代录申请列表[所有] （待审，已审，已代录未复核，已复核未确认，驳回)
      * 
