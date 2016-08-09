@@ -150,7 +150,7 @@ public class CustOpenAccountController {
     @RequestMapping(value = "/saveAccInfoInstead", method = RequestMethod.POST)
     public @ResponseBody String saveOpenAccountInfoByInstead(HttpServletRequest request, Long insteadId) {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
-        logger.info("代录开户资料暂存,入参：" + anMap.toString());
+        logger.info("代录开户资料提交,入参：" + anMap.toString());
         try {
 
             return custOpenAccountService.webSaveOpenAccountInfoByInstead(anMap, insteadId);
@@ -159,12 +159,12 @@ public class CustOpenAccountController {
             if (e.getCause() != null && e.getCause() instanceof BytterException) {
                 return AjaxObject.newError(e.getCause().getMessage()).toJson();
             }
-            logger.error("代录开户资料暂存失败", e);
-            return AjaxObject.newError("代录开户资料暂存失败").toJson();
+            logger.error("代录开户资料提交失败", e);
+            return AjaxObject.newError("代录开户资料提交失败").toJson();
         }
         catch (Exception e) {
-            logger.error("代录开户资料暂存失败", e);
-            return AjaxObject.newError("代录开户资料暂存失败").toJson();
+            logger.error("代录开户资料提交失败", e);
+            return AjaxObject.newError("代录开户资料提交失败").toJson();
         }
     }
 
