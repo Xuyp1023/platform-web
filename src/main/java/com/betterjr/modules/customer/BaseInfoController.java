@@ -44,6 +44,22 @@ public class BaseInfoController {
             return AjaxObject.newError("公司列表-查询出错").toJson();
         }
     }
+    
+    /**
+     * 当前客户公司列表-查询  供select使用
+     * 
+     * @return
+     */
+    @RequestMapping(value = "/queryCustSelect", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String queryCustSelect() {
+        try {
+            return custMechBaseService.webQueryCustInfoSelect();
+        }
+        catch (final Exception e) {
+            logger.error("公司列表-查询出错", e);
+            return AjaxObject.newError("公司列表-查询出错").toJson();
+        }
+    }
 
     /**
      * 公司基本信息-查询
