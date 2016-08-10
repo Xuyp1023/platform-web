@@ -47,12 +47,12 @@ public class CustOpenAccountController {
     }
 
     @RequestMapping(value = "/saveAccInfo", method = RequestMethod.POST)
-    public @ResponseBody String saveOpenAccountInfo(HttpServletRequest request) {
+    public @ResponseBody String saveOpenAccountInfo(HttpServletRequest request, String fileList) {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("客户开户资料暂存,入参：" + anMap.toString());
         try {
 
-            return custOpenAccountService.webSaveOpenAccountInfo(anMap);
+            return custOpenAccountService.webSaveOpenAccountInfo(anMap, fileList);
         }
         catch (RpcException e) {
             logger.error(e.getMessage(), e);
@@ -68,12 +68,12 @@ public class CustOpenAccountController {
     }
 
     @RequestMapping(value = "/saveAccApply", method = RequestMethod.POST)
-    public @ResponseBody String saveOpenAccountApply(HttpServletRequest request, Long id) {
+    public @ResponseBody String saveOpenAccountApply(HttpServletRequest request, Long id, String fileList) {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("开户申请,入参：" + anMap.toString());
         try {
 
-            return custOpenAccountService.webSaveOpenAccountApply(anMap, id);
+            return custOpenAccountService.webSaveOpenAccountApply(anMap, id, fileList);
         }
         catch (RpcException e) {
             logger.error(e.getMessage(), e);
@@ -148,12 +148,12 @@ public class CustOpenAccountController {
     }
 
     @RequestMapping(value = "/saveAccInfoInstead", method = RequestMethod.POST)
-    public @ResponseBody String saveOpenAccountInfoByInstead(HttpServletRequest request, Long insteadId) {
+    public @ResponseBody String saveOpenAccountInfoByInstead(HttpServletRequest request, Long insteadId, String fileList) {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("代录开户资料提交,入参：" + anMap.toString());
         try {
 
-            return custOpenAccountService.webSaveOpenAccountInfoByInstead(anMap, insteadId);
+            return custOpenAccountService.webSaveOpenAccountInfoByInstead(anMap, insteadId, fileList);
         }
         catch (RpcException e) {
             logger.error(e.getMessage(), e);
