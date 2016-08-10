@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.dubbo.rpc.RpcException;
+import com.betterjr.common.exception.BytterException;
 import com.betterjr.common.web.AjaxObject;
 
 @Controller
@@ -26,8 +28,15 @@ public class CustRelationController {
 
             return custRelationService.webFindFactorStatus(custNo);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("开通保理融资业务状态查询失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("开通保理融资业务状态查询失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("开通保理融资业务状态查询失败").toJson();
         }
     }
@@ -39,8 +48,15 @@ public class CustRelationController {
 
             return custRelationService.webSaveCustRelation(custNo, providerList, factorList, postscript);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("开通保理融资业务申请提交失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("开通保理融资业务申请提交失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("开通保理融资业务申请提交失败").toJson();
         }
     }
@@ -52,8 +68,15 @@ public class CustRelationController {
 
             return custRelationService.webQueryAuditWorkflow(custNo, flag, pageNum, pageSize);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("开通保理融资业务审批流程查询失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("开通保理融资业务审批流程查询失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("开通保理融资业务审批流程查询失败").toJson();
         }
     }
@@ -65,8 +88,15 @@ public class CustRelationController {
 
             return custRelationService.webQueryRelationAccept(businStatus, flag, pageNum, pageSize);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("客户白名单受理列表查询失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("客户白名单受理列表查询失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("客户白名单受理列表查询失败").toJson();
         }
     }
@@ -78,8 +108,15 @@ public class CustRelationController {
 
             return custRelationService.webQueryRelationAudit(businStatus, flag, pageNum, pageSize);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("客户白名单审批列表查询失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("客户白名单审批列表查询失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("客户白名单审批列表查询失败").toJson();
         }
     }
@@ -91,8 +128,15 @@ public class CustRelationController {
 
             return custRelationService.webSaveRelationAccept(id, auditOpinion);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("客户白名单受理失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("客户白名单受理失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("客户白名单受理失败").toJson();
         }
     }
@@ -104,8 +148,15 @@ public class CustRelationController {
 
             return custRelationService.webSaveRelationAudit(id, auditOpinion);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("客户白名单审批失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("客户白名单审批失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("客户白名单审批失败").toJson();
         }
     }
@@ -117,8 +168,15 @@ public class CustRelationController {
 
             return custRelationService.webSaveRefuseAcceptRelation(id, auditOpinion);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("客户白名单受理驳回失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("客户白名单受理驳回失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("客户白名单受理驳回失败").toJson();
         }
     }
@@ -130,8 +188,15 @@ public class CustRelationController {
 
             return custRelationService.webSaveRefuseAuditRelation(id, auditOpinion);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("客户白名单审批驳回失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("客户白名单审批驳回失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("客户白名单审批驳回失败").toJson();
         }
     }
@@ -143,8 +208,15 @@ public class CustRelationController {
 
             return custRelationService.webQueryCoreKeyAndValue(custNo);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("核心企业下拉列表查询失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("核心企业下拉列表查询失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("核心企业下拉列表查询失败").toJson();
         }
     }
@@ -156,9 +228,56 @@ public class CustRelationController {
 
             return custRelationService.webQueryFactorKeyAndValue(custNo);
         }
-        catch (Exception e) {
-            logger.error("保理机构下拉列表查询失败", e);
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
             return AjaxObject.newError("保理机构下拉列表查询失败").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("保理机构下拉列表查询失败").toJson();
+        }
+    }
+
+    @RequestMapping(value = "/queryProviderRelation", method = RequestMethod.POST)
+    public @ResponseBody String queryProviderRelation(Long custNo) {
+        logger.info("客户与电子合同服务商关系查询,入参: " + custNo);
+        try {
+
+            return custRelationService.webQueryProviderRelation(custNo);
+        }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("客户与电子合同服务商关系查询").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("客户与电子合同服务商关系查询").toJson();
+        }
+    }
+
+    @RequestMapping(value = "/queryFactorRelation", method = RequestMethod.POST)
+    public @ResponseBody String queryFactorRelation(Long custNo) {
+        logger.info("客户与保理机构关系查询,入参: " + custNo);
+        try {
+
+            return custRelationService.webQueryFactorRelation(custNo);
+        }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("客户与保理机构关系查询").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("客户与保理机构关系查询").toJson();
         }
     }
 
