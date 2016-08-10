@@ -34,10 +34,10 @@ public class AuditLogController {
      * @return
      */
     @RequestMapping(value = "queryAuditLogOpenAccountList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryAuditLogOpenAccountList(Long businId, int flag, int pageNum, int pageSize) {
+    public @ResponseBody String queryAuditLogOpenAccountList(Long businId) {
         try {
             logger.debug("入参:businId=" + String.valueOf(businId));
-            return auditLogService.webQueryAuditLogOpenAccountList(businId, flag, pageNum, pageSize);
+            return auditLogService.webQueryAuditLogOpenAccountList(businId);
         }
         catch (Exception e) {
             logger.error("审核日志-列表查询 错误", e);
@@ -56,10 +56,10 @@ public class AuditLogController {
      * @return
      */
     @RequestMapping(value = "queryAuditLogInsteadApplyList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryAuditLogInsteadApplyList(Long businId, int flag, int pageNum, int pageSize) {
+    public @ResponseBody String queryAuditLogInsteadApplyList(Long businId) {
         try {
             logger.debug("入参:businId=" + String.valueOf(businId));
-            return auditLogService.webQueryAuditLogInsteadApplyList(businId, flag, pageNum, pageSize);
+            return auditLogService.webQueryAuditLogInsteadApplyList(businId);
         }
         catch (Exception e) {
             logger.error("审核日志-列表查询 错误", e);
@@ -78,10 +78,10 @@ public class AuditLogController {
      * @return
      */
     @RequestMapping(value = "queryAuditLogInsteadRecordList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryAuditLogInsteadRecordList(Long businId, int flag, int pageNum, int pageSize) {
+    public @ResponseBody String queryAuditLogInsteadRecordList(Long businId) {
         try {
             logger.debug("入参:businId=" + String.valueOf(businId));
-            return auditLogService.webQueryAuditLogInsteadRecordList(businId, flag, pageNum, pageSize);
+            return auditLogService.webQueryAuditLogInsteadRecordList(businId);
         }
         catch (Exception e) {
             logger.error("审核日志-列表查询 错误", e);
@@ -103,7 +103,7 @@ public class AuditLogController {
     public @ResponseBody String queryAuditLogChangeApplyList(Long businId, int flag, int pageNum, int pageSize) {
         try {
             logger.debug("入参:businId=" + String.valueOf(businId));
-            return auditLogService.webQueryAuditLogChangeApplyList(businId, flag, pageNum, pageSize);
+            return auditLogService.webQueryAuditLogChangeApplyList(businId);
         }
         catch (Exception e) {
             logger.error("审核日志-列表查询 错误", e);

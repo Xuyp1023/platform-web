@@ -148,6 +148,18 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerController.c
         }
     }
     
+    @RequestMapping(value = "/queryChangeApply", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String queryChangeApply(HttpServletRequest request, Long custNo, int flag, int pageNum, int pageSize) {
+        try {
+            logger.debug("高管信息-变更申请  入参:custNo=" + custNo);
+            return custMechManagerService.webQueryChangeApply(custNo, flag, pageNum, pageSize);
+        }
+        catch (final Exception e) {
+            logger.error("高管信息-变更申请  错误", e);
+            return AjaxObject.newError("高管信息-变更申请  错误").toJson();
+        }
+    }
+    
     @RequestMapping(value = "/findChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String findChangeApply(HttpServletRequest request, Long custNo) {
         try {
@@ -179,7 +191,7 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerController.c
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
             logger.debug("高管信息-变更申请  入参:reqParam=" + reqParam + " custNo=" + custNo);
-            return custMechManagerService.webAddChangeApply(reqParam, custNo);
+            return custMechManagerService.webSaveInsteadManagerTmp(reqParam, custNo);
         }
         catch (final Exception e) {
             logger.error("高管信息-变更申请  错误", e);
