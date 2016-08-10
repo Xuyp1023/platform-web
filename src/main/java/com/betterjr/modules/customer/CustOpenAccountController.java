@@ -34,14 +34,14 @@ public class CustOpenAccountController {
             return custOpenAccountService.webFindOpenAccountInfo();
         }
         catch (RpcException e) {
-            if (e.getCause() != null && e.getCause() instanceof BytterException) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
                 return AjaxObject.newError(e.getCause().getMessage()).toJson();
             }
-            logger.error("客户开户资料读取失败", e);
             return AjaxObject.newError("客户开户资料读取失败").toJson();
         }
         catch (Exception e) {
-            logger.error("客户开户资料读取失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("客户开户资料读取失败").toJson();
         }
     }
@@ -55,14 +55,14 @@ public class CustOpenAccountController {
             return custOpenAccountService.webSaveOpenAccountInfo(anMap);
         }
         catch (RpcException e) {
-            if (e.getCause() != null && e.getCause() instanceof BytterException) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
                 return AjaxObject.newError(e.getCause().getMessage()).toJson();
             }
-            logger.error("客户开户资料暂存失败", e);
             return AjaxObject.newError("客户开户资料暂存失败").toJson();
         }
         catch (Exception e) {
-            logger.error("客户开户资料暂存失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("客户开户资料暂存失败").toJson();
         }
     }
@@ -76,14 +76,14 @@ public class CustOpenAccountController {
             return custOpenAccountService.webSaveOpenAccountApply(anMap, id);
         }
         catch (RpcException e) {
-            if (e.getCause() != null && e.getCause() instanceof BytterException) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
                 return AjaxObject.newError(e.getCause().getMessage()).toJson();
             }
-            logger.error("开户申请提交失败", e);
             return AjaxObject.newError("开户申请提交失败").toJson();
         }
         catch (Exception e) {
-            logger.error("开户申请提交失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("开户申请提交失败").toJson();
         }
     }
@@ -95,14 +95,14 @@ public class CustOpenAccountController {
             return custOpenAccountService.webQueryOpenAccountApply(flag, pageNum, pageSize);
         }
         catch (RpcException e) {
-            if (e.getCause() != null && e.getCause() instanceof BytterException) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
                 return AjaxObject.newError(e.getCause().getMessage()).toJson();
             }
-            logger.error("开户申请待审批列表查询失败", e);
             return AjaxObject.newError("开户申请待审批列表查询失败").toJson();
         }
         catch (Exception e) {
-            logger.error("开户申请待审批列表查询失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("开户申请待审批列表查询失败").toJson();
         }
     }
@@ -115,14 +115,14 @@ public class CustOpenAccountController {
             return custOpenAccountService.webSaveAuditOpenAccountApply(id, auditOpinion);
         }
         catch (RpcException e) {
-            if (e.getCause() != null && e.getCause() instanceof BytterException) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
                 return AjaxObject.newError(e.getCause().getMessage()).toJson();
             }
-            logger.error("开户审核失败", e);
             return AjaxObject.newError("开户审核失败").toJson();
         }
         catch (Exception e) {
-            logger.error("开户审核失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("开户审核失败").toJson();
         }
     }
@@ -135,14 +135,14 @@ public class CustOpenAccountController {
             return custOpenAccountService.webSaveRefuseOpenAccountApply(id, auditOpinion);
         }
         catch (RpcException e) {
-            if (e.getCause() != null && e.getCause() instanceof BytterException) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
                 return AjaxObject.newError(e.getCause().getMessage()).toJson();
             }
-            logger.error("开户申请驳回失败", e);
             return AjaxObject.newError("开户申请驳回失败").toJson();
         }
         catch (Exception e) {
-            logger.error("开户申请驳回失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("开户申请驳回失败").toJson();
         }
     }
@@ -156,14 +156,14 @@ public class CustOpenAccountController {
             return custOpenAccountService.webSaveOpenAccountInfoByInstead(anMap, insteadId);
         }
         catch (RpcException e) {
-            if (e.getCause() != null && e.getCause() instanceof BytterException) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
                 return AjaxObject.newError(e.getCause().getMessage()).toJson();
             }
-            logger.error("代录开户资料提交失败", e);
             return AjaxObject.newError("代录开户资料提交失败").toJson();
         }
         catch (Exception e) {
-            logger.error("代录开户资料提交失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("代录开户资料提交失败").toJson();
         }
     }
@@ -176,14 +176,14 @@ public class CustOpenAccountController {
             return custOpenAccountService.webFindOpenAccountInfoByInsteadId(insteadId);
         }
         catch (RpcException e) {
-            if (e.getCause() != null && e.getCause() instanceof BytterException) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
                 return AjaxObject.newError(e.getCause().getMessage()).toJson();
             }
-            logger.error("代录开户资料读取失败", e);
             return AjaxObject.newError("代录开户资料读取失败").toJson();
         }
         catch (Exception e) {
-            logger.error("代录开户资料读取失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("代录开户资料读取失败").toJson();
         }
     }
