@@ -35,6 +35,18 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerController.c
         }
     }
     
+    @RequestMapping(value = "/findManager", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String findManager(HttpServletRequest request, Long id) {
+        try {
+            logger.debug("高管信息-高管列表 入参:id=" + id);
+            return custMechManagerService.webFindManager(id);
+        }
+        catch (final Exception e) {
+            logger.error("高管信息-高管列表 查询错误", e);
+            return AjaxObject.newError("高管信息-高管列表 查询错误").toJson();
+        }
+    }
+    
     @RequestMapping(value = "/findManagerTmp", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String findManagerTmp(HttpServletRequest request, Long id) {
         try {
@@ -122,6 +134,18 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerController.c
         }
     }
     
+    @RequestMapping(value = "/queryChangeManagerTmp", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String queryChangeManagerTmp(HttpServletRequest request, Long applyId) {
+        try {
+            logger.debug("高管信息-临时流水 未使用流水列表 入参:applyId=" + applyId);
+            return custMechManagerService.webQueryChangeManagerTmp(applyId);
+        }
+        catch (final Exception e) {
+            logger.error("高管信息-临时流水 未使用流水列表 错误", e);
+            return AjaxObject.newError("高管信息-临时流水 未使用流水列表 错误").toJson();
+        }
+    }
+    
     @RequestMapping(value = "/addChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String addChangeApply(HttpServletRequest request, Long custNo) {
         try {
@@ -139,33 +163,32 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerController.c
     public @ResponseBody String saveChangeApply(HttpServletRequest request, Long custNo) {
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("高管信息-变更申请  入参:reqParam=" + reqParam + " custNo=" + custNo);
+            logger.debug("高管信息-变更申请修改  入参:reqParam=" + reqParam + " custNo=" + custNo);
             return custMechManagerService.webAddChangeApply(reqParam, custNo);
         }
         catch (final Exception e) {
-            logger.error("高管信息-变更申请  错误", e);
-            return AjaxObject.newError("高管信息-变更申请  错误").toJson();
+            logger.error("高管信息-变更申请修改  错误", e);
+            return AjaxObject.newError("高管信息-变更申请修改  错误").toJson();
         }
     }
     
     @RequestMapping(value = "/queryChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String queryChangeApply(HttpServletRequest request, Long custNo, int flag, int pageNum, int pageSize) {
         try {
-            logger.debug("高管信息-变更申请  入参:custNo=" + custNo);
+            logger.debug("高管信息-变更列表  入参:custNo=" + custNo);
             return custMechManagerService.webQueryChangeApply(custNo, flag, pageNum, pageSize);
         }
         catch (final Exception e) {
-            logger.error("高管信息-变更申请  错误", e);
-            return AjaxObject.newError("高管信息-变更申请  错误").toJson();
+            logger.error("高管信息-变更列表查询  错误", e);
+            return AjaxObject.newError("高管信息-变更列表查询  错误").toJson();
         }
     }
     
     @RequestMapping(value = "/findChangeApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String findChangeApply(HttpServletRequest request, Long custNo) {
+    public @ResponseBody String findChangeApply(HttpServletRequest request, Long applyId) {
         try {
-            final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("高管信息-变更申请  入参:reqParam=" + reqParam + " custNo=" + custNo);
-            return custMechManagerService.webAddChangeApply(reqParam, custNo);
+            logger.debug("高管信息-变更申请  入参: applyId=" + applyId);
+            return custMechManagerService.webFindChangeApply(applyId);
         }
         catch (final Exception e) {
             logger.error("高管信息-变更申请  错误", e);
@@ -174,106 +197,102 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerController.c
     }
     
     @RequestMapping(value = "/addInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addInsteadManagerTmp(HttpServletRequest request, Long custNo) {
+    public @ResponseBody String addInsteadManagerTmp(HttpServletRequest request, Long insteadRecordId) {
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("高管信息-变更申请  入参:reqParam=" + reqParam + " custNo=" + custNo);
-            return custMechManagerService.webAddChangeApply(reqParam, custNo);
+            logger.debug("高管信息-添加代录新增流水  入参:reqParam=" + reqParam + " insteadRecordId=" + insteadRecordId);
+            return custMechManagerService.webAddInsteadManagerTmp(reqParam, insteadRecordId);
         }
         catch (final Exception e) {
-            logger.error("高管信息-变更申请  错误", e);
-            return AjaxObject.newError("高管信息-变更申请  错误").toJson();
+            logger.error("高管信息-添加代录新增流水  错误", e);
+            return AjaxObject.newError("高管信息-添加代录新增流水  错误").toJson();
         }
     }
     
     @RequestMapping(value = "/saveInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveInsteadManagerTmp(HttpServletRequest request, Long custNo) {
+    public @ResponseBody String saveInsteadManagerTmp(HttpServletRequest request, Long insteadRecordId) {
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("高管信息-变更申请  入参:reqParam=" + reqParam + " custNo=" + custNo);
-            return custMechManagerService.webSaveInsteadManagerTmp(reqParam, custNo);
+            logger.debug("高管信息-添加代录修改流水  入参:reqParam=" + reqParam + " insteadRecordId=" + insteadRecordId);
+            return custMechManagerService.webSaveInsteadManagerTmp(reqParam, insteadRecordId);
         }
         catch (final Exception e) {
-            logger.error("高管信息-变更申请  错误", e);
-            return AjaxObject.newError("高管信息-变更申请  错误").toJson();
+            logger.error("高管信息-添加代录修改流水  错误", e);
+            return AjaxObject.newError("高管信息-添加代录修改流水  错误").toJson();
         }
     }
     
     @RequestMapping(value = "/delInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String delInsteadManagerTmp(HttpServletRequest request, Long custNo) {
+    public @ResponseBody String delInsteadManagerTmp(HttpServletRequest request, Long refId, Long insteadRecordId) {
         try {
-            final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("高管信息-变更申请  入参:reqParam=" + reqParam + " custNo=" + custNo);
-            return custMechManagerService.webAddChangeApply(reqParam, custNo);
+            logger.debug("高管信息-添加代录删除流水  入参:refId=" + refId + " insteadRecordId=" + insteadRecordId);
+            return custMechManagerService.webDelInsteadManagerTmp(refId, insteadRecordId);
         }
         catch (final Exception e) {
-            logger.error("高管信息-变更申请  错误", e);
-            return AjaxObject.newError("高管信息-变更申请  错误").toJson();
+            logger.error("高管信息-添加代录删除流水  错误", e);
+            return AjaxObject.newError("高管信息-添加代录删除流水  错误").toJson();
         }
     }
     
     @RequestMapping(value = "/cancelInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String cancelInsteadManagerTmp(HttpServletRequest request, Long custNo) {
+    public @ResponseBody String cancelInsteadManagerTmp(HttpServletRequest request, Long insteadRecordId, Long id) {
         try {
-            final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("高管信息-变更申请  入参:reqParam=" + reqParam + " custNo=" + custNo);
-            return custMechManagerService.webAddChangeApply(reqParam, custNo);
+            logger.debug("高管信息-删除代录流水  入参: id=" + id);
+            return custMechManagerService.webCancelInsteadManagerTmp(id, insteadRecordId);
         }
         catch (final Exception e) {
-            logger.error("高管信息-变更申请  错误", e);
-            return AjaxObject.newError("高管信息-变更申请  错误").toJson();
+            logger.error("高管信息-删除代录流水  错误", e);
+            return AjaxObject.newError("高管信息-删除代录流水  错误").toJson();
         }
     }
     
-    @RequestMapping(value = "/queryNewInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryNewInsteadManagerTmp(HttpServletRequest request, Long custNo) {
+    @RequestMapping(value = "/queryInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String queryInsteadManagerTmp(HttpServletRequest request, Long insteadRecordId) {
         try {
-            final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("高管信息-变更申请  入参:reqParam=" + reqParam + " custNo=" + custNo);
-            return custMechManagerService.webAddChangeApply(reqParam, custNo);
+            logger.debug("高管信息-查询代录流水列表  入参:insteadRecordId=" + insteadRecordId);
+            return custMechManagerService.webQueryInsteadManagerTmp(insteadRecordId);
         }
         catch (final Exception e) {
-            logger.error("高管信息-变更申请  错误", e);
-            return AjaxObject.newError("高管信息-变更申请  错误").toJson();
+            logger.error("高管信息-查询代录流水列表  错误", e);
+            return AjaxObject.newError("高管信息-查询代录流水列表  错误").toJson();
         }
     }
     
     @RequestMapping(value = "/addInsteadRecord", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addInsteadRecord(HttpServletRequest request, Long custNo) {
+    public @ResponseBody String addInsteadRecord(HttpServletRequest request, Long insteadRecordId) {
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("高管信息-变更申请  入参:reqParam=" + reqParam + " custNo=" + custNo);
-            return custMechManagerService.webAddChangeApply(reqParam, custNo);
+            logger.debug("高管信息-添加代录记录  入参:reqParam=" + reqParam + " insteadRecordId=" + insteadRecordId);
+            return custMechManagerService.webAddInsteadRecord(reqParam, insteadRecordId);
         }
         catch (final Exception e) {
-            logger.error("高管信息-变更申请  错误", e);
-            return AjaxObject.newError("高管信息-变更申请  错误").toJson();
+            logger.error("高管信息-添加代录记录  错误", e);
+            return AjaxObject.newError("高管信息-添加代录记录  错误").toJson();
         }
     }
     
     @RequestMapping(value = "/saveInsteadRecord", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveInsteadRecord(HttpServletRequest request, Long custNo) {
+    public @ResponseBody String saveInsteadRecord(HttpServletRequest request, Long insteadRecordId) {
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("高管信息-变更申请  入参:reqParam=" + reqParam + " custNo=" + custNo);
-            return custMechManagerService.webAddChangeApply(reqParam, custNo);
+            logger.debug("高管信息-修改代录记录  入参:reqParam=" + reqParam + " insteadRecordId=" + insteadRecordId);
+            return custMechManagerService.webSaveInsteadRecord(reqParam, insteadRecordId);
         }
         catch (final Exception e) {
-            logger.error("高管信息-变更申请  错误", e);
-            return AjaxObject.newError("高管信息-变更申请  错误").toJson();
+            logger.error("高管信息-修改代录记录  错误", e);
+            return AjaxObject.newError("高管信息-修改代录记录  错误").toJson();
         }
     }
     
     @RequestMapping(value = "/findInsteadRecord", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String findInsteadRecord(HttpServletRequest request, Long custNo) {
+    public @ResponseBody String findInsteadRecord(HttpServletRequest request, Long insteadRecordId) {
         try {
-            final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("高管信息-变更申请  入参:reqParam=" + reqParam + " custNo=" + custNo);
-            return custMechManagerService.webAddChangeApply(reqParam, custNo);
+            logger.debug("高管信息-代录记录详情  入参: insteadRecordId=" + insteadRecordId);
+            return custMechManagerService.webFindInsteadRecord(insteadRecordId);
         }
         catch (final Exception e) {
-            logger.error("高管信息-变更申请  错误", e);
-            return AjaxObject.newError("高管信息-变更申请  错误").toJson();
+            logger.error("高管信息-代录记录详情  错误", e);
+            return AjaxObject.newError("高管信息-代录记录详情  错误").toJson();
         }
     }
 }
