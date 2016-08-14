@@ -47,12 +47,12 @@ public class CustOpenAccountController {
     }
 
     @RequestMapping(value = "/saveAccInfo", method = RequestMethod.POST)
-    public @ResponseBody String saveOpenAccountInfo(HttpServletRequest request, String fileList) {
+    public @ResponseBody String saveOpenAccountInfo(HttpServletRequest request, Long id, String fileList) {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("客户开户资料暂存,入参：" + anMap.toString());
         try {
 
-            return custOpenAccountService.webSaveOpenAccountInfo(anMap, fileList);
+            return custOpenAccountService.webSaveOpenAccountInfo(anMap, id, fileList);
         }
         catch (RpcException e) {
             logger.error(e.getMessage(), e);
@@ -185,6 +185,46 @@ public class CustOpenAccountController {
         catch (Exception e) {
             logger.error(e.getMessage(), e);
             return AjaxObject.newError("代录开户资料读取失败").toJson();
+        }
+    }
+
+    @RequestMapping(value = "/queryAccWorkflow", method = RequestMethod.POST)
+    public @ResponseBody String queryOpenAccWorkflow(Long custNo) {
+        logger.info("开户审批流程查询,入参：" + custNo);
+        try {
+
+            return custOpenAccountService.webQueryAuditWorkflow(custNo);
+        }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("开户审批流程查询失败").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("开户审批流程查询失败").toJson();
+        }
+    }
+
+    @RequestMapping(value = "/queryAccWorkflowById", method = RequestMethod.POST)
+    public @ResponseBody String queryOpenAccWorkflowById(Long openAccId) {
+        logger.info("开户审批流程查询,入参：" + openAccId);
+        try {
+
+            return custOpenAccountService.webQueryAuditWorkflowById(openAccId);
+        }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("开户审批流程查询失败").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("开户审批流程查询失败").toJson();
         }
     }
 

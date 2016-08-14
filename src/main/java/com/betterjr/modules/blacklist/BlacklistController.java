@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.dubbo.rpc.RpcException;
+import com.betterjr.common.exception.BytterException;
 import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.Servlets;
 
@@ -32,8 +34,15 @@ public class BlacklistController {
 
             return scfBlacklistService.webQueryBlacklist(anMap, flag, pageNum, pageSize);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("黑名单信息查询失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("黑名单信息查询失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("黑名单信息查询失败").toJson();
         }
     }
@@ -46,8 +55,15 @@ public class BlacklistController {
 
             return scfBlacklistService.webAddBlacklist(anMap);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("黑名单录入失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("黑名单录入失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("黑名单录入失败").toJson();
         }
     }
@@ -60,8 +76,15 @@ public class BlacklistController {
 
             return scfBlacklistService.webSaveModifyBlacklist(anMap, id);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("黑名单修改失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("黑名单修改失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("黑名单修改失败").toJson();
         }
     }
@@ -74,8 +97,15 @@ public class BlacklistController {
 
             return scfBlacklistService.webSaveActivateBlacklist(id);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("黑名单激活失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("黑名单激活失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("黑名单激活失败").toJson();
         }
     }
@@ -88,8 +118,15 @@ public class BlacklistController {
 
             return scfBlacklistService.webSaveCancelBlacklist(id);
         }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("黑名单注销失败").toJson();
+        }
         catch (Exception e) {
-            logger.error("黑名单注销失败", e);
+            logger.error(e.getMessage(), e);
             return AjaxObject.newError("黑名单注销失败").toJson();
         }
     }
@@ -104,9 +141,37 @@ public class BlacklistController {
 
             return AjaxObject.newOk("黑名单删除成功").toJson();
         }
-        catch (Exception e) {
-            logger.error("黑名单删除失败", e);
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
             return AjaxObject.newError("黑名单删除失败").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("黑名单删除失败").toJson();
+        }
+    }
+
+    @RequestMapping(value = "/checkBlacklist", method = RequestMethod.POST)
+    public @ResponseBody String checkBlacklistExists(String name, String identNo, String lawName) {
+        logger.info("检查是否存在黑名单,入参: " + name + " and " + identNo + " and " + lawName);
+
+        try {
+
+            return scfBlacklistService.webCheckBlacklistExists(name, identNo, lawName);
+        }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("检查是否存在黑名单出错").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("检查是否存在黑名单出错").toJson();
         }
     }
 
