@@ -62,11 +62,11 @@ public class CustRelationController {
     }
 
     @RequestMapping(value = "/queryAuditWorkflow", method = RequestMethod.POST)
-    public @ResponseBody String queryAuditWorkflow(Long custNo, String flag, int pageNum, int pageSize) {
+    public @ResponseBody String queryAuditWorkflow(Long custNo) {
         logger.info("开通保理融资业务审批流程查询,入参: " + custNo);
         try {
 
-            return custRelationService.webQueryAuditWorkflow(custNo, flag, pageNum, pageSize);
+            return custRelationService.webQueryAuditWorkflow(custNo);
         }
         catch (RpcException e) {
             logger.error(e.getMessage(), e);
