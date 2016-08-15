@@ -14,6 +14,7 @@
 	           com.betterjr.modules.customer,
 	           com.betterjr.modules.document,
 	           com.betterjr.modules.blacklist,
+	           com.betterjr.modules.workflow,
                com.betterjr.modules.operator,
                com.betterjr.modules.role" />
 
