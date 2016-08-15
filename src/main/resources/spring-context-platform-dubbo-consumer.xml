@@ -29,6 +29,7 @@
 					com.betterjr.modules.document;
                     com.betterjr.modules.operator;
                     com.betterjr.modules.role;
+					com.betterjr.modules.workflow;
 					com.betterjr.modules.sys.security">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />

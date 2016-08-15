@@ -20,6 +20,7 @@
 	               com.betterjr.modules.document;
                    com.betterjr.modules.operator;
                    com.betterjr.modules.role;
+	               com.betterjr.modules.workflow;
 	               com.betterjr.modules.blacklist" use-default-filters="false">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
