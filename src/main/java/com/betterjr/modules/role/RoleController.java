@@ -23,7 +23,7 @@ import com.betterjr.common.web.Servlets;
  *
  */
 @Controller
-@RequestMapping(value = "/Role")
+@RequestMapping(value = "/Platform/Role")
 public class RoleController {
 
     private static final Logger logger = LoggerFactory.getLogger(RoleController.class);

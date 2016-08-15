@@ -23,7 +23,7 @@ import com.betterjr.common.web.Servlets;
  *
  */
 @Controller
-@RequestMapping(value = "/CustOperator")
+@RequestMapping(value = "/Platform/CustOperator")
 public class CustOperatorController {
 
     private static final Logger logger = LoggerFactory.getLogger(CustOperatorController.class);
