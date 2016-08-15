@@ -63,6 +63,23 @@ public class InsteadController {
     }
     
     /**
+     * 代录申请-详情
+     * 
+     * @return
+     */
+    @RequestMapping(value = "/findInsteadApply", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String findInsteadApply(HttpServletRequest request, Long id) {
+        try {
+            logger.debug("代录申请-详情 入参:id=" + id);
+            return custInsteadService.webFindInsteadApply(id);
+        }
+        catch (final Exception e) {
+            logger.error("代录申请-详情 出错", e);
+            return AjaxObject.newError("代录申请-详情 出错").toJson();
+        }
+    }
+    
+    /**
      * 代录申请-查询代录申请列表[所有] （待审，已审，已代录未复核，已复核未确认，驳回)
      * 
      * @return
@@ -71,6 +88,7 @@ public class InsteadController {
     public @ResponseBody String queryInsteadApplyList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
         try {
             Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+            logger.debug("代录申请-查询代录申请列表[所有] 入参:anParam=" + anParam);
             return custInsteadService.webQueryInsteadApplyList(anParam, flag, pageNum, pageSize);
         }
         catch (final Exception e) {
@@ -88,6 +106,7 @@ public class InsteadController {
     public @ResponseBody String queryInsteadApplyOwnList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
         try {
             Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+            logger.debug("代录申请-查询代录申请列表[待审核] 入参:anParam=" + anParam);
             return custInsteadService.webQueryInsteadApplyOwnList(anParam, flag, pageNum, pageSize);
         }
         catch (final Exception e) {
@@ -105,6 +124,7 @@ public class InsteadController {
     public @ResponseBody String queryInsteadApplyAuditList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
         try {
             Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+            logger.debug("代录申请-查询代录申请列表[待审核] 入参:anParam=" + anParam);
             return custInsteadService.webQueryInsteadApplyAuditList(anParam, flag, pageNum, pageSize);
         }
         catch (final Exception e) {
@@ -122,6 +142,7 @@ public class InsteadController {
     public @ResponseBody String queryInsteadApplyReviewList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
         try {
             Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+            logger.debug("代录申请-查询代录申请列表[待复核] 入参:anParam=" + anParam);
             return custInsteadService.webQueryInsteadApplyReviewList(anParam, flag, pageNum, pageSize);
         }
         catch (final Exception e) {
@@ -131,7 +152,7 @@ public class InsteadController {
     }
     
     /**
-     * 代录申请-查询代录申请列表[待复核]
+     * 代录申请-查询代录申请列表[待确认]
      * 
      * @return
      */
@@ -139,11 +160,12 @@ public class InsteadController {
     public @ResponseBody String queryInsteadApplyConfirmList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
         try {
             Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+            logger.debug("代录申请-查询代录申请列表[待确认] 入参:anParam=" + anParam);
             return custInsteadService.webQueryInsteadApplyConfirmList(anParam, flag, pageNum, pageSize);
         }
         catch (final Exception e) {
-            logger.error("代录申请-查询代录申请列表[待复核] 出错", e);
-            return AjaxObject.newError("代录申请-查询代录申请列表[待复核] 出错").toJson();
+            logger.error("代录申请-查询代录申请列表[待确认] 出错", e);
+            return AjaxObject.newError("代录申请-查询代录申请列表[待确认] 出错").toJson();
         }
     }
     
@@ -155,6 +177,7 @@ public class InsteadController {
     @RequestMapping(value = "/queryInsteadRecordByApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String queryInsteadRecordByApply(Long id) {
         try {
+            logger.debug("代录申请-查询代录记录列表 入参:id=" + id);
             return custInsteadService.webQueryInsteadRecordByApply(id);
         }
         catch (final Exception e) {
@@ -172,6 +195,7 @@ public class InsteadController {
     @RequestMapping(value = "/auditPassInsteadApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String auditPassInsteadApply(Long id, String reason) {
         try {
+            logger.debug("代录申请 审核通过 入参:id=" + id + " reason=" + reason);
             return custInsteadService.webAuditPassInsteadApply(id, reason);
         }
         catch (final Exception e) {
@@ -187,6 +211,7 @@ public class InsteadController {
     @RequestMapping(value = "/auditRejectInsteadApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String auditRejectInsteadApply(Long id, String reason) {
         try {
+            logger.debug("代录申请 审核驳回 入参:id=" + id + " reason=" + reason);
             return custInsteadService.webAuditRejectInsteadApply(id, reason);
         }
         catch (final Exception e) {
@@ -203,6 +228,7 @@ public class InsteadController {
     @RequestMapping(value = "/reviewPassInsteadApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String reviewPassInsteadApply(Long id, String reason) {
         try {
+            logger.debug("代录申请 复核通过 入参:id=" + id + " reason=" + reason);
             return custInsteadService.webReviewPassInsteadApply(id, reason);
         }
         catch (final Exception e) {
@@ -218,6 +244,7 @@ public class InsteadController {
     @RequestMapping(value = "/reviewRejectInsteadApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String reviewRejectInsteadApply(Long id, String reason) {
         try {
+            logger.debug("代录申请 复核驳回 入参:id=" + id + " reason=" + reason);
             return custInsteadService.webReviewRejectInsteadApply(id, reason);
         }
         catch (final Exception e) {
@@ -233,6 +260,7 @@ public class InsteadController {
     @RequestMapping(value = "/confirmPassInsteadApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String confirmPassInsteadApply(Long id, String reason) {
         try {
+            logger.debug("代录申请 确认通过 入参:id=" + id + " reason=" + reason);
             return custInsteadService.webConfirmPassInsteadApply(id, reason);
         }
         catch (final Exception e) {
@@ -248,6 +276,7 @@ public class InsteadController {
     @RequestMapping(value = "/confirmRejectInsteadApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String confirmRejectInsteadApply(Long id, String reason) {
         try {
+            logger.debug("代录申请 确认驳回 入参:id=" + id + " reason=" + reason);
             return custInsteadService.webConfirmRejectInsteadApply(id, reason);
         }
         catch (final Exception e) {
@@ -263,6 +292,7 @@ public class InsteadController {
     @RequestMapping(value = "/submitReviewInsteadApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String submitReviewInsteadApply(Long id) {
         try {
+            logger.debug("代录申请 复核提交 入参:id=" + id);
             return custInsteadService.webSubmitReviewInsteadApply(id);
         }
         catch (final Exception e) {
@@ -278,6 +308,7 @@ public class InsteadController {
     @RequestMapping(value = "/submitConfirmInsteadApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String submitConfirmInsteadApply(Long id) {
         try {
+            logger.debug("代录申请 确认提交 入参:id=" + id);
             return custInsteadService.webSubmitConfirmInsteadApply(id);
         }
         catch (final Exception e) {
@@ -293,6 +324,7 @@ public class InsteadController {
     @RequestMapping(value = "/submitTypeInInsteadApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String submitTypeInInsteadApply(Long id) {
         try {
+            logger.debug("代录申请 录入提交 入参:id=" + id);
             return custInsteadService.webSubmitTypeInInsteadApply(id);
         }
         catch (final Exception e) {
@@ -308,6 +340,7 @@ public class InsteadController {
     @RequestMapping(value = "/cancelInsteadApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String cancelInsteadApply(Long id, String reason) {
         try {
+            logger.debug("代录申请 作废 入参:id=" + id + " reason=" + reason);
             return custInsteadService.webCancelInsteadApply(id, reason);
         }
         catch (final Exception e) {
@@ -322,6 +355,7 @@ public class InsteadController {
     @RequestMapping(value = "/reviewPassInsteadRecord", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String reviewPassInsteadRecord(Long id, String reason) {
         try {
+            logger.debug("代录项目 复核通过 入参:id=" + id + " reason=" + reason);
             return custInsteadService.webReviewPassInsteadRecord(id, reason);
         }
         catch (final Exception e) {
@@ -337,6 +371,7 @@ public class InsteadController {
     @RequestMapping(value = "/reviewRejectInsteadRecord", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String reviewRejectInsteadRecord(Long id, String reason) {
         try {
+            logger.debug("代录项目 复核驳回 入参:id=" + id + " reason=" + reason);
             return custInsteadService.webReviewRejectInsteadRecord(id, reason);
         }
         catch (final Exception e) {
@@ -352,6 +387,7 @@ public class InsteadController {
     @RequestMapping(value = "/confirmPassInsteadRecord", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String confirmPassInsteadRecord(Long id, String reason) {
         try {
+            logger.debug("代录项目 确认通过 入参:id=" + id + " reason=" + reason);
             return custInsteadService.webConfirmPassInsteadRecord(id, reason);
         }
         catch (final Exception e) {
@@ -367,6 +403,7 @@ public class InsteadController {
     @RequestMapping(value = "/confirmRejectInsteadRecord", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String confirmRejectInsteadRecord(Long id, String reason) {
         try {
+            logger.debug("代录项目 确认驳回 入参:id=" + id + " reason=" + reason);
             return custInsteadService.webConfirmRejectInsteadRecord(id, reason);
         }
         catch (final Exception e) {
@@ -382,6 +419,7 @@ public class InsteadController {
     @RequestMapping(value = "/cancelInsteadRecord", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String cancelInsteadRecord(Long id, String reason) {
         try {
+            logger.debug("代录项目 作废 入参:id=" + id);
             return custInsteadService.webCancelInsteadRecord(id, reason);
         }
         catch (final Exception e) {
