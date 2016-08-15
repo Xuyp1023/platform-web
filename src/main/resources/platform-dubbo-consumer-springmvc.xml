@@ -13,6 +13,8 @@
 	<dubbo:annotation package="com.betterjr.modules.test,
 	           com.betterjr.modules.customer,
 	           com.betterjr.modules.document,
-	           com.betterjr.modules.blacklist" />
+	           com.betterjr.modules.blacklist,
+               com.betterjr.modules.operator,
+               com.betterjr.modules.role" />
 
 </beans>
