@@ -253,31 +253,71 @@ public class CustRelationController {
             if (BytterException.isCauseBytterException(e)) {
                 return AjaxObject.newError(e.getCause().getMessage()).toJson();
             }
-            return AjaxObject.newError("客户与电子合同服务商关系查询").toJson();
+            return AjaxObject.newError("客户与电子合同服务商关系查询失败").toJson();
         }
         catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return AjaxObject.newError("客户与电子合同服务商关系查询").toJson();
+            return AjaxObject.newError("客户与电子合同服务商关系查询失败").toJson();
         }
     }
 
-    @RequestMapping(value = "/queryFactorRelation", method = RequestMethod.POST)
-    public @ResponseBody String queryFactorRelation(Long custNo) {
-        logger.info("客户与保理机构关系查询,入参: " + custNo);
+    @RequestMapping(value = "/queryCustRelation", method = RequestMethod.POST)
+    public @ResponseBody String queryCustRelation(Long custNo) {
+        logger.info("客户关系查询,入参: " + custNo);
         try {
 
-            return custRelationService.webQueryFactorRelation(custNo);
+            return custRelationService.webQueryCustRelation(custNo);
         }
         catch (RpcException e) {
             logger.error(e.getMessage(), e);
             if (BytterException.isCauseBytterException(e)) {
                 return AjaxObject.newError(e.getCause().getMessage()).toJson();
             }
-            return AjaxObject.newError("客户与保理机构关系查询").toJson();
+            return AjaxObject.newError("客户关系查询失败").toJson();
         }
         catch (Exception e) {
             logger.error(e.getMessage(), e);
-            return AjaxObject.newError("客户与保理机构关系查询").toJson();
+            return AjaxObject.newError("客户关系查询失败").toJson();
+        }
+    }
+
+    @RequestMapping(value = "/queryFacotrCoreRelation", method = RequestMethod.POST)
+    public @ResponseBody String queryFacotrCoreRelation(Long factorNo) {
+        logger.info("保理机构与核心企业关系查询,入参: " + factorNo);
+        try {
+
+            return custRelationService.webQueryFacotrCoreRelation(factorNo);
+        }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("保理机构与核心企业关系查询失败").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("保理机构与核心企业关系查询失败").toJson();
+        }
+    }
+
+    @RequestMapping(value = "/queryFactorCustRelation", method = RequestMethod.POST)
+    public @ResponseBody String queryFactorCustRelation(Long factorNo, String creditType) {
+        logger.info("保理机构关系客户查询,入参: " + factorNo + " and " + creditType);
+        try {
+
+            return custRelationService.webQueryFactorCustRelation(factorNo, creditType);
+        }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("保理机构关系客户查询失败").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("保理机构关系客户查询失败").toJson();
         }
     }
 
