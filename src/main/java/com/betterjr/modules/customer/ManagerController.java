@@ -60,11 +60,11 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerController.c
     }
     
     @RequestMapping(value = "/saveManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveManagerTmp(HttpServletRequest request, Long id) {
+    public @ResponseBody String saveManagerTmp(HttpServletRequest request, Long id, String fileList) {
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
             logger.debug("高管信息-高管流水修改 入参:reqParam=" + reqParam + " id=" + id);
-            return custMechManagerService.webSaveManagerTmp(reqParam, id);
+            return custMechManagerService.webSaveManagerTmp(reqParam, id, fileList);
         }
         catch (final Exception e) {
             logger.error("高管信息-高管流水修改 错误", e);
@@ -73,11 +73,11 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerController.c
     }
     
     @RequestMapping(value = "/addChangeManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addChangeManagerTmp(HttpServletRequest request) {
+    public @ResponseBody String addChangeManagerTmp(HttpServletRequest request, String fileList) {
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
             logger.debug("高管信息-临时流水 添加 入参:reqParam=" + reqParam);
-            return custMechManagerService.webAddChangeManagerTmp(reqParam);
+            return custMechManagerService.webAddChangeManagerTmp(reqParam, fileList);
         }
         catch (final Exception e) {
             logger.error("高管信息-临时流水 添加错误", e);
@@ -86,11 +86,11 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerController.c
     }
     
     @RequestMapping(value = "/saveChangeManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveChangeManagerTmp(HttpServletRequest request) {
+    public @ResponseBody String saveChangeManagerTmp(HttpServletRequest request, String fileList) {
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
             logger.debug("高管信息-临时流水 修改 入参:reqParam=" + reqParam);
-            return custMechManagerService.webSaveChangeManagerTmp(reqParam);
+            return custMechManagerService.webSaveChangeManagerTmp(reqParam, fileList);
         }
         catch (final Exception e) {
             logger.error("高管信息-临时流水 修改 错误", e);
@@ -197,11 +197,11 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerController.c
     }
     
     @RequestMapping(value = "/addInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addInsteadManagerTmp(HttpServletRequest request, Long insteadRecordId) {
+    public @ResponseBody String addInsteadManagerTmp(HttpServletRequest request, Long insteadRecordId, String fileList) {
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
             logger.debug("高管信息-添加代录新增流水  入参:reqParam=" + reqParam + " insteadRecordId=" + insteadRecordId);
-            return custMechManagerService.webAddInsteadManagerTmp(reqParam, insteadRecordId);
+            return custMechManagerService.webAddInsteadManagerTmp(reqParam, insteadRecordId, fileList);
         }
         catch (final Exception e) {
             logger.error("高管信息-添加代录新增流水  错误", e);
@@ -210,11 +210,11 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerController.c
     }
     
     @RequestMapping(value = "/saveInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveInsteadManagerTmp(HttpServletRequest request, Long insteadRecordId) {
+    public @ResponseBody String saveInsteadManagerTmp(HttpServletRequest request, Long insteadRecordId, String fileList) {
         try {
             final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
             logger.debug("高管信息-添加代录修改流水  入参:reqParam=" + reqParam + " insteadRecordId=" + insteadRecordId);
-            return custMechManagerService.webSaveInsteadManagerTmp(reqParam, insteadRecordId);
+            return custMechManagerService.webSaveInsteadManagerTmp(reqParam, insteadRecordId, fileList);
         }
         catch (final Exception e) {
             logger.error("高管信息-添加代录修改流水  错误", e);

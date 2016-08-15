@@ -37,6 +37,7 @@ public class ChangeController {
     public @ResponseBody String queryChangeApplyList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
         try {
             Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+            logger.debug("入参:anParam=" + anParam);
             return custChangeService.webQueryChangeApplyList(anParam, flag, pageNum, pageSize);
         }
         catch (final Exception e) {
@@ -53,6 +54,7 @@ public class ChangeController {
     @RequestMapping(value = "/auditPassChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String auditPassChangeApply(HttpServletRequest request, Long id, String reason) {
         try {
+            logger.debug("入参:id=" + id + " reason=" + reason);
             return custChangeService.webAuditPassChangeApply(id, reason);
         }
         catch (final Exception e) {
@@ -69,6 +71,7 @@ public class ChangeController {
     @RequestMapping(value = "/auditRejectChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String auditRejectChangeApply(HttpServletRequest request, Long id, String reason) {
         try {
+            logger.debug("入参:id=" + id + " reason=" + reason);
             return custChangeService.webAuditRejectChangeApply(id, reason);
         }
         catch (final Exception e) {
@@ -85,6 +88,7 @@ public class ChangeController {
     @RequestMapping(value = "/cancelChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String cancelChangeApply(HttpServletRequest request, Long id, String reason) {
         try {
+            logger.debug("入参:id=" + id + " reason=" + reason);
             return custChangeService.webCancelChangeApply(id, reason);
         }
         catch (final Exception e) {
