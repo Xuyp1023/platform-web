@@ -42,35 +42,35 @@ public class FlowController {
     }
 
     /**
-     * 所有需要审批的任务
+     * 所有需要审批的任务-当前用户
      * 
      * @param page
      * @return
      */
-    @RequestMapping(value = "/webQueryWorkTask")
-    public @ResponseBody String webQueryWorkTask(HttpServletRequest request, int flag, int pageNum, int pageSize) {
+    @RequestMapping(value = "/webQueryCurrentUserWorkTask")
+    public @ResponseBody String webQueryCurrentUserWorkTask(HttpServletRequest request, int flag, int pageNum, int pageSize) {
         Map anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("所有需要审批的任务入参" + anMap);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             public String handle() {
-                return flowService.webQueryWorkTask(anMap, flag, pageNum, pageSize);
+                return flowService.webQueryCurrentUserWorkTask(anMap, flag, pageNum, pageSize);
             }
         }, "所有需要审批的任务 失败，请检查", logger);
     }
 
     /**
-     * 所有审批历史数据
+     * 所有审批历史数据-当前用户
      * 
      * @param page
      * @return
      */
-    @RequestMapping(value = "/webQueryHistoryWorkTask")
-    public @ResponseBody String webQueryHistoryWorkTask(HttpServletRequest request, int flag, int pageNum, int pageSize) {
+    @RequestMapping(value = "/webQueryCurrentUserHistoryWorkTask")
+    public @ResponseBody String webQueryCurrentUserHistoryWorkTask(HttpServletRequest request, int flag, int pageNum, int pageSize) {
         Map anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("所有审批历史数据入参" + anMap);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             public String handle() {
-                return flowService.webQueryWorkTask(anMap, flag, pageNum, pageSize);
+                return flowService.webQueryCurrentUserHistoryWorkTask(anMap, flag, pageNum, pageSize);
             }
         }, "所有审批历史数据 失败，请检查", logger);
     }
