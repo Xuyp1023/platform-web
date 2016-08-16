@@ -222,11 +222,11 @@ private static final Logger logger = LoggerFactory.getLogger(ManagerController.c
         }
     }
     
-    @RequestMapping(value = "/delInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String delInsteadManagerTmp(HttpServletRequest request, Long refId, Long insteadRecordId) {
+    @RequestMapping(value = "/deleteInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String deleteInsteadManagerTmp(HttpServletRequest request, Long refId, Long insteadRecordId) {
         try {
             logger.debug("高管信息-添加代录删除流水  入参:refId=" + refId + " insteadRecordId=" + insteadRecordId);
-            return custMechManagerService.webDelInsteadManagerTmp(refId, insteadRecordId);
+            return custMechManagerService.webDeleteInsteadManagerTmp(refId, insteadRecordId);
         }
         catch (final Exception e) {
             logger.error("高管信息-添加代录删除流水  错误", e);

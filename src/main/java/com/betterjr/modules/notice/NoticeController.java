@@ -92,18 +92,19 @@ public class NoticeController {
     }
 
     /**
-     * 删除公告
+     * 设置公告删除
      * 
      * @return
      */
-    @RequestMapping(value = "/setDeleteNotice", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String setDeleteNotice(HttpServletRequest request, Long id) {
+    @RequestMapping(value = "/setDeletedNotice", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String setDeletedNotice(HttpServletRequest request, Long id, Long custNo) {
         try {
-            return noticeService.webSetDeletedNotice(id);
+            logger.debug("设置公告删除 入参:id=" + id + " custNo=" + custNo);
+            return noticeService.webSetDeletedNotice(id, custNo);
         }
         catch (final Exception e) {
-            logger.error("删除公告 出错", e);
-            return AjaxObject.newError("删除公告  出错").toJson();
+            logger.error("设置公告删除 出错", e);
+            return AjaxObject.newError("设置公告删除  出错").toJson();
         }
     }
     
@@ -113,9 +114,10 @@ public class NoticeController {
      * @return
      */
     @RequestMapping(value = "/setReadNotice", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String setReadNotice(HttpServletRequest request, Long id) {
+    public @ResponseBody String setReadNotice(HttpServletRequest request, Long id, Long custNo) {
         try {
-            return noticeService.webSetReadNotice(id);
+            logger.debug("设置公告已读 入参:id=" + id + " custNo=" + custNo);
+            return noticeService.webSetReadNotice(id, custNo);
         }
         catch (final Exception e) {
             logger.error("设置公告已读 出错", e);
@@ -257,8 +259,8 @@ public class NoticeController {
             return noticeService.webDeleteNotice(id);
         }
         catch (final Exception e) {
-            logger.error("撤销公告 出错", e);
-            return AjaxObject.newError("撤销公告  出错").toJson();
+            logger.error("删除公告 出错", e);
+            return AjaxObject.newError("删除公告  出错").toJson();
         }
     }
 }
