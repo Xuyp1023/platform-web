@@ -221,6 +221,46 @@ public class CustRelationController {
         }
     }
 
+    @RequestMapping(value = "/querySupplierByCore", method = RequestMethod.POST)
+    public @ResponseBody String querySupplierByCore(Long coreCustNo) {
+        logger.info("供应商下拉列表查询,入参: " + coreCustNo);
+        try {
+
+            return custRelationService.webQuerySupplierByCore(coreCustNo);
+        }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("供应商下拉列表查询失败").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("供应商下拉列表查询询失败").toJson();
+        }
+    }
+
+    @RequestMapping(value = "/querySellerByCore", method = RequestMethod.POST)
+    public @ResponseBody String querySellerByCore(Long coreCustNo) {
+        logger.info("经销商下拉列表查询,入参: " + coreCustNo);
+        try {
+
+            return custRelationService.webQuerySellerByCore(coreCustNo);
+        }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("经销商下拉列表查询失败").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("经销商下拉列表查询失败").toJson();
+        }
+    }
+
     @RequestMapping(value = "/queryFactorKeyAndValue", method = RequestMethod.POST)
     public @ResponseBody String queryFactorKeyAndValue(Long custNo) {
         logger.info("保理机构下拉列表查询,入参: " + custNo);
