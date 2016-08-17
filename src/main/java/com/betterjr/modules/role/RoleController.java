@@ -87,7 +87,7 @@ public class RoleController {
     @RequestMapping(value = "/findAllRole", method = RequestMethod.POST)
     public @ResponseBody String findAllRole() {
         try {
-            return roleService.findRole();
+            return roleService.webFindRole();
         }
         catch (RpcException btEx) {
             logger.error(btEx.getMessage(),btEx);
