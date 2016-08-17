@@ -19,6 +19,11 @@ import com.betterjr.common.exception.BytterException;
 import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.Servlets;
 
+/**
+ * 
+ * @author liuwl
+ *
+ */
 @Controller
 @RequestMapping("/Platform/BankAccount")
 public class BankAccountController {

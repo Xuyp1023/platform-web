@@ -1,5 +1,7 @@
 package com.betterjr.modules.customer;
 
+import static com.betterjr.common.web.ControllerExceptionHandler.exec;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.Servlets;
 
 /**
@@ -26,7 +27,7 @@ public class BusinLicenceController {
     private static final Logger logger = LoggerFactory.getLogger(LawInfoController.class);
     
     @Reference(interfaceClass = ICustMechBusinLicenceService.class)
-    private ICustMechBusinLicenceService custMechBusinLicenceService;
+    private ICustMechBusinLicenceService businLicenceService;
     
     /**
      * 营业执照信息-查询
@@ -36,14 +37,8 @@ public class BusinLicenceController {
      */
     @RequestMapping(value = "/findBusinLicence", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String findBusinLicence(Long custNo) {
-        try {
-            logger.debug("入参:custNo=" + String.valueOf(custNo));
-            return custMechBusinLicenceService.webFindBusinLicence(custNo);
-        }
-        catch (final Exception e) {
-            logger.error("营业执照信息-查询详情 错误", e);
-            return AjaxObject.newError("营业执照信息-查询详情 错误").toJson();
-        }
+        logger.debug("入参:custNo=" + String.valueOf(custNo));
+        return exec(() -> businLicenceService.webFindBusinLicence(custNo), "营业执照信息-查询详情 错误", logger);
     }
     
     /**
@@ -54,16 +49,10 @@ public class BusinLicenceController {
      */
     @RequestMapping(value = "/addChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String addChangeApply(HttpServletRequest request, String fileList) {
-        try {
-            final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("营业执照信息-变更申请 入参:reqParam=" + reqParam.toString() + " fileList=" + fileList);
+        final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
+        logger.debug("营业执照信息-变更申请 入参:reqParam=" + reqParam.toString() + " fileList=" + fileList);
 
-            return custMechBusinLicenceService.webAddChangeApply(reqParam, fileList);
-        }
-        catch (final Exception e) {
-            logger.error("营业执照信息-变更申请 错误", e);
-            return AjaxObject.newError("营业执照信息-变更申请 错误").toJson();
-        }
+        return exec(() -> businLicenceService.webAddChangeApply(reqParam, fileList), "营业执照信息-变更申请 错误", logger);
     }
 
     /**
@@ -74,16 +63,10 @@ public class BusinLicenceController {
      */
     @RequestMapping(value = "/saveChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String saveChangeApply(HttpServletRequest request, Long applyId, String fileList) {
-        try {
-            final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("营业执照信息-变更修改 入参:reqParam=" + reqParam.toString() + " applyId=" + String.valueOf(applyId) + " fileList=" + fileList);
+        final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
+        logger.debug("营业执照信息-变更修改 入参:reqParam=" + reqParam.toString() + " applyId=" + String.valueOf(applyId) + " fileList=" + fileList);
 
-            return custMechBusinLicenceService.webSaveChangeApply(reqParam, applyId, fileList);
-        }
-        catch (final Exception e) {
-            logger.error("营业执照信息-变更修改 错误", e);
-            return AjaxObject.newError("营业执照信息-变更修改 错误").toJson();
-        }
+        return exec(() -> businLicenceService.webSaveChangeApply(reqParam, applyId, fileList), "营业执照信息-变更修改 错误", logger);
     }
     
     /**
@@ -94,14 +77,8 @@ public class BusinLicenceController {
      */
     @RequestMapping(value = "/findChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String findChangeApply(Long id) {
-        try {
-            logger.debug("营业执照信息-变更详情 入参: id=" + String.valueOf(id));
-            return custMechBusinLicenceService.webFindChangeApply(id);
-        }
-        catch (final Exception e) {
-            logger.error("营业执照信息-变更详情 错误", e);
-            return AjaxObject.newError("营业执照信息-变更详情 错误").toJson();
-        }
+        logger.debug("营业执照信息-变更详情 入参: id=" + String.valueOf(id));
+        return exec(() -> businLicenceService.webFindChangeApply(id), "营业执照信息-变更详情 错误", logger);
     }
 
     /**
@@ -112,15 +89,9 @@ public class BusinLicenceController {
      */
     @RequestMapping(value = "/queryChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String queryChangeApply(Long custNo, int flag, int pageNum, int pageSize) {
-        try {
-            logger.debug("营业执照信息-变更列表-查询 入参:custNo=" + String.valueOf(custNo) + " flag=" + String.valueOf(flag) + " pageNum=" + String.valueOf(pageNum)
-                    + " pageSize=" + String.valueOf(pageSize));
-            return custMechBusinLicenceService.webQueryChangeApply(custNo, flag, pageNum, pageSize);
-        }
-        catch (final Exception e) {
-            logger.error("营业执照信息-变更列表-查询 错误", e);
-            return AjaxObject.newError("营业执照信息-变更列表-查询 错误").toJson();
-        }
+        logger.debug("营业执照信息-变更列表-查询 入参:custNo=" + String.valueOf(custNo) + " flag=" + String.valueOf(flag) + " pageNum=" + String.valueOf(pageNum)
+                + " pageSize=" + String.valueOf(pageSize));
+        return exec(() -> businLicenceService.webQueryChangeApply(custNo, flag, pageNum, pageSize), "营业执照信息-变更列表-查询 错误", logger);
     }
 
     /**
@@ -131,16 +102,11 @@ public class BusinLicenceController {
      */
     @RequestMapping(value = "/addInsteadRecord", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String addInsteadRecord(HttpServletRequest request, Long insteadRecordId, String fileList) {
-        try {
-            final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("营业执照信息-添加代录 入参:reqParam=" + reqParam.toString() + " insteadRecordId=" + String.valueOf(insteadRecordId) + " fileList=" + fileList);
+        final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
+        logger.debug(
+                "营业执照信息-添加代录 入参:reqParam=" + reqParam.toString() + " insteadRecordId=" + String.valueOf(insteadRecordId) + " fileList=" + fileList);
 
-            return custMechBusinLicenceService.webAddInsteadRecord(reqParam, insteadRecordId, fileList);
-        }
-        catch (final Exception e) {
-            logger.error("营业执照信息-添加代录 错误", e);
-            return AjaxObject.newError("营业执照信息-添加代录 错误").toJson();
-        }
+        return exec(() -> businLicenceService.webAddInsteadRecord(reqParam, insteadRecordId, fileList), "营业执照信息-添加代录 错误", logger);
     }
 
     /**
@@ -151,16 +117,11 @@ public class BusinLicenceController {
      */
     @RequestMapping(value = "/saveInsteadRecord", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String saveInsteadRecord(HttpServletRequest request, Long insteadRecordId, String fileList) {
-        try {
-            final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("营业执照信息-代录修改 入参:reqParam=" + reqParam.toString() + " insteadRecordId=" + String.valueOf(insteadRecordId) + " fileList=" + fileList);
+        final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
+        logger.debug(
+                "营业执照信息-代录修改 入参:reqParam=" + reqParam.toString() + " insteadRecordId=" + String.valueOf(insteadRecordId) + " fileList=" + fileList);
 
-            return custMechBusinLicenceService.webSaveInsteadRecord(reqParam, insteadRecordId, fileList);
-        }
-        catch (final Exception e) {
-            logger.error("营业执照信息-代录修改 错误", e);
-            return AjaxObject.newError("营业执照信息-代录修改 错误").toJson();
-        }
+        return exec(() -> businLicenceService.webSaveInsteadRecord(reqParam, insteadRecordId, fileList), "营业执照信息-代录修改 错误", logger);
     }
 
     /**
@@ -171,14 +132,8 @@ public class BusinLicenceController {
      */
     @RequestMapping(value = "/findInsteadRecord", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String findInsteadRecord(Long id) {
-        try {
-            logger.debug("营业执照信息-代录详情 入参:id=" + String.valueOf(id));
+        logger.debug("营业执照信息-代录详情 入参:id=" + String.valueOf(id));
 
-            return custMechBusinLicenceService.webFindInsteadRecord(id);
-        }
-        catch (final Exception e) {
-            logger.error("营业执照信息-代录详情  错误", e);
-            return AjaxObject.newError("营业执照信息-代录详情  错误").toJson();
-        }
+        return exec(() -> businLicenceService.webFindInsteadRecord(id), "营业执照信息-代录详情  错误", logger);
     }
 }

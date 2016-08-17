@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.betterjr.common.web.Servlets;
 
+/**
+ * 
+ * @author liuwl
+ *
+ */
 @Controller
 @RequestMapping(path = "/Platform/Notification")
 public class NotificationController {
