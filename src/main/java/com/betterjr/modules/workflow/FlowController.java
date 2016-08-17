@@ -40,6 +40,19 @@ public class FlowController {
             }
         }, "保存流程配置入参失败，请检查", logger);
     }
+    
+    /**
+     * 读取流程配置，根据流程类型
+     */
+    @RequestMapping(value = "/webFindProcessByType")
+    public @ResponseBody String webFindProcessByType(String flowType) {
+        logger.info("读取流程配置入参" + flowType);
+        return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            public String handle() {
+                return flowService.webFindProcessByType(flowType);
+            }
+        }, "读取流程配置失败，请检查", logger);
+    }
 
     /**
      * 所有需要审批的任务-当前用户
@@ -92,12 +105,12 @@ public class FlowController {
     /*
      * 流程监控-修改流程审批人
      */
-    @RequestMapping(value = "/webSaveProcessAudit")
-    public @ResponseBody String webSaveProcessAudit(String[] operators) {
-        logger.info("流程监控-修改流程审批人入参" + operators);
+    @RequestMapping(value = "/webChangeProcessAudit")
+    public @ResponseBody String webChangeProcessAudit(String[] actorIds,String flowOrderId) {
+        logger.info("流程监控-修改流程审批人入参" + actorIds+";"+flowOrderId);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             public String handle() {
-                return flowService.webSaveProcessAudit(operators);
+                return flowService.webChangeProcessAudit(actorIds,flowOrderId);
             }
         }, "流程监控-修改流程审批人 失败，请检查", logger);
     }
