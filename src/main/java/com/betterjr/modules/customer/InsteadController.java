@@ -48,7 +48,7 @@ public class InsteadController {
     @RequestMapping(value = "/saveInsteadApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String saveInsteadApply(HttpServletRequest request, Long applyId, String fileList) {
         Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
-        return exec(() -> insteadService.webSaveInsteadApply(anParam, applyId, fileList), "代录申请-添加代录出错", logger);
+        return exec(() -> insteadService.webSaveInsteadApply(anParam, applyId, fileList), "代录申请-修改代录出错", logger);
     }
     
     /**
