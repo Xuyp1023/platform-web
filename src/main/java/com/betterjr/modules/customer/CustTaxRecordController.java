@@ -24,13 +24,13 @@ public class CustTaxRecordController {
     private static final Logger logger = LoggerFactory.getLogger(CustTaxRecordController.class);
     
     @Reference(interfaceClass = ICustTaxService.class)
-    private ICustTaxService custTaxService;
+    private ICustTaxService custTaxDubboService;
 
     @RequestMapping(value = "/queryCustTaxRecord", method = RequestMethod.POST)
     public @ResponseBody String queryCustTaxRecord(Long custNo, String flag, int pageNum, int pageSize) {
         logger.info(",入参:custNo=" + custNo);
         try {
-            return custTaxService.webQueryTaxRecordList(custNo, flag, pageSize, pageNum);
+            return custTaxDubboService.webQueryTaxRecordList(custNo, flag, pageSize, pageNum);
         }
         catch (RpcException btEx) {
             logger.error(btEx.getMessage(), btEx);
@@ -50,7 +50,7 @@ public class CustTaxRecordController {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("纳税信息录入,入参:" + anMap.toString());
         try {
-            return custTaxService.webAddTaxRecord(anMap, fileList);
+            return custTaxDubboService.webAddTaxRecord(anMap, fileList);
         }
         catch (RpcException btEx) {
             logger.error(btEx.getMessage(), btEx);
@@ -70,7 +70,7 @@ public class CustTaxRecordController {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("纳税信息录入,入参:" + anMap.toString());
         try {
-            return custTaxService.webSaveTaxRecord(anMap, id, fileList);
+            return custTaxDubboService.webSaveTaxRecord(anMap, id, fileList);
         }
         catch (RpcException btEx) {
             logger.error(btEx.getMessage(), btEx);
@@ -82,6 +82,25 @@ public class CustTaxRecordController {
         catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
             return AjaxObject.newError("纳税信息保存失败").toJson();
+        }
+    }
+    
+    @RequestMapping(value = "/saveDeleteCustTaxRecorde", method = RequestMethod.POST)
+    public @ResponseBody String saveDeleteCustTaxRecorde(Long id) {
+        logger.info("纳税信息删除,入参:id" + id);
+        try {
+            return custTaxDubboService.webSaveDeleteCustTaxRecord(id);
+        }
+        catch (RpcException btEx) {
+            logger.error(btEx.getMessage(), btEx);
+            if (BytterException.isCauseBytterException(btEx)) {
+                return AjaxObject.newError(btEx.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("纳税信息删除失败").toJson();
+        }
+        catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            return AjaxObject.newError("纳税信息删除失败").toJson();
         }
     }
 }
