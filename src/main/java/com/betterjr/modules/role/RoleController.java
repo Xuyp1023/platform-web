@@ -100,4 +100,27 @@ public class RoleController {
             return AjaxObject.newError("findAllRole异常").toJson();
         }
     }
+    
+
+    /***
+     * 删除角色信息
+     * @param roleId
+     * @return
+     */
+    @RequestMapping(value = "/delRole", method = RequestMethod.POST)
+    public @ResponseBody String delRole(Long roleId) {
+        try {
+            return roleService.webDelRole(roleId);
+        }
+        catch (RpcException btEx) {
+            logger.error(btEx.getMessage(),btEx);
+            if(BytterException.isCauseBytterException(btEx)){
+                return AjaxObject.newError(btEx.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("删除角色信息异常").toJson();
+        }catch (Exception ex){
+            logger.error("删除角色信息异常："+ex.getMessage());
+            return AjaxObject.newError("删除角色信息异常").toJson();
+        }
+    }
 }

@@ -82,31 +82,31 @@ public class CustOperatorController {
     }
     
     /***
-     * 获取菜单信息
+     * 获取当前操作员的菜单信息-用于左侧菜单列表显示
      * @param menuId
      * @return
      */
     @RequestMapping(value = "/findSysMenuByMenuId", method = RequestMethod.POST)
-    public @ResponseBody String findSysMenuByMenuId(Integer menuId,String roleName) {
+    public @ResponseBody String findSysMenuByMenuId(Integer menuId) {
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             public String handle() {
-                return custOperatorService.webFindSysMenuByMenuId(menuId,roleName);
+                return custOperatorService.webFindSysMenuByMenuId(menuId);
             }
         }, "获取菜单信息异常", logger);
     } 
     
 
     /***
-     * 获取所有有效菜单列表
+     * 根据角色获取菜单信息
      * @param menuId
      * @return
      */
-    @RequestMapping(value = "/findAllSysMenu", method = RequestMethod.POST)
-    public @ResponseBody String findAllSysMenu() {
+    @RequestMapping(value = "/findMenuByRole", method = RequestMethod.POST)
+    public @ResponseBody String findAllSysMenu(String roleName) {
         
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             public String handle() {
-                return custOperatorService.webFindAllSysMenu();
+                return custOperatorService.webFindSysMenuByMenuRole(roleName);
             }
         }, "获取菜单信息异常", logger);
     } 
@@ -121,6 +121,20 @@ public class CustOperatorController {
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             public String handle() {
                 return custOperatorService.webAddMenuRole(roleId,roleName,menuIdArr);
+            }
+        }, "绑定角色菜单异常", logger);
+    }
+    
+    /***
+     * 根据操作员id 查询操作员信息
+     * @param menuId
+     * @return
+     */
+    @RequestMapping(value = "/findOperatorById", method = RequestMethod.POST)
+    public @ResponseBody String findOperatorById(Long operatorId) {
+        return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            public String handle() {
+                return custOperatorService.webFindOperatorById(operatorId);
             }
         }, "绑定角色菜单异常", logger);
     }
