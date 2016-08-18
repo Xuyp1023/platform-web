@@ -85,7 +85,7 @@ public abstract class CustFileClientUtils {
         try {
 //            String basePath = SysConfigService.getString(ParamNames.OPENACCO_FILE_DOWNLOAD_PATH);
             if (anFileItem != null) {
-                File file = anFileItem.getRealFile(basePath + anFileItem.getFilePath());
+                File file = FileUtils.getRealFile(basePath + anFileItem.getFilePath());
                 if (file != null) {
                     String openType = anOpenType;
                     if (BetterStringUtils.isBlank(openType)) {
