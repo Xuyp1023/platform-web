@@ -97,4 +97,21 @@ public class CustMechFinanceController {
             return AjaxObject.newError("财务上传记录保存失败").toJson();            
         }
     }
+    
+    @RequestMapping(value = "/saveDeleteFinanceInfo", method = RequestMethod.POST)
+    public @ResponseBody String saveDeleteFinanceInfo(Long id) {
+        try{
+            return custMechFinanceService.webSaveDeleteFinanceInfo(id);
+        }
+        catch (RpcException btEx) {
+            if (BytterException.isCauseBytterException(btEx)) {
+                return AjaxObject.newError(btEx.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("财务上传记录删除失败").toJson();
+        }
+        catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            return AjaxObject.newError("财务上传记录删除失败").toJson();            
+        }
+    }
 }
