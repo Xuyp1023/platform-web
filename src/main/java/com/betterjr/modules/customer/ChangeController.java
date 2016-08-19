@@ -1,5 +1,7 @@
 package com.betterjr.modules.customer;
 
+import static com.betterjr.common.web.ControllerExceptionHandler.exec;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.Servlets;
 
 /**
  * 变更接口
+ * 
  * @author liuwl
  *
  */
@@ -24,10 +26,10 @@ import com.betterjr.common.web.Servlets;
 @RequestMapping("/Platform/Change")
 public class ChangeController {
     private static final Logger logger = LoggerFactory.getLogger(ChangeController.class);
-    
+
     @Reference(interfaceClass = ICustChangeService.class)
-    private ICustChangeService custChangeService;
-    
+    private ICustChangeService changeService;
+
     /**
      * 变更申请列表-查询
      * 
@@ -35,15 +37,9 @@ public class ChangeController {
      */
     @RequestMapping(value = "/queryChangeApplyList", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String queryChangeApplyList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
-        try {
-            Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
-            logger.debug("入参:anParam=" + anParam);
-            return custChangeService.webQueryChangeApplyList(anParam, flag, pageNum, pageSize);
-        }
-        catch (final Exception e) {
-            logger.error("变更申请列表-查询出错", e);
-            return AjaxObject.newError("变更申请列表-查询出错").toJson();
-        }
+        Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+        logger.debug("入参:anParam=" + anParam);
+        return exec(() -> changeService.webQueryChangeApplyList(anParam, flag, pageNum, pageSize), "变更申请列表-查询出错", logger);
     }
 
     /**
@@ -53,16 +49,10 @@ public class ChangeController {
      */
     @RequestMapping(value = "/auditPassChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String auditPassChangeApply(HttpServletRequest request, Long id, String reason) {
-        try {
-            logger.debug("入参:id=" + id + " reason=" + reason);
-            return custChangeService.webAuditPassChangeApply(id, reason);
-        }
-        catch (final Exception e) {
-            logger.error("变更申请-审核通过出错", e);
-            return AjaxObject.newError("变更申请-审核通过出错").toJson();
-        }
+        logger.debug("入参:id=" + id + " reason=" + reason);
+        return exec(() -> changeService.webAuditPassChangeApply(id, reason), "变更申请-审核通过出错", logger);
     }
-    
+
     /**
      * 变更申请 - 审核驳回
      * 
@@ -70,16 +60,10 @@ public class ChangeController {
      */
     @RequestMapping(value = "/auditRejectChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String auditRejectChangeApply(HttpServletRequest request, Long id, String reason) {
-        try {
-            logger.debug("入参:id=" + id + " reason=" + reason);
-            return custChangeService.webAuditRejectChangeApply(id, reason);
-        }
-        catch (final Exception e) {
-            logger.error("变更申请-审核驳回出错", e);
-            return AjaxObject.newError("变更申请-审核驳回出错").toJson();
-        }
+        logger.debug("入参:id=" + id + " reason=" + reason);
+        return exec(() -> changeService.webAuditRejectChangeApply(id, reason), "变更申请-审核驳回出错", logger);
     }
-    
+
     /**
      * 变更申请 - 作废
      * 
@@ -87,13 +71,7 @@ public class ChangeController {
      */
     @RequestMapping(value = "/cancelChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String cancelChangeApply(HttpServletRequest request, Long id, String reason) {
-        try {
-            logger.debug("入参:id=" + id + " reason=" + reason);
-            return custChangeService.webCancelChangeApply(id, reason);
-        }
-        catch (final Exception e) {
-            logger.error("变更申请-审核通过出错", e);
-            return AjaxObject.newError("变更申请-审核通过出错").toJson();
-        }
+        logger.debug("入参:id=" + id + " reason=" + reason);
+        return exec(() -> changeService.webCancelChangeApply(id, reason), "变更申请-审核通过出错", logger);
     }
 }
