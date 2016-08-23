@@ -9,16 +9,15 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="ignoreUnresolvablePlaceholders" value="true" />
-		<property name="locations">
-			<list>
-				<value>classpath:config-dev.properties</value>
-			</list>
-			<!-- 请保持配置文件顺序 -->
-		</property>
-	</bean>
+    <bean class="com.betterjr.common.config.BetterPropertyPlaceholderConfigurer">
+        <property name="fileEncoding" value="UTF-8" />
+        <property name="betterLocations">
+            <list>
+                <value>platform-web-config.properties</value>
+            </list>
+        </property>
+    </bean>
+
 
 	<bean class="com.betterjr.common.service.SpringContextHolder" />
 	<import resource="platform-dubbo-consumer.xml" />
