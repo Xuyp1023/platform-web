@@ -1,6 +1,7 @@
 package com.betterjr.modules.document;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,6 +51,27 @@ public class CustFileController extends BaseController {
             logger.error(ex.getMessage(), ex);
         }
     }
+    
+    /**
+     * 文件列表
+     * 
+     * @param id
+     *            ；文件编号
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/fileListByBatchNo")
+    public @ResponseBody String fileListByBatchNo(Long batchNo) {
+        try {
+            List<CustFileItem> fileItems = fileItemService.findCustFiles(batchNo);
+            return AjaxObject.newOk("文件列表查询成功!", fileItems).toJson();
+        }
+        catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            return AjaxObject.newError("文件列表查询失败!").toJson();
+        }
+    }
+
 
     /**
      * 文件资料下载
