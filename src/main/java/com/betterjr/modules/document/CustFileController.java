@@ -53,6 +53,26 @@ public class CustFileController extends BaseController {
     }
     
     /**
+     * 从batch中将文件删除
+     * 
+     * @param id
+     *            ；文件编号
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/fileDelete")
+    public @ResponseBody String fileDelete(Long id, Long batchNo) {
+        try {
+            return fileItemService.webDeleteFileItem(id, batchNo);
+        }
+        catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            return AjaxObject.newError("文件删除失败!").toJson();
+        }
+    }
+    
+    
+    /**
      * 文件列表
      * 
      * @param id
