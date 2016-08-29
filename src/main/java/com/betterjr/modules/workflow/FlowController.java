@@ -4,14 +4,18 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.jsoup.Connection.Method;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.betterjr.common.mapper.JsonMapper;
+import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.ControllerExceptionHandler;
 import com.betterjr.common.web.ControllerExceptionHandler.ExceptionHandler;
 import com.betterjr.common.web.Servlets;
@@ -231,6 +235,40 @@ public class FlowController {
                 return flowService.webFindFlowNodesByType(flowType);
             }
         }, "根据流程类型得到所有节点失败，请检查", logger);
+    }
+    
+    
+    /**
+     * 显示流程图当前节点tips（操作人，抵达时间）
+     */
+    @RequestMapping(value = "/webFindTipsJson",method={RequestMethod.GET,RequestMethod.POST})
+    public @ResponseBody String webFindTipsJson(String businessId, String taskName) {
+        logger.info("显示流程图当前节点tips入参" + businessId+","+taskName);
+        return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            public String handle() {
+                return flowService.webFindTipsJson(businessId, taskName);
+            }
+        }, "显示流程图当前节点tips失败，请检查", logger);
+    }
+
+    /**
+     * 显示流程图
+     */
+    @RequestMapping(value = "/webFindFlowJson",method={RequestMethod.GET,RequestMethod.POST})
+    public @ResponseBody String webFindFlowJson(String processId, String businessId) {
+        logger.info("显示流程图入参" + processId+","+businessId);
+        return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            public String handle() {
+                return flowService.webFindFlowJson(processId, businessId);
+            }
+        }, "显示流程图失败，请检查", logger);
+    }
+    
+    @RequestMapping(value = "/displayDiagram")
+    public String displayDiagram(Model model, String processId, String businessId){
+        model.addAttribute("processId", processId);
+        model.addAttribute("businessId", businessId);
+        return "/diagram.jsp";
     }
 
 }
