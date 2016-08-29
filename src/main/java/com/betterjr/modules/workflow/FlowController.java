@@ -243,7 +243,7 @@ public class FlowController {
      */
     @RequestMapping(value = "/webFindTipsJson",method={RequestMethod.GET,RequestMethod.POST})
     public @ResponseBody String webFindTipsJson(String businessId, String taskName) {
-        logger.info("显示流程图当前节点tips入参" + businessId+","+taskName);
+        logger.info("显示流程图当前节点tips入参 " + businessId+","+taskName);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             public String handle() {
                 return flowService.webFindTipsJson(businessId, taskName);
@@ -255,11 +255,11 @@ public class FlowController {
      * 显示流程图
      */
     @RequestMapping(value = "/webFindFlowJson",method={RequestMethod.GET,RequestMethod.POST})
-    public @ResponseBody String webFindFlowJson(String processId, String businessId) {
-        logger.info("显示流程图入参" + processId+","+businessId);
+    public @ResponseBody String webFindFlowJson(String businessId) {
+        logger.info("显示流程图入参 "+","+businessId);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             public String handle() {
-                return flowService.webFindFlowJson(processId, businessId);
+                return flowService.webFindFlowJson(businessId);
             }
         }, "显示流程图失败，请检查", logger);
     }
