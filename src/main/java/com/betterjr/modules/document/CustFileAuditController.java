@@ -17,11 +17,10 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.betterjr.common.exception.BytterException;
 import com.betterjr.common.web.AjaxObject;
-import com.betterjr.common.web.BaseController;
 
 @Controller
 @RequestMapping(value = "/Platform/CustAduit")
-public class CustFileAuditController extends BaseController {
+public class CustFileAuditController {
     private static final Logger logger = LoggerFactory.getLogger(CustFileAuditController.class);
 
     @Reference(interfaceClass=ICustFileService.class)

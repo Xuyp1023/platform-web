@@ -21,13 +21,12 @@ import com.betterjr.common.config.ParamNames;
 import com.betterjr.common.data.KeyAndValueObject;
 import com.betterjr.common.utils.FileUtils;
 import com.betterjr.common.web.AjaxObject;
-import com.betterjr.common.web.BaseController;
 import com.betterjr.modules.document.entity.CustFileItem;
 import com.betterjr.modules.document.utils.CustFileClientUtils;
 
 @Controller
 @RequestMapping(value = "/Platform/CustFile")
-public class CustFileController extends BaseController {
+public class CustFileController {
     private static final Logger logger = LoggerFactory.getLogger(CustFileController.class);
 
     @Reference(interfaceClass=ICustFileService.class)
