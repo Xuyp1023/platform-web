@@ -124,13 +124,21 @@ public class CustFileController {
     public @ResponseBody String fileUpload(HttpServletRequest request, String fileTypeName) {
         logger.info("用户文件上传.");
         try {
-            KeyAndValueObject tmpFileInfo = FileUtils.findFilePathWithParent(ParamNames.CONTRACT_PATH, fileItemService.findFileBasePath());
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             MultipartFile mFile = multipartRequest.getFile("Filedata");
+            String anFileName=mFile.getOriginalFilename();
+            String fileType=FileUtils.extractFileExt(anFileName);
+            if(!FileUtils.isSupportedUploadFileType(fileType)){
+                return AjaxObject.newError("不支持该文件类型，支持列表：jpg,jpeg,png,gif,doc,docx,pdf,xls,xlsx,zip,rar").toJson();
+            }
+
+            KeyAndValueObject tmpFileInfo = FileUtils.findFilePathWithParent(ParamNames.CONTRACT_PATH, fileItemService.findFileBasePath());
+            
+
             if (CustFileClientUtils.saveFileStream(tmpFileInfo, mFile.getInputStream())) {
                 String filePath=tmpFileInfo.getStrKey();
                 Long fileLength=((File)tmpFileInfo.getValue()).length();
-                return fileItemService.webSaveAndUpdateFileItem(filePath,fileLength, fileTypeName, mFile.getOriginalFilename());
+                return fileItemService.webSaveAndUpdateFileItem(filePath,fileLength, fileTypeName,anFileName );
             }
             else {
                 return AjaxObject.newError("上传文件失败，不能保存文件").toJson();
