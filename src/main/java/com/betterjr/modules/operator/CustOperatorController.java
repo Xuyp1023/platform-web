@@ -102,11 +102,11 @@ public class CustOperatorController {
      * @return
      */
     @RequestMapping(value = "/findMenuByRole", method = RequestMethod.POST)
-    public @ResponseBody String findAllSysMenu(String roleName) {
+    public @ResponseBody String findAllSysMenu(String roleId) {
         
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             public String handle() {
-                return custOperatorService.webFindSysMenuByMenuRole(roleName);
+                return custOperatorService.webFindSysMenuByMenuRole(roleId);
             }
         }, "获取菜单信息异常", logger);
     } 
