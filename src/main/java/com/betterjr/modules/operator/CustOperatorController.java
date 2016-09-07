@@ -139,4 +139,17 @@ public class CustOperatorController {
         }, "绑定角色菜单异常", logger);
     }
     
+    /****
+     * 查询当前机构下面的所有操作员
+     * @return
+     */
+    @RequestMapping(value = "/findCustOperator", method = RequestMethod.POST)
+    public @ResponseBody String findCustOperator() {
+        return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            public String handle() {
+                return custOperatorService.webFindCustOperator();
+            }
+        }, "查询当前机构下面的所有操作员异常", logger);
+    }
+    
 }
