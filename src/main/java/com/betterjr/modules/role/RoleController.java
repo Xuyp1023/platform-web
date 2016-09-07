@@ -123,4 +123,27 @@ public class RoleController {
             return AjaxObject.newError("删除角色信息异常").toJson();
         }
     }
+    
+
+
+    /***
+     * 查询默认角色
+     * @return
+     */
+    @RequestMapping(value = "/queryRoleDefault", method = RequestMethod.POST)
+    public @ResponseBody String queryDefaultRole() {
+        try {
+            return roleService.webQueryRoleDefault();
+        }
+        catch (RpcException btEx) {
+            logger.error(btEx.getMessage(),btEx);
+            if(BytterException.isCauseBytterException(btEx)){
+                return AjaxObject.newError(btEx.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("查询默认角色异常").toJson();
+        }catch (Exception ex){
+            logger.error("查询默认角色异常："+ex.getMessage());
+            return AjaxObject.newError("查询默认角色异常").toJson();
+        }
+    }
 }
