@@ -30,6 +30,16 @@ public class BaseInfoController {
     private ICustMechBaseService baseInfoService;
 
     /**
+     * 检查当前用户机构类型
+     * 
+     * @return
+     */
+    @RequestMapping(value = "/checkOrgType", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String checkOrgType(String role) {
+        return exec(() -> baseInfoService.webCheckOrgType(role), "判断机构类型-查询出错", logger);
+    }
+    
+    /**
      * 当前客户公司列表-查询
      * 
      * @return
