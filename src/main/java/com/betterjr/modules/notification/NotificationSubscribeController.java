@@ -2,6 +2,8 @@ package com.betterjr.modules.notification;
 
 import static com.betterjr.common.web.ControllerExceptionHandler.exec;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,7 @@ public class NotificationSubscribeController {
      * 查询本公司的订阅情况
      */
     @RequestMapping(value = "/querySubscribeByCustNo", method = RequestMethod.POST, produces = "application/json")
-    public String querySubscribeByCustNo(Long custNo, int flag, int pageNum, int pageSize) {
+    public String querySubscribeByCustNo(HttpServletRequest request, Long custNo, int flag, int pageNum, int pageSize) {
         logger.debug("消息订阅列表-查询 入参:custNo=" + custNo);
         return exec(() -> subscribeService.webQuerySubscribeByCustNo(custNo, flag, pageNum, pageSize), "消息订阅列表-查询 出错", logger);
     }

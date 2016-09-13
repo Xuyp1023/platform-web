@@ -1,7 +1,11 @@
 package com.betterjr.modules.operator;
 
+import static com.betterjr.common.web.ControllerExceptionHandler.exec;
+
+import java.io.IOException;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -10,10 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.ControllerExceptionHandler;
 import com.betterjr.common.web.ControllerExceptionHandler.ExceptionHandler;
 import com.betterjr.common.web.Servlets;
+import com.betterjr.modules.wechat.dubboclient.CustWeChatDubboClientService;
 
 /***
  * 操作员管理
@@ -25,44 +32,88 @@ import com.betterjr.common.web.Servlets;
 public class CustOperatorController {
 
     private static final Logger logger = LoggerFactory.getLogger(CustOperatorController.class);
-    
+
     @Reference(interfaceClass=IOperatorService.class)
     private IOperatorService custOperatorService;
-    
+
+    @Resource
+    private CustWeChatDubboClientService wechatDubboService;
+
+    /**
+     * 检查扫描状态，成功扫描返回TRUE
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/checkScanStatus", method = { RequestMethod.POST, RequestMethod.GET })
+    public @ResponseBody String checkScanStatus() throws IOException {
+
+        return AjaxObject.newOk("检查微信账户扫描码结果", wechatDubboService.checkScanStatus()).toJson();
+    }
+
+    /**
+     *创建扫描码
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
+    @RequestMapping(value = "/createQcode", method = { RequestMethod.POST})
+    public @ResponseBody String createQcode(final int workType)throws IOException {
+        try {
+            return AjaxObject.newOk("创建微信账户绑定扫描码", wechatDubboService.createQcode(workType)).toJson();
+        }
+        catch (final Exception ex) {
+            ex.printStackTrace();
+            return AjaxObject.newError("创建微信账户绑定扫描码失败，请检查").toJson();
+        }
+    }
+
+    /**
+     * 保存移动端交易密码
+     *
+     * @param anMap
+     * @return
+     */
+    @RequestMapping(value = "/saveMobileTradePass", method = RequestMethod.POST)
+    public @ResponseBody String saveMobileTradePass(final String newPassword, final String okPassword, final String loginPassword) {
+        return exec(() -> wechatDubboService.saveMobileTradePass(newPassword, okPassword, loginPassword), "保存密码失败！", logger);
+    }
+
     /**
      * 新增操作员
-     * 
+     *
      * @param anMap
      * @return
      */
     @RequestMapping(value = "/addCustOperator", method = RequestMethod.POST)
-    public @ResponseBody String addCustOperator(HttpServletRequest request) {
-        Map anMap = Servlets.getParametersStartingWith(request, "");
+    public @ResponseBody String addCustOperator(final HttpServletRequest request) {
+        final Map anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("入参：" + anMap);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custOperatorService.webAddCustOperator(anMap);
             }
         }, "新增操作员异常", logger);
     }
-    
+
     /**
      * 编辑操作员
-     * 
+     *
      * @param anMap
      * @return
      */
     @RequestMapping(value = "/updateCustOperator", method = RequestMethod.POST)
-    public @ResponseBody String updateCustOperator(HttpServletRequest request) {
-        Map anMap = Servlets.getParametersStartingWith(request, "");
-        logger.info("入参：" + anMap);        
+    public @ResponseBody String updateCustOperator(final HttpServletRequest request) {
+        final Map anMap = Servlets.getParametersStartingWith(request, "");
+        logger.info("入参：" + anMap);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custOperatorService.webUpdateCustOperator(anMap);
             }
         }, "编辑操作员异常", logger);
     }
-    
+
     /****
      * 操作员分页查询
      * @param request
@@ -71,30 +122,32 @@ public class CustOperatorController {
      * @return
      */
     @RequestMapping(value = "/queryCustOperator", method = RequestMethod.POST)
-    public @ResponseBody String queryCustOperator(HttpServletRequest request,int pageNum,int pageSize) {
-        Map anMap = Servlets.getParametersStartingWith(request, "");
+    public @ResponseBody String queryCustOperator(final HttpServletRequest request,final int pageNum,final int pageSize) {
+        final Map anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("入参：" + anMap);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custOperatorService.webQueryCustOperator(anMap, pageNum, pageSize);
             }
         }, "操作员分页查询异常", logger);
     }
-    
+
     /***
      * 获取当前操作员的菜单信息-用于左侧菜单列表显示
      * @param menuId
      * @return
      */
     @RequestMapping(value = "/findSysMenuByMenuId", method = RequestMethod.POST)
-    public @ResponseBody String findSysMenuByMenuId(Integer menuId) {
+    public @ResponseBody String findSysMenuByMenuId(final Integer menuId) {
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custOperatorService.webFindSysMenuByMenuId(menuId);
             }
         }, "获取菜单信息异常", logger);
-    } 
-    
+    }
+
 
     /***
      * 根据角色获取菜单信息
@@ -102,43 +155,46 @@ public class CustOperatorController {
      * @return
      */
     @RequestMapping(value = "/findMenuByRole", method = RequestMethod.POST)
-    public @ResponseBody String findAllSysMenu(String roleId) {
-        
+    public @ResponseBody String findAllSysMenu(final String roleId) {
+
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custOperatorService.webFindSysMenuByMenuRole(roleId);
             }
         }, "获取菜单信息异常", logger);
-    } 
-    
+    }
+
     /***
      * 角色菜单添加
      * @param menuId
      * @return
      */
     @RequestMapping(value = "/addMenuRole", method = RequestMethod.POST)
-    public @ResponseBody String addMenuRole(String roleId,String roleName,String menuIdArr) {
+    public @ResponseBody String addMenuRole(final String roleId,final String roleName,final String menuIdArr) {
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custOperatorService.webAddMenuRole(roleId,roleName,menuIdArr);
             }
         }, "绑定角色菜单异常", logger);
     }
-    
+
     /***
      * 根据操作员id 查询操作员信息
      * @param menuId
      * @return
      */
     @RequestMapping(value = "/findOperatorById", method = RequestMethod.POST)
-    public @ResponseBody String findOperatorById(Long operatorId) {
+    public @ResponseBody String findOperatorById(final Long operatorId) {
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custOperatorService.webFindOperatorById(operatorId);
             }
         }, "绑定角色菜单异常", logger);
     }
-    
+
     /****
      * 查询当前机构下面的所有操作员
      * @return
@@ -146,10 +202,11 @@ public class CustOperatorController {
     @RequestMapping(value = "/findCustOperator", method = RequestMethod.POST)
     public @ResponseBody String findCustOperator() {
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custOperatorService.webFindCustOperator();
             }
         }, "查询当前机构下面的所有操作员异常", logger);
     }
-    
+
 }
