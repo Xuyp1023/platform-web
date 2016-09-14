@@ -46,7 +46,6 @@ public class CustOperatorController {
      */
     @RequestMapping(value = "/checkScanStatus", method = { RequestMethod.POST, RequestMethod.GET })
     public @ResponseBody String checkScanStatus() throws IOException {
-
         return AjaxObject.newOk("检查微信账户扫描码结果", wechatDubboService.checkScanStatus()).toJson();
     }
 
@@ -58,13 +57,7 @@ public class CustOperatorController {
      */
     @RequestMapping(value = "/createQcode", method = { RequestMethod.POST})
     public @ResponseBody String createQcode(final int workType)throws IOException {
-        try {
-            return AjaxObject.newOk("创建微信账户绑定扫描码", wechatDubboService.createQcode(workType)).toJson();
-        }
-        catch (final Exception ex) {
-            ex.printStackTrace();
-            return AjaxObject.newError("创建微信账户绑定扫描码失败，请检查").toJson();
-        }
+        return exec(() -> AjaxObject.newOk("创建微信账户绑定扫描码", wechatDubboService.createQcode(workType)).toJson(), "创建微信账户绑定扫描码失败，请检查", logger);
     }
 
     /**
