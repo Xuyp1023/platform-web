@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.betterjr.common.web.Servlets;
+import com.betterjr.modules.notification.INotificationService;
 
 /**
  * 
