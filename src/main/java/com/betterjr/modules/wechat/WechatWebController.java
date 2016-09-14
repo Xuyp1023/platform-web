@@ -32,10 +32,10 @@ public class WechatWebController {
 
 
     @Resource
-    private CustWeChatDubboClientService wechatDubboService;
+    private CustWeChatDubboClientService wechatDubboClientService;
 
     protected WechatKernel initKernel(final Map<String, String> anMap) {
-        final WechatKernel wk = new WechatKernel(wechatDubboService.getMpAccount(), new WechatDefHandler(wechatDubboService), anMap);
+        final WechatKernel wk = new WechatKernel(wechatDubboClientService.getMpAccount(), new WechatDefHandler(wechatDubboClientService), anMap);
 
         return wk;
     }
