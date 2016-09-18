@@ -38,21 +38,14 @@ public class WechatPlatformController {
 
     /**
      * 检查扫描状态，成功扫描返回TRUE
-     *
-     * @return
-     * @throws IOException
      */
     @RequestMapping(value = "/checkScanStatus", method = { RequestMethod.POST, RequestMethod.GET })
-    public @ResponseBody String checkScanStatus() throws IOException {
+    public @ResponseBody String checkScanStatus(final int workType) throws IOException {
         return AjaxObject.newOk("检查微信账户扫描码结果", wechatDubboService.checkScanStatus()).toJson();
     }
 
     /**
      * 创建扫描码
-     *
-     * @param req
-     * @param resp
-     * @throws IOException
      */
     @RequestMapping(value = "/createQcode", method = { RequestMethod.POST })
     public @ResponseBody String createQcode(final int workType) throws IOException {
@@ -61,12 +54,17 @@ public class WechatPlatformController {
 
     /**
      * 保存移动端交易密码
-     *
-     * @param anMap
-     * @return
      */
     @RequestMapping(value = "/saveMobileTradePass", method = RequestMethod.POST)
     public @ResponseBody String saveMobileTradePass(final String newPassword, final String okPassword, final String loginPassword) {
         return exec(() -> wechatDubboService.saveMobileTradePass(newPassword, okPassword, loginPassword), "保存密码失败！", logger);
+    }
+
+    /**
+     * 首次登陆验证交易密码
+     */
+    @RequestMapping(value = "/checkFristLogin", method = RequestMethod.POST)
+    public @ResponseBody String checkFristLogin(final String tradePassword) {
+        return exec(() -> wechatDubboService.saveVerifyFristLogin(tradePassword), "验证交易密码失败！", logger);
     }
 }

@@ -27,8 +27,7 @@
 
 	<!-- 扫描spring注解 -->
 	<context:component-scan
-		base-package="com.betterjr.modules.test;
-					com.betterjr.modules.customer;
+		base-package="com.betterjr.modules.customer;
 					com.betterjr.modules.notification;
 					com.betterjr.modules.notice;
 					com.betterjr.modules.document;
