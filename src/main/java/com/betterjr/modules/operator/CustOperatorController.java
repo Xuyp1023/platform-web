@@ -36,41 +36,6 @@ public class CustOperatorController {
     @Reference(interfaceClass=IOperatorService.class)
     private IOperatorService custOperatorService;
 
-    @Resource
-    private CustWeChatDubboClientService wechatDubboService;
-
-    /**
-     * 检查扫描状态，成功扫描返回TRUE
-     * @return
-     * @throws IOException
-     */
-    @RequestMapping(value = "/checkScanStatus", method = { RequestMethod.POST, RequestMethod.GET })
-    public @ResponseBody String checkScanStatus() throws IOException {
-        return AjaxObject.newOk("检查微信账户扫描码结果", wechatDubboService.checkScanStatus()).toJson();
-    }
-
-    /**
-     *创建扫描码
-     * @param req
-     * @param resp
-     * @throws IOException
-     */
-    @RequestMapping(value = "/createQcode", method = { RequestMethod.POST})
-    public @ResponseBody String createQcode(final int workType)throws IOException {
-        return exec(() -> AjaxObject.newOk("创建微信账户绑定扫描码", wechatDubboService.createQcode(workType)).toJson(), "创建微信账户绑定扫描码失败，请检查", logger);
-    }
-
-    /**
-     * 保存移动端交易密码
-     *
-     * @param anMap
-     * @return
-     */
-    @RequestMapping(value = "/saveMobileTradePass", method = RequestMethod.POST)
-    public @ResponseBody String saveMobileTradePass(final String newPassword, final String okPassword, final String loginPassword) {
-        return exec(() -> wechatDubboService.saveMobileTradePass(newPassword, okPassword, loginPassword), "保存密码失败！", logger);
-    }
-
     /**
      * 新增操作员
      *
