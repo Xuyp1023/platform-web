@@ -17,7 +17,10 @@
             </list>
         </property>
     </bean>
-
+    
+    <bean class="com.betterjr.common.utils.PropertiesHolder">
+        <property name="properties" value="platform-web-config.properties" />
+    </bean>
 
 	<bean class="com.betterjr.common.service.SpringContextHolder" />
 	<import resource="platform-dubbo-consumer.xml" />
