@@ -46,6 +46,6 @@ public class LoginController {
             return "redirect:" + WechatAuthenticationFilter.findWorkUrl(state);
         }
 
-        return "modules/sys/sysLogin";
+        return "/static/wechat/main.html";
     }
 }
