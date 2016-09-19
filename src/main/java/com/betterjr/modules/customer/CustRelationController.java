@@ -1,5 +1,7 @@
 package com.betterjr.modules.customer;
 
+import static com.betterjr.common.web.ControllerExceptionHandler.exec;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -361,4 +363,10 @@ public class CustRelationController {
         }
     }
 
+    @RequestMapping(value = "/queryFactorRelation", method = RequestMethod.POST)
+    public @ResponseBody String queryFactorList(Long custNo) {
+        logger.info("客户与保理机构关系查询");
+
+        return exec(() -> custRelationService.webQueryFactorRelation(custNo), "客户与保理机构关系查询失败", logger);
+    }
 }
