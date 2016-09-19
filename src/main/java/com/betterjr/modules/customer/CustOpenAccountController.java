@@ -46,6 +46,26 @@ public class CustOpenAccountController {
         }
     }
 
+    @RequestMapping(value = "/findAccInfoById", method = RequestMethod.POST)
+    public @ResponseBody String findOpenAccountInfoById(Long id) {
+        logger.info("客户开户资料读取");
+        try {
+
+            return custOpenAccountService.webFindOpenAccountInfo(id);
+        }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("客户开户资料读取失败").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("客户开户资料读取失败").toJson();
+        }
+    }
+
     @RequestMapping(value = "/saveAccInfo", method = RequestMethod.POST)
     public @ResponseBody String saveOpenAccountInfo(HttpServletRequest request, Long id, String fileList) {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");

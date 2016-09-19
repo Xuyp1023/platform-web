@@ -15,8 +15,7 @@
 	<import resource="platform-dubbo-consumer-springmvc.xml" />
 
 	<context:component-scan 
-	   base-package="com.betterjr.modules.test;
-	               com.betterjr.modules.customer;
+	   base-package="com.betterjr.modules.customer;
 	               com.betterjr.modules.notification;
 	               com.betterjr.modules.notice;
 	               com.betterjr.modules.document;
@@ -25,7 +24,8 @@
 	               com.betterjr.modules.workflow;
 	               com.betterjr.modules.cert;
 	               com.betterjr.modules.wechat;
-	               com.betterjr.modules.blacklist" use-default-filters="false">
+	               com.betterjr.modules.blacklist;
+	               com.betterjr.modules.sys.controller" use-default-filters="false">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
