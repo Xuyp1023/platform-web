@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.betterjr.modules.notification.INotificationSubscribeService;
 
 /**
- * 
+ *
  * @author liuwl
  *
  */
@@ -30,7 +30,7 @@ public class NotificationSubscribeController {
      * 查询本公司的订阅情况
      */
     @RequestMapping(value = "/querySubscribeByCustNo", method = RequestMethod.POST, produces = "application/json")
-    public String querySubscribeByCustNo(HttpServletRequest request, Long custNo, int flag, int pageNum, int pageSize) {
+    public @ResponseBody String querySubscribeByCustNo(final HttpServletRequest request, final Long custNo, final int flag, final int pageNum, final int pageSize) {
         logger.debug("消息订阅列表-查询 入参:custNo=" + custNo);
         return exec(() -> subscribeService.webQuerySubscribeByCustNo(custNo, flag, pageNum, pageSize), "消息订阅列表-查询 出错", logger);
     }
@@ -39,7 +39,7 @@ public class NotificationSubscribeController {
      * 取消订阅
      */
     @RequestMapping(value = "/cancelSubscribe", method = RequestMethod.POST, produces = "application/json")
-    public String cancelSubscribe(Long custNo, Long channelProfileId) {
+    public @ResponseBody String cancelSubscribe(final Long custNo, final Long channelProfileId) {
         logger.debug("取消订阅 入参:custNo=" + custNo + " channelProfileId=" + channelProfileId);
         return exec(() -> subscribeService.webCancelSubscribe(custNo, channelProfileId), "取消订阅  出错", logger);
     }
@@ -48,7 +48,7 @@ public class NotificationSubscribeController {
      * 订阅
      */
     @RequestMapping(value = "/confirmSubscribe", method = RequestMethod.POST, produces = "application/json")
-    public String confirmSubscribe(Long custNo, Long channelProfileId) {
+    public @ResponseBody String confirmSubscribe(final Long custNo, final Long channelProfileId) {
         logger.debug("消息订阅列表-查询 入参:custNo=" + custNo + " channelProfileId=" + channelProfileId);
         return exec(() -> subscribeService.webConfirmSubscribe(custNo, channelProfileId), "订阅  出错", logger);
     }
