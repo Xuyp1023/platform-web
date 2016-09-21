@@ -1,11 +1,8 @@
 package com.betterjr.modules.operator;
 
-import static com.betterjr.common.web.ControllerExceptionHandler.exec;
 
-import java.io.IOException;
 import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -16,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.ControllerExceptionHandler;
 import com.betterjr.common.web.ControllerExceptionHandler.ExceptionHandler;
 import com.betterjr.common.web.Servlets;
-import com.betterjr.modules.wechat.dubboclient.CustWeChatDubboClientService;
 
 /***
  * 操作员管理
@@ -165,6 +160,20 @@ public class CustOperatorController {
                 return custOperatorService.webFindCustOperator();
             }
         }, "查询当前机构下面的所有操作员异常", logger);
+    }
+    
+    /****
+     * 操作员密码修改
+     * @return
+     */
+    @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+    public @ResponseBody String updatePassword(String newPasswd,String okPasswd,String passwd) {
+        return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
+            public String handle() {
+                return custOperatorService.webUpdatePassword(newPasswd, okPasswd, passwd);
+            }
+        }, "修改密码异常", logger);
     }
 
 }
