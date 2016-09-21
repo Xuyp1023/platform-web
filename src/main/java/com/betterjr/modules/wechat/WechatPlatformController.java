@@ -51,20 +51,4 @@ public class WechatPlatformController {
     public @ResponseBody String createQcode(final int workType) throws IOException {
         return exec(() -> AjaxObject.newOk("创建微信账户绑定扫描码", wechatDubboService.createQcode(workType)).toJson(), "创建微信账户绑定扫描码失败，请检查", logger);
     }
-
-    /**
-     * 保存移动端交易密码
-     */
-    @RequestMapping(value = "/saveMobileTradePass", method = RequestMethod.POST)
-    public @ResponseBody String saveMobileTradePass(final String newPassword, final String okPassword, final String loginPassword) {
-        return exec(() -> wechatDubboService.saveMobileTradePass(newPassword, okPassword, loginPassword), "保存密码失败！", logger);
-    }
-
-    /**
-     * 首次登陆验证交易密码
-     */
-    @RequestMapping(value = "/checkFristLogin", method = RequestMethod.POST)
-    public @ResponseBody String checkFristLogin(final String tradePassword) {
-        return exec(() -> wechatDubboService.saveVerifyFristLogin(tradePassword), "验证交易密码失败！", logger);
-    }
 }
