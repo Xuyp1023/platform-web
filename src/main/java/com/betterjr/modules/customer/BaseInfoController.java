@@ -70,6 +70,31 @@ public class BaseInfoController {
     }
 
     /**
+     * 平台查询所有有效客户列表
+     *
+     * @return
+     */
+    @RequestMapping(value = "/queryValidCustList", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String queryValidCustList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+        final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+        logger.debug("入参:anParam=" + anParam);
+        return exec(() -> baseInfoService.webQueryValidCustInfo(anParam, flag, pageNum, pageSize), "公司列表-查询所有有效公司出错", logger);
+    }
+
+    /**
+     * 平台查询所有示生效客户列表
+     *
+     * @return
+     */
+    @RequestMapping(value = "/queryInvalidCustList", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String queryInvalidCustList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+        final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+        logger.debug("入参:anParam=" + anParam);
+        return exec(() -> baseInfoService.webQueryInvalidCustInfo(anParam, flag, pageNum, pageSize), "公司列表-查询所有未生效公司出错", logger);
+    }
+
+
+    /**
      * 公司基本信息-查询
      *
      * @param custNo
