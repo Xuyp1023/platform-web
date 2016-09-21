@@ -29,7 +29,7 @@ import com.betterjr.modules.wechat.util.WechatKernel;
  */
 
 @Controller
-@RequestMapping(value = "/wechat")
+@RequestMapping(value = "/Wechat")
 public class WechatWebController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
