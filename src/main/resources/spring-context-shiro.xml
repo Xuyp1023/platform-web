@@ -40,8 +40,8 @@
 		<constructor-arg>
 			<value>
 				/static/** = anon
-				/wechat/wxRequest/** =anon
-				/wechatOauth2/** = authWechat
+				/Wechat/wxRequest/** =anon
+				/WechatOauth2/** = authWechat
 				/login = authcx
 				/logout = logout
 				/p/** =anon
