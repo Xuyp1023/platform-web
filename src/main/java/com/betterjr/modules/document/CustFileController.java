@@ -1,6 +1,7 @@
 package com.betterjr.modules.document;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,6 +85,30 @@ public class CustFileController {
         try {
             List<CustFileItem> fileItems = fileItemService.findCustFiles(batchNo);
             return AjaxObject.newOk("文件列表查询成功!", fileItems).toJson();
+        }
+        catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+            return AjaxObject.newError("文件列表查询失败!").toJson();
+        }
+    }
+    
+    /**
+     * 文件列表
+     * 
+     * @param id
+     *            ；文件编号
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/fileListByBatchNoList")
+    public @ResponseBody String fileListByBatchNo(List<Long> batchNo) {
+        try {
+            List<CustFileItem> fileItemList = new ArrayList<CustFileItem>();
+            for (Long anBathNo : batchNo) {
+                List<CustFileItem> fileItems = fileItemService.findCustFiles(anBathNo);
+                fileItemList.addAll(fileItems);
+            }
+            return AjaxObject.newOk("文件列表查询成功!", fileItemList).toJson();
         }
         catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
