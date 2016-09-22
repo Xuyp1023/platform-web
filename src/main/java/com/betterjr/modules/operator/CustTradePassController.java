@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.betterjr.modules.account.dubbo.interfaces.ICustTradePassService;
 
 /**
  * @author liuwl
@@ -24,12 +25,12 @@ import com.alibaba.dubbo.config.annotation.Reference;
  */
 @Controller
 @RequestMapping(value = "/Platform/TradePass")
-public class TradePassController {
+public class CustTradePassController {
 
-    private static final Logger logger = LoggerFactory.getLogger(TradePassController.class);
+    private static final Logger logger = LoggerFactory.getLogger(CustTradePassController.class);
 
-    @Reference(interfaceClass = ITradePassService.class)
-    private ITradePassService tradePassService;
+    @Reference(interfaceClass = ICustTradePassService.class)
+    private ICustTradePassService tradePassService;
 
     /**
      * 发送验证码
@@ -55,11 +56,4 @@ public class TradePassController {
         return exec(() -> tradePassService.webSaveModifyTradePass(newPassword, okPassword, oldPassword), "修改交易密码失败！", logger);
     }
 
-    /**
-     * 保存移动端交易密码
-     */
-    @RequestMapping(value = "/saveMobileTradePass", method = RequestMethod.POST)
-    public @ResponseBody String saveMobileTradePass(final String newPassword, final String okPassword, final String loginPassword) {
-        return exec(() -> tradePassService.webSaveMobileTradePass(newPassword, okPassword, loginPassword), "保存密码失败！", logger);
-    }
 }
