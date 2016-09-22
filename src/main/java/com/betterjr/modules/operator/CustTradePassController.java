@@ -56,11 +56,4 @@ public class CustTradePassController {
         return exec(() -> tradePassService.webSaveModifyTradePass(newPassword, okPassword, oldPassword), "修改交易密码失败！", logger);
     }
 
-    /**
-     * 保存移动端交易密码
-     */
-    @RequestMapping(value = "/saveMobileTradePass", method = RequestMethod.POST)
-    public @ResponseBody String saveMobileTradePass(final String newPassword, final String okPassword, final String loginPassword) {
-        return exec(() -> tradePassService.webSaveMobileTradePass(newPassword, okPassword, loginPassword), "保存密码失败！", logger);
-    }
 }
