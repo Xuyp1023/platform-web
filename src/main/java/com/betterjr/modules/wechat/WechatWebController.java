@@ -1,7 +1,5 @@
 package com.betterjr.modules.wechat;
 
-import static com.betterjr.common.web.ControllerExceptionHandler.exec;
-
 import java.io.IOException;
 import java.util.Map;
 
@@ -14,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.betterjr.common.web.Servlets;
 import com.betterjr.modules.wechat.data.api.AccessToken;
@@ -29,7 +26,7 @@ import com.betterjr.modules.wechat.util.WechatKernel;
  */
 
 @Controller
-@RequestMapping(value = "/Wechat")
+@RequestMapping(value = "/Wechat/wxRequest")
 public class WechatWebController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -51,7 +48,7 @@ public class WechatWebController {
      *            响应微信服务器
      * @throws IOException
      */
-    @RequestMapping(value = "/wxRequest/dispatcher", method = { RequestMethod.POST, RequestMethod.GET })
+    @RequestMapping(value = "/dispatcher", method = { RequestMethod.POST, RequestMethod.GET })
     public void wxDispatcher(final HttpServletRequest req, final HttpServletResponse resp) throws IOException {
         final Map<String, String> map = Servlets.getParameters(req);
         final WechatKernel wk = initKernel(map);
@@ -77,7 +74,7 @@ public class WechatWebController {
      *            响应微信服务器
      * @throws IOException
      */
-    @RequestMapping(value = "/wxRequest/oauth2", method = { RequestMethod.POST, RequestMethod.GET })
+    @RequestMapping(value = "/oauth2", method = { RequestMethod.POST, RequestMethod.GET })
     public void wxOauth2(final HttpServletRequest req, final HttpServletResponse resp) throws IOException {
         final Map<String, String> map = Servlets.getParameters(req);
         final WechatKernel wk = initKernel(map);
@@ -89,12 +86,5 @@ public class WechatWebController {
         resp.sendRedirect("http://atest.qiejf.com/better/p/pages/login.html");
     }
 
-    /**
-     * 首次登陆验证交易密码
-     */
-    @RequestMapping(value = "/Platform/checkFristLogin", method = RequestMethod.POST)
-    public @ResponseBody String checkFristLogin(final String tradePassword) {
-        return exec(() -> wechatDubboService.saveVerifyFristLogin(tradePassword), "验证交易密码失败！", logger);
-    }
 
 }
