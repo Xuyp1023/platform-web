@@ -175,5 +175,22 @@ public class CustOperatorController {
             }
         }, "修改密码异常", logger);
     }
+    
+    /****
+     * 操作员密码重置
+     * id 操作员编号
+     * password 密码
+     * okPasswd 确认密码
+     * @return
+     */
+    @RequestMapping(value = "/changeUserPassword", method = RequestMethod.POST)
+    public @ResponseBody String changeUserPassword(Long id, String password, String okPasswd) {
+        return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
+            public String handle() {
+                return custOperatorService.webChangeUserPassword(id, password, okPasswd);
+            }
+        }, "修改密码异常", logger);
+    }
 
 }
