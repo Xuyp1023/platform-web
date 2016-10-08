@@ -168,12 +168,12 @@ public class CustOpenAccountController {
     }
 
     @RequestMapping(value = "/saveAccInfoInstead", method = RequestMethod.POST)
-    public @ResponseBody String saveOpenAccountInfoByInstead(HttpServletRequest request, Long insteadId, String fileList) {
+    public @ResponseBody String saveOpenAccountInfoByInstead(HttpServletRequest request, Long insteadRecordId, String fileList) {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("代录开户资料提交,入参：" + anMap.toString());
         try {
 
-            return custOpenAccountService.webSaveOpenAccountInfoByInstead(anMap, insteadId, fileList);
+            return custOpenAccountService.webSaveOpenAccountInfoByInstead(anMap, insteadRecordId, fileList);
         }
         catch (RpcException e) {
             logger.error(e.getMessage(), e);
