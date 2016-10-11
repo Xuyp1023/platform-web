@@ -189,11 +189,11 @@ public class CustOpenAccountController {
     }
 
     @RequestMapping(value = "/findAccInfoInstead", method = RequestMethod.POST)
-    public @ResponseBody String findOpenAccountInfoByInsteadId(Long insteadId) {
-        logger.info("代录开户资料读取,入参：" + insteadId);
+    public @ResponseBody String findOpenAccountInfoByInsteadId(Long id) {
+        logger.info("代录开户资料读取,入参：" + id);
         try {
 
-            return custOpenAccountService.webFindOpenAccountInfoByInsteadId(insteadId);
+            return custOpenAccountService.webFindOpenAccountInfoByInsteadId(id);
         }
         catch (RpcException e) {
             logger.error(e.getMessage(), e);
