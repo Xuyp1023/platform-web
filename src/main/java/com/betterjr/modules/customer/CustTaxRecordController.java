@@ -30,7 +30,7 @@ public class CustTaxRecordController {
     public @ResponseBody String queryCustTaxRecord(Long custNo, String flag, int pageNum, int pageSize) {
         logger.info(",入参:custNo=" + custNo);
         try {
-            return custTaxDubboService.webQueryTaxRecordList(custNo, flag, pageSize, pageNum);
+            return custTaxDubboService.webQueryTaxRecordList(custNo, flag, pageNum, pageSize);
         }
         catch (RpcException btEx) {
             logger.error(btEx.getMessage(), btEx);
