@@ -25,220 +25,220 @@ import com.betterjr.common.web.Servlets;
 @RequestMapping("/Platform/Instead")
 public class InsteadController {
     private static final Logger logger = LoggerFactory.getLogger(ChangeController.class);
-    
+
     @Reference(interfaceClass = ICustInsteadService.class)
     private ICustInsteadService insteadService;
-    
+
     /**
      * 代录申请-申请代录
-     * 
+     *
      * @return
      */
     @RequestMapping(value = "/addInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addInsteadApply(HttpServletRequest request, String fileList) {
-        Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+    public @ResponseBody String addInsteadApply(final HttpServletRequest request, final String fileList) {
+        final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         return exec(() -> insteadService.webAddInsteadApply(anParam, fileList), "代录申请-添加代录出错", logger);
     }
-    
+
     /**
      * 代录申请-申请修改
-     * 
+     *
      * @return
      */
     @RequestMapping(value = "/saveInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveInsteadApply(HttpServletRequest request, Long applyId, String fileList) {
-        Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
-        return exec(() -> insteadService.webSaveInsteadApply(anParam, applyId, fileList), "代录申请-修改代录出错", logger);
+    public @ResponseBody String saveInsteadApply(final HttpServletRequest request, final Long id, final String fileList) {
+        final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+        return exec(() -> insteadService.webSaveInsteadApply(anParam, id, fileList), "代录申请-修改代录出错", logger);
     }
-    
+
     /**
      * 代录申请-详情
-     * 
+     *
      * @return
      */
     @RequestMapping(value = "/findInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String findInsteadApply(HttpServletRequest request, Long id) {
+    public @ResponseBody String findInsteadApply(final HttpServletRequest request, final Long id) {
         logger.debug("代录申请-详情 入参:id=" + id);
         return exec(() -> insteadService.webFindInsteadApply(id), "代录申请-详情 出错", logger);
     }
-    
+
     /**
      * 代录申请-查询代录申请列表[所有] （待审，已审，已代录未复核，已复核未确认，驳回)
-     * 
+     *
      * @return
      */
     @RequestMapping(value = "/queryInsteadApplyList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryInsteadApplyList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
-        Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+    public @ResponseBody String queryInsteadApplyList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+        final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("代录申请-查询代录申请列表[所有] 入参:anParam=" + anParam);
         return exec(() -> insteadService.webQueryInsteadApplyList(anParam, flag, pageNum, pageSize), "代录申请-查询代录申请列表[所有] 出错", logger);
     }
-    
+
     /**
      * 代录申请-查询代录申请列表[自己机构拥有的]
-     * 
+     *
      * @return
      */
     @RequestMapping(value = "/queryInsteadApplyOwnList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryInsteadApplyOwnList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
-        Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+    public @ResponseBody String queryInsteadApplyOwnList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+        final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("代录申请-查询代录申请列表[自己发起的申请] 入参:anParam=" + anParam);
         return exec(() -> insteadService.webQueryInsteadApplyOwnList(anParam, flag, pageNum, pageSize), "代录申请-查询代录申请列表[自己发起的申请] 出错", logger);
     }
-    
+
     /**
      * 代录申请-查询代录申请列表[待审核]
-     * 
+     *
      * @return
      */
     @RequestMapping(value = "/queryInsteadApplyAuditList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryInsteadApplyAuditList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
-        Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+    public @ResponseBody String queryInsteadApplyAuditList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+        final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("代录申请-查询代录申请列表[待审核] 入参:anParam=" + anParam);
         return exec(() -> insteadService.webQueryInsteadApplyAuditList(anParam, flag, pageNum, pageSize), "代录申请-查询代录申请列表[待审核] 出错", logger);
     }
-    
+
     /**
      * 代录申请-查询代录申请列表[待复核]
-     * 
+     *
      * @return
      */
     @RequestMapping(value = "/queryInsteadApplyReviewList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryInsteadApplyReviewList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
-        Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+    public @ResponseBody String queryInsteadApplyReviewList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+        final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("代录申请-查询代录申请列表[待复核] 入参:anParam=" + anParam);
         return exec(() -> insteadService.webQueryInsteadApplyReviewList(anParam, flag, pageNum, pageSize), "代录申请-查询代录申请列表[待复核] 出错", logger);
     }
 
     /**
      * 代录申请-查询代录申请列表[待确认]
-     * 
+     *
      * @return
      */
     @RequestMapping(value = "/queryInsteadApplyConfirmList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryInsteadApplyConfirmList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
-        Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
+    public @ResponseBody String queryInsteadApplyConfirmList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+        final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("代录申请-查询代录申请列表[待确认] 入参:anParam=" + anParam);
         return exec(() -> insteadService.webQueryInsteadApplyConfirmList(anParam, flag, pageNum, pageSize), "代录申请-查询代录申请列表[待确认] 出错", logger);
     }
-    
+
     /**
-     * 代录记录-通过代录申请 查询代录记录列表 
-     * 
+     * 代录记录-通过代录申请 查询代录记录列表
+     *
      * @return
      */
     @RequestMapping(value = "/queryInsteadRecordByApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryInsteadRecordByApply(Long id) {
+    public @ResponseBody String queryInsteadRecordByApply(final Long id) {
         logger.debug("代录申请-查询代录记录列表 入参:id=" + id);
         return exec(() -> insteadService.webQueryInsteadRecordByApply(id), "代录申请-查询代录记录列表 出错", logger);
     }
-    
+
     /**
      * 代录申请 审核通过
      * @return
      */
     @RequestMapping(value = "/auditPassInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String auditPassInsteadApply(Long id, String reason) {
+    public @ResponseBody String auditPassInsteadApply(final Long id, final String reason) {
         logger.debug("代录申请 审核通过 入参:id=" + id + " reason=" + reason);
         return exec(() -> insteadService.webAuditPassInsteadApply(id, reason), "代录申请 审核通过 出错", logger);
     }
-    
+
     /**
      * 代录申请 审核驳回
      * @return
      */
     @RequestMapping(value = "/auditRejectInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String auditRejectInsteadApply(Long id, String reason) {
+    public @ResponseBody String auditRejectInsteadApply(final Long id, final String reason) {
         logger.debug("代录申请 审核驳回 入参:id=" + id + " reason=" + reason);
         return exec(() -> insteadService.webAuditRejectInsteadApply(id, reason), "代录申请 审核驳回 出错", logger);
     }
-    
+
 
     /**
      * 代录申请 复核通过
      * @return
      */
     @RequestMapping(value = "/reviewPassInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String reviewPassInsteadApply(Long id, String reason) {
+    public @ResponseBody String reviewPassInsteadApply(final Long id, final String reason) {
         logger.debug("代录申请 复核通过 入参:id=" + id + " reason=" + reason);
         return exec(() -> insteadService.webReviewPassInsteadApply(id, reason), "代录申请 复核通过 出错", logger);
     }
-    
+
     /**
      * 代录申请 复核驳回
      * @return
      */
     @RequestMapping(value = "/reviewRejectInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String reviewRejectInsteadApply(Long id, String reason) {
+    public @ResponseBody String reviewRejectInsteadApply(final Long id, final String reason) {
         logger.debug("代录申请 复核驳回 入参:id=" + id + " reason=" + reason);
         return exec(() -> insteadService.webReviewRejectInsteadApply(id, reason), "代录申请 复核驳回 出错", logger);
     }
-    
+
     /**
      * 代录申请 确认通过
      * @return
      */
     @RequestMapping(value = "/confirmPassInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String confirmPassInsteadApply(Long id, String reason) {
+    public @ResponseBody String confirmPassInsteadApply(final Long id, final String reason) {
         logger.debug("代录申请 确认通过 入参:id=" + id + " reason=" + reason);
         return exec(() -> insteadService.webConfirmPassInsteadApply(id, reason), "代录申请 确认通过 出错", logger);
     }
-    
+
     /**
      * 代录申请 确认驳回
      * @return
      */
     @RequestMapping(value = "/confirmRejectInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String confirmRejectInsteadApply(Long id, String reason) {
+    public @ResponseBody String confirmRejectInsteadApply(final Long id, final String reason) {
         logger.debug("代录申请 确认驳回 入参:id=" + id + " reason=" + reason);
         return exec(() -> insteadService.webConfirmRejectInsteadApply(id, reason), "代录申请 确认驳回 出错", logger);
     }
-    
+
     /**
      * 代录申请 复核提交
      * @return
      */
     @RequestMapping(value = "/submitReviewInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String submitReviewInsteadApply(Long id) {
+    public @ResponseBody String submitReviewInsteadApply(final Long id) {
         logger.debug("代录申请 复核提交 入参:id=" + id);
         return exec(() -> insteadService.webSubmitReviewInsteadApply(id), "代录申请 代录复核提交 出错", logger);
     }
-    
+
     /**
      * 代录申请 确认提交
      * @return
      */
     @RequestMapping(value = "/submitConfirmInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String submitConfirmInsteadApply(Long id) {
+    public @ResponseBody String submitConfirmInsteadApply(final Long id) {
         logger.debug("代录申请 确认提交 入参:id=" + id);
         return exec(() -> insteadService.webSubmitConfirmInsteadApply(id), "代录申请 代录确认提交 出错", logger);
     }
-    
+
     /**
      * 代录申请 录入提交
      * @return
      */
     @RequestMapping(value = "/submitTypeInInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String submitTypeInInsteadApply(Long id) {
+    public @ResponseBody String submitTypeInInsteadApply(final Long id) {
         logger.debug("代录申请 录入提交 入参:id=" + id);
         return exec(() -> insteadService.webSubmitTypeInInsteadApply(id), "代录申请 录入提交 出错", logger);
     }
-    
+
     /**
      * 代录申请 作废
      * @return
      */
     @RequestMapping(value = "/cancelInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String cancelInsteadApply(Long id, String reason) {
+    public @ResponseBody String cancelInsteadApply(final Long id, final String reason) {
         logger.debug("代录申请 作废 入参:id=" + id + " reason=" + reason);
         return exec(() -> insteadService.webCancelInsteadApply(id, reason), "代录申请 作废 出错", logger);
     }
-    
+
     /**
      * 代录项目 复核通过
      */
     @RequestMapping(value = "/reviewPassInsteadRecord", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String reviewPassInsteadRecord(Long id, String reason) {
+    public @ResponseBody String reviewPassInsteadRecord(final Long id, final String reason) {
         logger.debug("代录项目 复核通过 入参:id=" + id + " reason=" + reason);
         return exec(() -> insteadService.webReviewPassInsteadRecord(id, reason), "代录项目 复核通过 出错", logger);
     }
@@ -248,39 +248,39 @@ public class InsteadController {
      * @return
      */
     @RequestMapping(value = "/reviewRejectInsteadRecord", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String reviewRejectInsteadRecord(Long id, String reason) {
+    public @ResponseBody String reviewRejectInsteadRecord(final Long id, final String reason) {
         logger.debug("代录项目 复核驳回 入参:id=" + id + " reason=" + reason);
         return exec(() -> insteadService.webReviewRejectInsteadRecord(id, reason), "代录项目 复核驳回 出错", logger);
     }
-    
+
     /**
      * 代录项目 确认通过
      * @return
      */
     @RequestMapping(value = "/confirmPassInsteadRecord", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String confirmPassInsteadRecord(Long id, String reason) {
+    public @ResponseBody String confirmPassInsteadRecord(final Long id, final String reason) {
         logger.debug("代录项目 确认通过 入参:id=" + id + " reason=" + reason);
         return exec(() -> insteadService.webConfirmPassInsteadRecord(id, reason), "代录项目 确认通过 出错", logger);
     }
-    
+
     /**
      * 代录项目 确认驳回
      * @return
      */
     @RequestMapping(value = "/confirmRejectInsteadRecord", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String confirmRejectInsteadRecord(Long id, String reason) {
+    public @ResponseBody String confirmRejectInsteadRecord(final Long id, final String reason) {
         logger.debug("代录项目 确认驳回 入参:id=" + id + " reason=" + reason);
         return exec(() -> insteadService.webConfirmRejectInsteadRecord(id, reason), "代录项目 确认驳回 出错", logger);
     }
-    
+
     /**
      * 代录项目 作废
      * @return
      */
     @RequestMapping(value = "/cancelInsteadRecord", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String cancelInsteadRecord(Long id, String reason) {
+    public @ResponseBody String cancelInsteadRecord(final Long id, final String reason) {
         logger.debug("代录项目 作废 入参:id=" + id);
         return exec(() -> insteadService.webCancelInsteadRecord(id, reason), "代录项目 作废 出错", logger);
     }
-    
+
 }
