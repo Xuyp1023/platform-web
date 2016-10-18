@@ -31,8 +31,6 @@
 					com.betterjr.modules.notification;
 					com.betterjr.modules.notice;
 					com.betterjr.modules.document;
-                    com.betterjr.modules.operator;
-                    com.betterjr.modules.role;
 					com.betterjr.modules.workflow;
 					com.betterjr.modules.sys.security">
 		<context:exclude-filter type="annotation"

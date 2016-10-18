@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,8 @@ import com.alibaba.dubbo.rpc.RpcException;
 import com.betterjr.common.exception.BytterException;
 import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.Servlets;
+import com.betterjr.modules.role.dubbo.IRoleService;
+import com.betterjr.modules.role.dubboclient.RoleDubboClientService;
 
 /****
  * 角色管理
@@ -28,8 +31,8 @@ public class RoleController {
 
     private static final Logger logger = LoggerFactory.getLogger(RoleController.class);
     
-    @Reference(interfaceClass=IRoleService.class)
-    private IRoleService roleService;
+    @Autowired
+    private RoleDubboClientService roleService;
     
     @RequestMapping(value = "/addRole", method = RequestMethod.POST)
     public @ResponseBody String addRole(String roleName,String roleType,String businStatus) {
@@ -134,6 +137,27 @@ public class RoleController {
     public @ResponseBody String queryDefaultRole() {
         try {
             return roleService.webQueryRoleDefault();
+        }
+        catch (RpcException btEx) {
+            logger.error(btEx.getMessage(),btEx);
+            if(BytterException.isCauseBytterException(btEx)){
+                return AjaxObject.newError(btEx.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("查询默认角色异常").toJson();
+        }catch (Exception ex){
+            logger.error("查询默认角色异常："+ex.getMessage());
+            return AjaxObject.newError("查询默认角色异常").toJson();
+        }
+    }
+    
+    /***
+     * 测试添加默认角色
+     * @return
+     */
+    @RequestMapping(value = "/addDefRole", method = RequestMethod.POST)
+    public @ResponseBody String addDefRole() {
+        try {
+            return roleService.webAddDefRole();
         }
         catch (RpcException btEx) {
             logger.error(btEx.getMessage(),btEx);
