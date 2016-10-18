@@ -9,6 +9,8 @@ package com.betterjr.modules.operator;
 
 import static com.betterjr.common.web.ControllerExceptionHandler.exec;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -16,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.betterjr.modules.account.dubbo.interfaces.ICustTradePassService;
+import com.betterjr.modules.operator.dubboclient.CustTradePassDubboClientService;
 
 /**
  * @author liuwl
@@ -29,8 +30,8 @@ public class CustTradePassController {
 
     private static final Logger logger = LoggerFactory.getLogger(CustTradePassController.class);
 
-    @Reference(interfaceClass = ICustTradePassService.class)
-    private ICustTradePassService tradePassService;
+    @Inject
+    private CustTradePassDubboClientService tradePassService;
 
     /**
      * 发送验证码
