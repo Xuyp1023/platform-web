@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.betterjr.common.exception.BytterException;
 import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.Servlets;
-import com.betterjr.modules.role.dubbo.IRoleService;
 import com.betterjr.modules.role.dubboclient.RoleDubboClientService;
 
 /****
@@ -137,27 +135,6 @@ public class RoleController {
     public @ResponseBody String queryDefaultRole() {
         try {
             return roleService.webQueryRoleDefault();
-        }
-        catch (RpcException btEx) {
-            logger.error(btEx.getMessage(),btEx);
-            if(BytterException.isCauseBytterException(btEx)){
-                return AjaxObject.newError(btEx.getCause().getMessage()).toJson();
-            }
-            return AjaxObject.newError("查询默认角色异常").toJson();
-        }catch (Exception ex){
-            logger.error("查询默认角色异常："+ex.getMessage());
-            return AjaxObject.newError("查询默认角色异常").toJson();
-        }
-    }
-    
-    /***
-     * 测试添加默认角色
-     * @return
-     */
-    @RequestMapping(value = "/addDefRole", method = RequestMethod.POST)
-    public @ResponseBody String addDefRole() {
-        try {
-            return roleService.webAddDefRole();
         }
         catch (RpcException btEx) {
             logger.error(btEx.getMessage(),btEx);
