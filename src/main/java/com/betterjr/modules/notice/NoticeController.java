@@ -45,7 +45,7 @@ public class NoticeController {
     public @ResponseBody String queryReadNotice(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("已读公告列表-查询 入参:anParam=" + anParam);
-        return exec(() -> noticeService.webQueryUnreadNotice(anParam, flag, pageNum, pageSize), "已读公告列表-查询 出错", logger);
+        return exec(() -> noticeService.webQueryReadNotice(anParam, flag, pageNum, pageSize), "已读公告列表-查询 出错", logger);
     }
 
     /**
