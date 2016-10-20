@@ -78,9 +78,9 @@ public class CustCertificateController {
      * @return
      */
     @RequestMapping(value = "/cancelCertificateInfo", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String cancelCertificateInfo(final HttpServletRequest request, final String serialNo, final String reason) {
+    public @ResponseBody String cancelCertificateInfo(final HttpServletRequest request, final String serialNo) {
         logger.debug("数字证书信息-作废 入参: serialNo=" + serialNo);
-        return exec(() -> certDubboClientService.cancelCustCertificate(serialNo, reason), "数字证书信息-作废 出错", logger);
+        return exec(() -> certDubboClientService.cancelCustCertificate(serialNo), "数字证书信息-作废 出错", logger);
     }
 
     /**
