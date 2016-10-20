@@ -111,17 +111,6 @@ public class CertificateController {
     }
 
     /**
-     * 数字证书信息-回收
-     *
-     * @return
-     */
-    @RequestMapping(value = "/revokeCertificateInfo", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String revokeCertificateInfo(final HttpServletRequest request, final Long id, final String serialNo, final String reason) {
-        logger.debug("数字证书信息-回收 入参:id=" + id + " serialNo=" + serialNo + " reason=" + reason);
-        return exec(() -> x509CertDubboClientService.revokeCertificateInfo(id, serialNo, reason), "数字证书信息-回收 出错", logger);
-    }
-
-    /**
      * 查询签发者列表
      *
      * @return
