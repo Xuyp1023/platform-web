@@ -43,6 +43,16 @@ public class CertificateController {
     }
 
     /**
+     * 数字证书信息-查询
+     *
+     * @return
+     */
+    @RequestMapping(value = "/queryUnusedCertificateInfo", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String queryUnusedCertificateInfo(final HttpServletRequest request) {
+        return exec(() -> x509CertDubboClientService.queryUnusedCertificateInfo(), "数字证书信息-查询 出错", logger);
+    }
+
+    /**
      * 数字证书信息-新增
      *
      * @return
@@ -76,6 +86,18 @@ public class CertificateController {
         logger.debug("数字证书信息-详情 入参:id=" + id + " serialNo=" + serialNo);
         return exec(() -> x509CertDubboClientService.findCertificateInfo(id, serialNo), "数字证书信息-详情 出错", logger);
     }
+
+    /**
+     * 数字证书信息-详情
+     *
+     * @return
+     */
+    @RequestMapping(value = "/findCertificateInfoById", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String findCertificateInfoById(final HttpServletRequest request, final Long id) {
+        logger.debug("数字证书信息-详情 入参:id=" + id);
+        return exec(() -> x509CertDubboClientService.findCertificateInfo(id), "数字证书信息-详情 出错", logger);
+    }
+
 
     /**
      * 数字证书信息-作废
