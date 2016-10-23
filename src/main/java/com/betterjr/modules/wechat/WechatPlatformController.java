@@ -12,6 +12,7 @@ import static com.betterjr.common.web.ControllerExceptionHandler.exec;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,14 @@ public class WechatPlatformController {
 
     @Resource
     private CustWeChatDubboClientService wechatDubboService;
+
+    /**
+     * 检查是否已经绑定微信账户
+     */
+    @RequestMapping(value = "/checkBindStatus", method = { RequestMethod.POST, RequestMethod.GET })
+    public @ResponseBody String checkBindStatus(final HttpServletRequest request) throws IOException {
+        return AjaxObject.newOk("检查微信账户扫描码结果", wechatDubboService.checkBindStatus()).toJson();
+    }
 
     /**
      * 检查扫描状态，成功扫描返回TRUE
