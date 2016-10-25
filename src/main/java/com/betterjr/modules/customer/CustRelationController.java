@@ -151,4 +151,11 @@ public class CustRelationController {
 
         return exec(() -> custRelationService.webQueryFactorRelation(custNo), "客户与保理机构关系查询失败", logger);
     }
+
+    @RequestMapping(value = "/queryWeChatFactorRelation", method = RequestMethod.POST)
+    public @ResponseBody String queryWeChatFactorList() {
+        logger.info("客户与保理机构关系查询");
+
+        return exec(() -> custRelationService.webQueryFactorRelation(), "客户与保理机构关系查询失败", logger);
+    }
 }
