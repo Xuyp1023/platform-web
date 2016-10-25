@@ -11,8 +11,7 @@
 
 	<!-- 扫描dubbo注解 -->
 	<dubbo:annotation
-		package="com.betterjr.modules.test,
-	           com.betterjr.modules.customer,
+		package="com.betterjr.modules.customer,
 	           com.betterjr.modules.notification,
 	           com.betterjr.modules.notice,
 	           com.betterjr.modules.document,

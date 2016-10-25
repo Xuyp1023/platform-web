@@ -69,11 +69,4 @@ public class WechatPlatformController {
         return exec(() -> wechatDubboService.saveMobileTradePass(newPassword, okPassword, loginPassword), "保存密码失败！", logger);
     }
 
-    /**
-     * 首次登陆验证交易密码
-     */
-    @RequestMapping(value = "/checkFristTradePass", method = RequestMethod.POST)
-    public @ResponseBody String checkFristTradePass(final String tradePassword) {
-        return exec(() -> wechatDubboService.webSaveFristLoginTradePassword(tradePassword), "验证交易密码失败！", logger);
-    }
 }
