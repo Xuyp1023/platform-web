@@ -8,14 +8,14 @@
 	<head>
 		<title>流程状态</title>
 		<%@ include file="/common/meta.jsp"%>
-		<link rel="stylesheet" href="${ctx}/styles/css/style.css" type="text/css" media="all" />
-		<link rel="stylesheet" href="${ctx}/styles/css/snaker.css" type="text/css" media="all" />
-		<script src="${ctx}/styles/js/raphael-min.js" type="text/javascript"></script>
-		<script src="${ctx}/styles/js/jquery-ui-1.8.4.custom/js/jquery.min.js" type="text/javascript"></script>
-		<script src="${ctx}/styles/js/jquery-ui-1.8.4.custom/js/jquery-ui.min.js" type="text/javascript"></script>
-		<script src="${ctx}/styles/js/snaker/snaker.designer.js" type="text/javascript"></script>
-		<script src="${ctx}/styles/js/snaker/snaker.model.js" type="text/javascript"></script>
-		<script src="${ctx}/styles/js/snaker/snaker.editors.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="https://static.qiejf.com/better/l/svgDrawer/css/style.css" type="text/css" media="all" />
+		<link rel="stylesheet" href="https://static.qiejf.com/better/l/svgDrawer/css/snaker.css" type="text/css" media="all" />
+		<script src="https://static.qiejf.com/better/l/svgDrawer/js/raphael-min.js" type="text/javascript"></script>
+		<script src="https://static.qiejf.com/better/l/svgDrawer/js/jquery-ui-1.8.4.custom/js/jquery.min.js" type="text/javascript"></script>
+		<script src="https://static.qiejf.com/better/l/svgDrawer/js/jquery-ui-1.8.4.custom/js/jquery-ui.min.js" type="text/javascript"></script>
+		<script src="https://static.qiejf.com/better/l/svgDrawer/js/snaker/snaker.designer.js" type="text/javascript"></script>
+		<script src="https://static.qiejf.com/better/l/svgDrawer/js/snaker/snaker.model.js" type="text/javascript"></script>
+		<script src="https://static.qiejf.com/better/l/svgDrawer/js/snaker/snaker.editors.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 	function display(process, state) {
@@ -24,7 +24,7 @@
 		console.log(eval("(" + state + ")")); */
 		
 		$('#snakerflow').snakerflow($.extend(true,{
-			basePath : "${ctx}/styles/js/snaker/",
+			basePath : "https://static.qiejf.com/better/l/svgDrawer/js/snaker/",
             ctxPath : "${ctx}",
             businessId : "${businessId}",
 			restore : eval("(" + process + ")"),
