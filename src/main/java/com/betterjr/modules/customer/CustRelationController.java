@@ -151,5 +151,12 @@ public class CustRelationController {
 
         return exec(() -> custRelationService.webQueryFactorRelation(custNo), "客户与保理机构关系查询失败", logger);
     }
+    
+    @RequestMapping(value = "/querySimpleDataByFactorAndCore", method = RequestMethod.POST)
+    public @ResponseBody String querySimpleDataByFactorAndCore(Long coreCustNo) {
+        logger.info("核心企业的客户与保理机构关系查询");
+
+        return exec(() -> custRelationService.webQuerySimpleDataByFactorAndCore(coreCustNo), "核心企业的客户与保理机构关系查询失败", logger);
+    }
 
 }
