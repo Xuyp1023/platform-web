@@ -62,6 +62,19 @@ public class CustCertificateController {
     }
 
     /**
+     * 数字证书信息-修改
+     *
+     * @return
+     */
+    @RequestMapping(value = "/modifyWechatCertificateInfo", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String modifyWechatCertificateInfo(final HttpServletRequest request, final String serialNo, final String orginSerialNo) {
+        final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
+        logger.debug("数字证书信息-修改 入参: id=" + serialNo + "anParam=" + param);
+        return exec(() -> certDubboClientService.modifyWechatCustCertificate(serialNo, orginSerialNo, param), "数字证书信息-修改 出错", logger);
+    }
+
+
+    /**
      * 数字证书信息-详情
      *
      * @return
