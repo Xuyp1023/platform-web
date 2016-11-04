@@ -38,13 +38,13 @@ public class CustOperatorController {
      * @return
      */
     @RequestMapping(value = "/addCustOperator", method = RequestMethod.POST)
-    public @ResponseBody String addCustOperator(final HttpServletRequest request) {
+    public @ResponseBody String addCustOperator(final HttpServletRequest request,String custList) {
         final Map anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("入参：" + anMap);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             @Override
             public String handle() {
-                return custOperatorService.webAddCustOperator(anMap);
+                return custOperatorService.webAddCustOperator(anMap,custList);
             }
         }, "新增操作员异常", logger);
     }
@@ -56,13 +56,13 @@ public class CustOperatorController {
      * @return
      */
     @RequestMapping(value = "/updateCustOperator", method = RequestMethod.POST)
-    public @ResponseBody String updateCustOperator(final HttpServletRequest request) {
+    public @ResponseBody String updateCustOperator(final HttpServletRequest request,String custList) {
         final Map anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("入参：" + anMap);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             @Override
             public String handle() {
-                return custOperatorService.webUpdateCustOperator(anMap);
+                return custOperatorService.webUpdateCustOperator(anMap,custList);
             }
         }, "编辑操作员异常", logger);
     }
@@ -192,4 +192,18 @@ public class CustOperatorController {
             }
         }, "修改密码异常", logger);
     }
+    
+    /*****
+     * 获取操作机构关联的客户信息
+     * @return
+     */
+    @RequestMapping(value = "/findOperatorCustInfo", method = RequestMethod.POST)
+    public @ResponseBody String findOperatorCustInfo() {
+        return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
+            public String handle() {
+                return custOperatorService.webFindOperatorCustInfo();
+            }
+        }, "获取操作机构关联的客户信息", logger);
+    } 
 }
