@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,19 +19,23 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.betterjr.common.config.ParamNames;
-import com.betterjr.common.data.KeyAndValueObject;
+import com.betterjr.common.utils.BetterStringUtils;
 import com.betterjr.common.utils.FileUtils;
 import com.betterjr.common.web.AjaxObject;
 import com.betterjr.modules.document.entity.CustFileItem;
-import com.betterjr.modules.document.utils.CustFileClientUtils;
+import com.betterjr.modules.document.service.DataStoreService;
+import com.betterjr.modules.document.utils.FileWebClientUtils;
 
 @Controller
 @RequestMapping(value = "/Platform/CustFile")
 public class CustFileController {
     private static final Logger logger = LoggerFactory.getLogger(CustFileController.class);
 
-    @Reference(interfaceClass=ICustFileService.class)
+    @Reference(interfaceClass = ICustFileService.class)
     private ICustFileService fileItemService;
+
+    @Autowired
+    private DataStoreService storeService;
 
     /**
      * 文件资料下载
@@ -44,13 +49,13 @@ public class CustFileController {
     public @ResponseBody void fileDownload(Long id, HttpServletResponse response) {
         try {
             CustFileItem fileItem = fileItemService.findOne(id);
-            CustFileClientUtils.fileDownload(response, fileItem, fileItemService.findFileBasePath());
+            FileWebClientUtils.fileDownload(storeService, response, fileItem);
         }
         catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * 从batch中将文件删除
      * 
@@ -69,8 +74,7 @@ public class CustFileController {
             return AjaxObject.newError("文件删除失败!").toJson();
         }
     }
-    
-    
+
     /**
      * 文件列表
      * 
@@ -90,7 +94,7 @@ public class CustFileController {
             return AjaxObject.newError("文件列表查询失败!").toJson();
         }
     }
-    
+
     /**
      * 文件列表
      * 
@@ -115,7 +119,6 @@ public class CustFileController {
         }
     }
 
-
     /**
      * 文件资料下载
      * 
@@ -128,7 +131,7 @@ public class CustFileController {
     public @ResponseBody void fileDownloadByBatchNo(Long batchNo, HttpServletResponse response) {
         try {
             CustFileItem fileItem = fileItemService.findOneByBatchNo(batchNo);
-            CustFileClientUtils.fileDownload(response, fileItem, fileItemService.findFileBasePath());
+            FileWebClientUtils.fileDownload(storeService, response, fileItem);
         }
         catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
@@ -150,26 +153,16 @@ public class CustFileController {
         try {
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             MultipartFile mFile = multipartRequest.getFile("Filedata");
-            String anFileName=mFile.getOriginalFilename();
-            String fileType=FileUtils.extractFileExt(anFileName);
-            if(!FileUtils.isSupportedUploadFileType(fileType)){
+            String tmpFileName = mFile.getOriginalFilename();
+            String tmpFileType = FileUtils.extractFileExt(tmpFileName);
+            if (!FileUtils.isSupportedUploadFileType(tmpFileType)) {
                 return AjaxObject.newError("不支持该文件类型，支持列表：jpg,jpeg,png,gif,doc,docx,pdf,xls,xlsx,zip,rar").toJson();
             }
 
-            KeyAndValueObject tmpFileInfo = FileUtils.findFilePathWithParent(ParamNames.CONTRACT_PATH, fileItemService.findFileBasePath());
-            
-
-            if (CustFileClientUtils.saveFileStream(tmpFileInfo, mFile.getInputStream())) {
-                String filePath=tmpFileInfo.getStrKey();
-                Long fileLength=((File)tmpFileInfo.getValue()).length();
-                return fileItemService.webSaveAndUpdateFileItem(filePath,fileLength, fileTypeName,anFileName );
-            }
-            else {
-                return AjaxObject.newError("上传文件失败，不能保存文件").toJson();
-            }
+            return storeService.webSaveStreamToStore(mFile.getInputStream(), fileTypeName, tmpFileName);
         }
         catch (Exception e) {
-            logger.error("文件上传失败，失败原因：" + e.getMessage(),e);
+            logger.error("文件上传失败，失败原因：" + e.getMessage(), e);
             return AjaxObject.newError("上传文件失败，请检查").toJson();
         }
     }
