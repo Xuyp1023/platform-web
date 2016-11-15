@@ -2,6 +2,10 @@ package com.betterjr.modules.customer;
 
 import static com.betterjr.common.web.ControllerExceptionHandler.exec;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.betterjr.common.web.Servlets;
 
 @Controller
 @RequestMapping("/Platform/Account2")
@@ -72,5 +77,25 @@ public class CustOpenAccountController2 {
     public String checkCustExistsByMobileNo(String mobileNo) {
         logger.info("检查手机号码是否存在,入参: " + mobileNo);
         return exec(() -> custOpenAccountService.webCheckCustExistsByMobileNo(mobileNo), "检查手机号码是否存在失败", logger);
+    }
+    
+    /**
+     * 开户申请提交
+     */
+    @RequestMapping(value = "/saveOpenAccountApply", method = RequestMethod.POST)
+    public String saveOpenAccountApply(HttpServletRequest request, String fileList) {
+        Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
+        logger.info("开户申请提交,入参: " + anMap.toString());
+        return exec(() -> custOpenAccountService.webSaveOpenAccountApply(anMap, fileList), "开户申请提交失败", logger);
+    }
+    
+    /**
+     * 开户信息修改
+     */
+    @RequestMapping(value = "/saveModifyOpenAccount", method = RequestMethod.POST)
+    public String saveModifyOpenAccount(HttpServletRequest request, Long id, String fileList) {
+        Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
+        logger.info("开户信息修改,入参: " + anMap.toString());
+        return exec(() -> custOpenAccountService.webSaveModifyOpenAccount(anMap, id, fileList), "开户信息修改失败", logger);
     }
 }
