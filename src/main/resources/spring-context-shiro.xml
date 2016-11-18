@@ -17,6 +17,7 @@
 			<map>
 				<entry key="logout" value-ref="logoutFilter" />
 				<entry key="authcx" value-ref="captchaFormAuthenticationFilter" />
+				<entry key="userx" value-ref="betterUserFilter" />
 			</map>
 		</property>
 		<property name="filterChainDefinitions">
@@ -28,6 +29,10 @@
 	<bean id="logoutFilter" class="org.apache.shiro.web.filter.authc.LogoutFilter">
 		<property name="redirectUrl" value="/static/index.html" />
 	</bean>
+	
+	<bean id="betterUserFilter"
+        class="com.betterjr.modules.sys.security.BetterUserFilter" />
+        
 	<bean id="captchaFormAuthenticationFilter"
 		class="com.betterjr.modules.sys.security.CaptchaFormAuthenticationFilter" />
 
@@ -39,8 +44,8 @@
 				/forCustomer/** =anon
 				/login = authcx
 				/logout = logout
-				/p/** =anon
-				/** = user
+				/p/** = anon
+				/** = userx
 			</value>
 		</constructor-arg>
 	</bean>
@@ -50,8 +55,8 @@
 		<property name="realm" ref="systemAuthorizingRealm" />
 		<property name="sessionManager" ref="sessionManager" />
 		<property name="cacheManager" ref="shiroCacheManager" />
-	</bean>
 
+	</bean>
 	<bean id="systemAuthorizingRealm"
 		class="com.betterjr.modules.sys.security.SystemAuthorizingRealm" />
 
