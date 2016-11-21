@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.betterjr.common.web.Servlets;
@@ -64,7 +65,7 @@ public class CustOpenAccountController2 {
     /**
      * 检查电子邮箱是否存在
      */
-    @RequestMapping(value = "/checkCustExistsByBankAccount", method = RequestMethod.POST)
+    @RequestMapping(value = "/checkCustExistsByEmail", method = RequestMethod.POST)
     public String checkCustExistsByEmail(String email) {
         logger.info("检查电子邮箱是否存在,入参: " + email);
         return exec(() -> custOpenAccountService.webCheckCustExistsByEmail(email), "检查电子邮箱是否存在失败", logger);
@@ -73,7 +74,7 @@ public class CustOpenAccountController2 {
     /**
      * 检查银行账号是否存在
      */
-    @RequestMapping(value = "/checkCustExistsByBankAccount", method = RequestMethod.POST)
+    @RequestMapping(value = "/checkCustExistsByMobileNo", method = RequestMethod.POST)
     public String checkCustExistsByMobileNo(String mobileNo) {
         logger.info("检查手机号码是否存在,入参: " + mobileNo);
         return exec(() -> custOpenAccountService.webCheckCustExistsByMobileNo(mobileNo), "检查手机号码是否存在失败", logger);
@@ -97,5 +98,25 @@ public class CustOpenAccountController2 {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("开户信息修改,入参: " + anMap.toString());
         return exec(() -> custOpenAccountService.webSaveModifyOpenAccount(anMap, id, fileList), "开户信息修改失败", logger);
+    }
+    
+    /**
+     * 代录开户资料申请提交
+     */
+    @RequestMapping(value = "/saveAccInfoInstead", method = RequestMethod.POST)
+    public @ResponseBody String saveOpenAccountInfoByInstead(HttpServletRequest request, Long insteadRecordId, String fileList) {
+        Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
+        logger.info("代录开户资料提交,入参：" + anMap.toString());
+        return exec(() -> custOpenAccountService.webSaveOpenAccountInfoByInstead(anMap, insteadRecordId, fileList), "代录开户资料提交失败", logger);
+    }
+    
+    /**
+     * 客户开户资料暂存
+     */
+    @RequestMapping(value = "/saveAccInfo", method = RequestMethod.POST)
+    public @ResponseBody String saveOpenAccountInfo(HttpServletRequest request, Long id, String fileList) {
+        Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
+        logger.info("客户开户资料暂存,入参：" + anMap.toString());
+        return custOpenAccountService.webSaveOpenAccountInfo(anMap, id, fileList);
     }
 }
