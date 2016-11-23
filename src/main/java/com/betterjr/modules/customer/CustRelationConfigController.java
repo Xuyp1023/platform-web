@@ -27,21 +27,28 @@ public class CustRelationConfigController {
     }
     
     @RequestMapping(value = "/findCustInfo", method = RequestMethod.POST)
-    public @ResponseBody String findCustInfo(String custType,Long custNo) {
-        logger.info("添加客户关系，入参：custType="+custType+"，custNo="+custNo);
-        return exec(() -> custRelationConfigService.webFindCustInfo(custType,custNo), "查询客户信息", logger);
+    public @ResponseBody String findCustInfo(String custType,Long custNo,String custName) {
+        logger.info("添加客户关系，入参：custType="+custType+"，custNo="+custNo+"，custName："+custName);
+        return exec(() -> custRelationConfigService.webFindCustInfo(custType,custNo,custName), "查询客户信息", logger);
     }
     
     @RequestMapping(value = "/addCustRelation", method = RequestMethod.POST)
-    public @ResponseBody String addCustRelation(String custType,Long custNo,Long relationCustNo) {
-        logger.info("添加客户关系，入参：custType="+custType+"，custNo="+custNo+"，relationCustNo="+relationCustNo);
-        return exec(() -> custRelationConfigService.webAddCustRelation(custType, custNo, relationCustNo), "添加客户关系", logger);
+    public @ResponseBody String addCustRelation(String custType,Long custNo,String relationCustStr) {
+        logger.info("添加客户关系，入参：custType="+custType+"，custNo="+custNo+"，relationCustStr="+relationCustStr);
+        return exec(() -> custRelationConfigService.webAddCustRelation(custType, custNo, relationCustStr), "添加客户关系", logger);
     }
     
     @RequestMapping(value = "/queryCustRelation", method = RequestMethod.POST)
     public @ResponseBody String queryCustRelation(Long custNo,String flag,int pageNum,int pageSize) {
         logger.info("添加客户关系，入参：custNo="+custNo);
-        return exec(() -> custRelationConfigService.webQueryCustRelation(custNo,flag,pageNum,pageSize), "分页查询客户关系信息", logger);
+        return exec(() -> custRelationConfigService.webQueryCustRelation(custNo,flag,pageNum,pageSize,""), "分页查询客户关系信息", logger);
     }
+    
+    // 查询当前客户的类型
+    @RequestMapping(value = "/findCustTypeByLogin", method = RequestMethod.POST)
+    public @ResponseBody String findCustTypeByLogin() {
+        return exec(() -> custRelationConfigService.webFindCustTypeByCustNo(), "分页查询客户关系信息", logger);
+    }
+    
     
 }
