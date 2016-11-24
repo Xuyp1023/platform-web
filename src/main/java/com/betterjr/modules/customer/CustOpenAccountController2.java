@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.dubbo.rpc.RpcException;
+import com.betterjr.common.exception.BytterException;
 import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.Servlets;
 
@@ -23,6 +25,8 @@ public class CustOpenAccountController2 {
     
     @Reference(interfaceClass = ICustOpenAccountService2.class)
     private ICustOpenAccountService2 custOpenAccountService;
+    @Reference(interfaceClass = ICustInsteadService2.class)
+    private ICustInsteadService2 insteadService;
 
     
     private static final Logger logger = LoggerFactory.getLogger(CustOpenAccountController2.class);
@@ -127,13 +131,12 @@ public class CustOpenAccountController2 {
     }
     
     /**
-     * 查询开户资料
+     * 微信查询开户资料
      */
     @RequestMapping(value = "/findAccountTmpInfo", method = RequestMethod.POST)
     public @ResponseBody String findAccountTmpInfo() {
         try {
-//            final Object openIdObj = Servlets.getSession().getAttribute("wechat_openId");
-            Object openIdObj = new String("1234");
+            final Object openIdObj = Servlets.getSession().getAttribute("wechat_openId");
             if (openIdObj != null) {
                 final String openId = String.valueOf(openIdObj);
                 return custOpenAccountService.webFindAccountTmpInfo(openId);
@@ -151,5 +154,28 @@ public class CustOpenAccountController2 {
     @RequestMapping(value = "/saveSingleFileLink", method = RequestMethod.POST)
     public @ResponseBody String saveSingleFileLink(Long id, final String fileTypeName, final String fileMediaId) {
         return exec(() -> custOpenAccountService.webSaveSingleFileLink(id, fileTypeName, fileMediaId), "开户资料附件保存", logger);
+    }
+    
+    /**
+     * 根据batchNo生成对应文件类型Map Json对象(微信使用)
+     */
+    @RequestMapping(value = "/findAccountFileByBatChNo", method = RequestMethod.POST)
+    public @ResponseBody String findAccountFileByBatChNo(Long batchNo) {
+        logger.info("附件查询,入参：" + batchNo );
+        try {
+
+            return custOpenAccountService.webFindAccountFileByBatChNo(batchNo);
+        }
+        catch (RpcException e) {
+            logger.error(e.getMessage(), e);
+            if (BytterException.isCauseBytterException(e)) {
+                return AjaxObject.newError(e.getCause().getMessage()).toJson();
+            }
+            return AjaxObject.newError("附件查询失败").toJson();
+        }
+        catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return AjaxObject.newError("附件查询失败").toJson();
+        }
     }
 }
