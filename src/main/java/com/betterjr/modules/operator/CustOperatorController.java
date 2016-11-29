@@ -2,6 +2,7 @@ package com.betterjr.modules.operator;
 
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,9 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.betterjr.common.data.SimpleDataEntity;
+import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.ControllerExceptionHandler;
 import com.betterjr.common.web.ControllerExceptionHandler.ExceptionHandler;
 import com.betterjr.common.web.Servlets;
+import com.betterjr.modules.account.dubboclient.CustOperatorDubboClientService;
 import com.betterjr.modules.operator.dubboclient.OperatorDubboClientService;
 
 /***
@@ -31,6 +36,9 @@ public class CustOperatorController {
     @Autowired
     private OperatorDubboClientService custOperatorService;
 
+    @Autowired
+    private CustOperatorDubboClientService custOperatorDubboClientService;
+
     /**
      * 新增操作员
      *
@@ -38,7 +46,7 @@ public class CustOperatorController {
      * @return
      */
     @RequestMapping(value = "/addCustOperator", method = RequestMethod.POST)
-    public @ResponseBody String addCustOperator(final HttpServletRequest request,String custList) {
+    public @ResponseBody String addCustOperator(final HttpServletRequest request,final String custList) {
         final Map anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("入参：" + anMap);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
@@ -56,7 +64,7 @@ public class CustOperatorController {
      * @return
      */
     @RequestMapping(value = "/updateCustOperator", method = RequestMethod.POST)
-    public @ResponseBody String updateCustOperator(final HttpServletRequest request,String custList) {
+    public @ResponseBody String updateCustOperator(final HttpServletRequest request,final String custList) {
         final Map anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("入参：" + anMap);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
@@ -66,6 +74,7 @@ public class CustOperatorController {
             }
         }, "编辑操作员异常", logger);
     }
+
 
     /****
      * 操作员分页查询
@@ -161,13 +170,13 @@ public class CustOperatorController {
             }
         }, "查询当前机构下面的所有操作员异常", logger);
     }
-    
+
     /****
      * 操作员密码修改
      * @return
      */
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
-    public @ResponseBody String updatePassword(String newPasswd,String okPasswd,String passwd) {
+    public @ResponseBody String updatePassword(final String newPasswd,final String okPasswd,final String passwd) {
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             @Override
             public String handle() {
@@ -175,7 +184,7 @@ public class CustOperatorController {
             }
         }, "修改密码异常", logger);
     }
-    
+
     /****
      * 操作员密码重置
      * id 操作员编号
@@ -184,7 +193,7 @@ public class CustOperatorController {
      * @return
      */
     @RequestMapping(value = "/changeUserPassword", method = RequestMethod.POST)
-    public @ResponseBody String changeUserPassword(Long id, String password, String okPasswd) {
+    public @ResponseBody String changeUserPassword(final Long id, final String password, final String okPasswd) {
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             @Override
             public String handle() {
@@ -192,7 +201,7 @@ public class CustOperatorController {
             }
         }, "修改密码异常", logger);
     }
-    
+
     /*****
      * 获取操作机构关联的客户信息
      * @return
@@ -205,5 +214,23 @@ public class CustOperatorController {
                 return custOperatorService.webFindOperatorCustInfo();
             }
         }, "获取操作机构关联的客户信息", logger);
-    } 
+    }
+
+    /*****
+     * 获取操作机构关联的客户信息
+     * @return
+     */
+    @RequestMapping(value = "/queryOperatorByCustNo", method = RequestMethod.POST)
+    public @ResponseBody String queryOperatorByCustNo(final Long custNo) {
+        return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
+            public String handle() {
+                return AjaxObject.newOk("获取公司操作员成功", custOperatorDubboClientService.queryOperatorByCustNo(custNo).stream().map(operator -> {
+                    return new SimpleDataEntity(operator.getName(), String.valueOf(operator.getId()));
+                }).collect(Collectors.toList())).toJson();
+            }
+        }, "获取操作机构关联的客户信息", logger);
+    }
+
+
 }
