@@ -131,6 +131,23 @@ public class CustOpenAccountController2 {
     }
     
     /**
+     * PC端使用，根据operOrg查询insteadApply的业务状态
+     */
+    @RequestMapping(value = "/findInsteadApplyStatus", method = RequestMethod.POST)
+    public @ResponseBody String findInsteadApplyStatus() {
+        return exec(() -> custOpenAccountService.webFindInsteadApplyStatus(), "状态查询失败", logger);
+    }
+    
+    /**
+     * PC端使用，根据operOrg查询开户信息
+     */
+    @RequestMapping(value = "/findOpenAccoutnTmp", method = RequestMethod.POST)
+    public @ResponseBody String findOpenAccoutnTmp() {
+        return exec(() -> custOpenAccountService.webFindOpenAccoutnTmp(), "信息查询失败", logger);
+    }
+    
+    
+    /**
      * 微信查询开户资料
      */
     @RequestMapping(value = "/findAccountTmpInfo", method = RequestMethod.POST)
