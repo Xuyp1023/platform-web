@@ -1,6 +1,8 @@
 package com.betterjr.modules.operator;
 
 
+import static com.betterjr.common.web.ControllerExceptionHandler.exec;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -205,5 +207,16 @@ public class CustOperatorController {
                 return custOperatorService.webFindOperatorCustInfo();
             }
         }, "获取操作机构关联的客户信息", logger);
-    } 
+    }
+    
+    /**
+     * 根据入参查询对应操作机构操作员
+     * 0普通操作员，1对外经办人, 2:账户业务办理人员，3:交易业务办理人员
+     */
+    @RequestMapping(value = "/findCustOperatorByClerk", method = RequestMethod.POST)
+    public @ResponseBody String findCustOperatorByClerk(String clerk) {
+        logger.info("查询当前机构下面的操作员,入参: " + clerk);
+        return exec(() -> custOperatorService.webFindCustOperatorByClerk(clerk), "查询当前机构下面的操作员失败", logger);
+    }
+    
 }
