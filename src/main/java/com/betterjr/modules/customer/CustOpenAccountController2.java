@@ -116,7 +116,7 @@ public class CustOpenAccountController2 {
     }
     
     /**
-     * 客户开户资料暂存
+     * 微信客户开户资料暂存
      */
     @RequestMapping(value = "/saveAccInfo", method = RequestMethod.POST)
     public @ResponseBody String saveOpenAccountInfo(HttpServletRequest request, Long id, String fileList) {
