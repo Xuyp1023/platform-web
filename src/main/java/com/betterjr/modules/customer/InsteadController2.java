@@ -41,4 +41,12 @@ public class InsteadController2 {
     public @ResponseBody String findInsteadApplyByAccountTmpId(final Long id) {
         return exec(() -> insteadService.webFindInsteadApplyByAccountTmpId(id), "查询代录申请出错", logger);
     }
+    
+    /**
+     * 代录激活操作
+     */
+    @RequestMapping(value = "/saveActiveOpenAccount", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String saveActiveOpenAccount(final Long id) {
+        return exec(() -> insteadService.webSaveActiveOpenAccount(id), "激活出错", logger);
+    }
 }
