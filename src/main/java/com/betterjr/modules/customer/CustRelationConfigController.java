@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.betterjr.common.utils.BTAssert;
 
 @Controller
 @RequestMapping("/Platform/CustRelationConfig")
@@ -47,8 +46,6 @@ public class CustRelationConfigController {
     // 查询当前客户的类型
     @RequestMapping(value = "/findCustTypeByLogin", method = RequestMethod.POST)
     public @ResponseBody String findCustTypeByLogin() {
-        return exec(() -> custRelationConfigService.webFindCustTypeByCustNo(), "分页查询客户关系信息", logger);
+        return exec(() -> custRelationConfigService.webFindCustTypeByCustNo(), "查询当前客户的类型", logger);
     }
-    
-    
 }
