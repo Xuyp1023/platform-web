@@ -1,6 +1,7 @@
 package com.betterjr.modules.document;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,24 +147,30 @@ public class CustFileController {
      * @param fileTypeName
      *            文件分类
      * @return
+     * @throws IOException 
      */
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
-    public @ResponseBody String fileUpload(HttpServletRequest request, String fileTypeName) {
+    public void fileUpload(HttpServletRequest request, HttpServletResponse anResponse, String fileTypeName) throws IOException {
         logger.info("用户文件上传.");
+        String tmpResult;
         try {
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             MultipartFile mFile = multipartRequest.getFile("Filedata");
             String tmpFileName = mFile.getOriginalFilename();
             String tmpFileType = FileUtils.extractFileExt(tmpFileName);
             if (!FileUtils.isSupportedUploadFileType(tmpFileType)) {
-                return AjaxObject.newError("不支持该文件类型，支持列表：jpg,jpeg,png,gif,doc,docx,pdf,xls,xlsx,zip,rar").toJson();
+                tmpResult = AjaxObject.newError("不支持该文件类型，支持列表：jpg,jpeg,png,gif,doc,docx,pdf,xls,xlsx,zip,rar").toJson();
             }
-
-            return storeService.webSaveStreamToStore(mFile.getInputStream(), fileTypeName, tmpFileName);
+            else {
+                tmpResult = storeService.webSaveStreamToStore(mFile.getInputStream(), fileTypeName, tmpFileName);
+            }
         }
         catch (Exception e) {
             logger.error("文件上传失败，失败原因：" + e.getMessage(), e);
-            return AjaxObject.newError("上传文件失败，请检查").toJson();
+            tmpResult = AjaxObject.newError("上传文件失败，请检查").toJson();
         }
+        anResponse.setContentType("text/html;charset=UTF-8");
+        anResponse.getWriter().write(tmpResult);
+        anResponse.flushBuffer();
     }
 }
