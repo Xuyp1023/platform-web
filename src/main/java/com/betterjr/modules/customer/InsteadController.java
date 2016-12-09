@@ -41,6 +41,14 @@ public class InsteadController {
     }
 
     /**
+     * PC代录申请-申请代录
+     */
+    @RequestMapping(value = "/addOpenAccountInsteadApply", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String addOpenAccountInsteadApply(final String custName, final Long operId, final String fileList) {
+        return exec(() -> insteadService.webAddOpenAccountInsteadApply(custName, operId, fileList), "PC申请代录开户出错", logger);
+    }
+    
+    /**
      * 代录申请-申请修改
      *
      * @return
