@@ -19,8 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.betterjr.common.config.ParamNames;
-import com.betterjr.common.utils.BetterStringUtils;
 import com.betterjr.common.utils.FileUtils;
 import com.betterjr.common.web.AjaxObject;
 import com.betterjr.modules.document.entity.CustFileItem;
@@ -51,6 +49,20 @@ public class CustFileController {
         try {
             CustFileItem fileItem = fileItemService.findOne(id);
             FileWebClientUtils.fileDownload(storeService, response, fileItem);
+        }
+        catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+        }
+    }
+    
+    /**
+     * 文件批量下载
+     */
+    @RequestMapping(value = "/fileMultipleDownload")
+    public @ResponseBody void fileMultipleDownload(String fileIdList, HttpServletResponse response, String fileName) {
+        try {
+            List<CustFileItem> fileItemList = fileItemService.findFileListByIds(fileIdList.split(","));
+            FileWebClientUtils.fileMultipleDownload(storeService, response, fileItemList, fileName);
         }
         catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
