@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.betterjr.common.utils.FileUtils;
 import com.betterjr.common.web.AjaxObject;
+import com.betterjr.common.web.ControllerExceptionHandler;
+import com.betterjr.common.web.ControllerExceptionHandler.ExceptionHandler;
 import com.betterjr.modules.document.entity.CustFileItem;
 import com.betterjr.modules.document.service.DataStoreService;
 import com.betterjr.modules.document.utils.FileWebClientUtils;
@@ -36,6 +38,9 @@ public class CustFileController {
     @Autowired
     private DataStoreService storeService;
 
+    @Reference(interfaceClass = IAgencyAuthFileGroupService.class)
+    private IAgencyAuthFileGroupService authFileGroupService;
+    
     /**
      * 文件资料下载
      * 
@@ -184,5 +189,23 @@ public class CustFileController {
         anResponse.setContentType("text/html;charset=UTF-8");
         anResponse.getWriter().write(tmpResult);
         anResponse.flushBuffer();
+    }
+    
+
+    /**
+     * 文件资料下载
+     * 
+     * @param batchNo
+     *            文件上传的批次号，方便于只批次中只有一个文件的情况
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/findFileTypePermitInfo")
+    public @ResponseBody String findFileTypePermitInfo(String fileTypeName) {
+        return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            public String handle() {
+                return authFileGroupService.webFindFileTypePermitInfo(fileTypeName);
+            }
+        }, "查询允许的文件类型信息失败！", logger);
     }
 }
