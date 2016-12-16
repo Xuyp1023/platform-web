@@ -2,6 +2,10 @@ package com.betterjr.modules.customer;
 
 import static com.betterjr.common.web.ControllerExceptionHandler.exec;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.betterjr.common.web.Servlets;
 
 @Controller
 @RequestMapping("/Platform/CustRelationConfig")
@@ -48,4 +53,85 @@ public class CustRelationConfigController {
     public @ResponseBody String findCustTypeByLogin() {
         return exec(() -> custRelationConfigService.webFindCustTypeByCustNo(), "查询当前客户的类型", logger);
     }
+    
+    // 查询要上传的文件列表
+    @RequestMapping(value = "/findCustAduitTemp", method = RequestMethod.POST)
+    public @ResponseBody String findCustAduitTemp(Long relateCustNo) {
+        return exec(() -> custRelationConfigService.webFindCustAduitTempFile(relateCustNo), "查询临时文件", logger);
+    }
+    
+    // 查询保理业务申请数据
+    @RequestMapping(value = "/findFactorBusinessRequest", method = RequestMethod.POST)
+    public @ResponseBody String findFactorBusinessRequest(Long custNo) {
+        return exec(() -> custRelationConfigService.webFindFactorBusinessRequestData(custNo), "查询保理业务申请数据", logger);
+    }
+    
+    /***
+     * 查询电子合同服务商客户
+     * @return
+     */
+    @RequestMapping(value = "/findElecAgreementServiceCust", method = RequestMethod.POST)
+    public @ResponseBody String findElecAgreementServiceCust() {
+        return exec(() -> custRelationConfigService.webFindElecAgreementServiceCust(), "查询电子合同服务商客户", logger);
+    }
+    
+    /***
+     * 添加保理方客户关系
+     * @param custType
+     * @param relationCustNo
+     * @return
+     */
+    @RequestMapping(value = "/addFactorCustRelation", method = RequestMethod.POST)
+    public @ResponseBody String addFactorCustRelation(String factorCustType,String wosCustType,String factorCustNoList,String wosCustNoList) {
+        logger.info("添加保理方客户关系，入参：factorCustType="+factorCustType+"，wosCustType="+wosCustType+"，factorCustNoList="+factorCustNoList+"，wosCustStr="+wosCustNoList);
+        return exec(() -> custRelationConfigService.webAddFactorCustRelation(factorCustType, wosCustType, factorCustNoList, wosCustNoList), "添加保理方客户关系", logger);
+    }
+    
+    /***
+     * 添加客户文件关系
+     * @param relateCustNo 关联的客户号
+     * @param fileIds 上传的文件列表(以,分隔)
+     * @param custType 客户类型
+     */
+    @RequestMapping(value = "/saveCustAduitTempFile", method = RequestMethod.POST)
+    public @ResponseBody String saveCustAduitTempFile(Long relateCustNo,String fileIds,String custType){
+        logger.info("添加客户文件关系，入参：relateCustNo="+relateCustNo+"，fileIds="+fileIds+"，custType="+custType);
+        return exec(() -> custRelationConfigService.webSaveCustAduitTempFile(relateCustNo, fileIds, custType), "添加客户文件关系", logger);
+    }
+    
+    /***
+     * 查询关联的临时文件
+     * @param custNo 关联查询附件的客户号
+     * @return
+     */
+    @RequestMapping(value = "/findRelateAduitTempFile", method = RequestMethod.POST)
+    public @ResponseBody String findRelateAduitTempFile(Long custNo){
+        logger.info("查询关联的临时文件，入参：custNo="+custNo);
+        return exec(() -> custRelationConfigService.webFindRelateAduitTempFile(custNo), "查询关联的临时文件", logger);
+    }
+    
+    /***
+     * 受理审批
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/saveAcceptAduit", method = RequestMethod.POST)
+    public @ResponseBody String saveAcceptAduit(final HttpServletRequest request){
+        final Map anMap = Servlets.getParametersStartingWith(request, "");
+        logger.info("入参：" + anMap);
+        return exec(() -> custRelationConfigService.webSaveAcceptAduit(anMap), "查询关联的临时文件", logger);
+    }
+    
+    /***
+     * 查询审批记录
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/findCustRelateAduitRecord", method = RequestMethod.POST)
+    public @ResponseBody String findCustRelateAduitRecord(Long custNo){
+        logger.info("入参：custNo:" + custNo);
+        return exec(() -> custRelationConfigService.webFindCustRelateAduitRecord(custNo), "查询审批记录", logger);
+    }
+    
+    
 }
