@@ -1,6 +1,5 @@
 package com.betterjr.modules.document;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.betterjr.common.exception.BytterTradeException;
 import com.betterjr.common.utils.FileUtils;
 import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.ControllerExceptionHandler;
@@ -181,6 +181,10 @@ public class CustFileController {
             else {
                 tmpResult = storeService.webSaveStreamToStore(mFile.getInputStream(), fileTypeName, tmpFileName);
             }
+        }
+        catch (BytterTradeException e) {
+            logger.error("文件上传失败，失败原因：" + e.getMessage(), e);
+            tmpResult = AjaxObject.newError(e.getMessage()).toJson();
         }
         catch (Exception e) {
             logger.error("文件上传失败，失败原因：" + e.getMessage(), e);
