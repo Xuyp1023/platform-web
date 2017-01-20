@@ -379,4 +379,11 @@ public class CustOpenAccountController {
             return AjaxObject.newError("附件查询失败").toJson();
         }
     }
+    
+    @RequestMapping(value = "/queryCustInfoByPlatform", method = RequestMethod.POST)
+    public @ResponseBody String queryCustInfoByPlatform(String flag, int pageNum, int pageSize) {
+        logger.info("保理公司查询客户信息");
+        
+        return exec(() -> custOpenAccountService.webQueryCustInfoByPlatform(flag, pageNum, pageSize), "保理公司查询客户信息失败", logger);
+    }
 }

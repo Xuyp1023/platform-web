@@ -164,5 +164,11 @@ public class CustRelationController {
         logger.info("核心企业下所有客户查询");
         return exec(() -> custRelationService.webQueryCoreCust(coreCustNo), "核心企业的所有客户关系查询失败", logger);
     }
+    
+    @RequestMapping(value = "/queryCustInfoByFactor", method = RequestMethod.POST)
+    public @ResponseBody String queryCustInfoByFactor(final String relateType, final String flag, final int pageNum, final int pageSize) {
+        logger.info("保理公司查询客户");
+        return exec(() -> custRelationService.webQueryCustInfoByFactor(relateType, flag, pageNum, pageSize), "保理公司查询客户信息失败", logger);
+    }
 
 }
