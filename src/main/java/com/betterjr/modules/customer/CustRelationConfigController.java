@@ -25,6 +25,11 @@ public class CustRelationConfigController {
     @Reference(interfaceClass=ICustRelationConfigService.class)
     private ICustRelationConfigService custRelationConfigService;
     
+    @RequestMapping(value = "/findCustByPlatform", method = RequestMethod.POST)
+    public @ResponseBody String findCustByPlatform(String custType) {
+        return exec(() -> custRelationConfigService.webFindCustByPlatform(custType), "查询需要选择的客户类型", logger);
+    }
+    
     @RequestMapping(value = "/findCustType", method = RequestMethod.POST)
     public @ResponseBody String findCustType() {
         return exec(() -> custRelationConfigService.webFindCustType(), "查询需要选择的客户类型", logger);
