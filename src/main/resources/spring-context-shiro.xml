@@ -48,6 +48,7 @@
 				/forCustomer/** =anon
 				/access/** = anon
 				/login = authcx
+				/roleList = anon
 				/tokenLogin/** = token
 				/logout = logout
 				/p/** = anon
