@@ -61,8 +61,8 @@ public class CustRelationConfigController {
     
     // 查询要上传的文件列表
     @RequestMapping(value = "/findCustAduitTemp", method = RequestMethod.POST)
-    public @ResponseBody String findCustAduitTemp(Long relateCustNo) {
-        return exec(() -> custRelationConfigService.webFindCustAduitTempFile(relateCustNo), "查询临时文件", logger);
+    public @ResponseBody String findCustAduitTemp(Long relateCustNo,Long selectCustNo) {
+        return exec(() -> custRelationConfigService.webFindCustAduitTempFile(relateCustNo,selectCustNo), "查询临时文件", logger);
     }
     
     // 查询保理业务申请数据
@@ -87,9 +87,9 @@ public class CustRelationConfigController {
      * @return
      */
     @RequestMapping(value = "/addFactorCustRelation", method = RequestMethod.POST)
-    public @ResponseBody String addFactorCustRelation(String factorCustType,String wosCustType,String factorCustNoList,String wosCustNoList) {
-        logger.info("添加保理方客户关系，入参：factorCustType="+factorCustType+"，wosCustType="+wosCustType+"，factorCustNoList="+factorCustNoList+"，wosCustStr="+wosCustNoList);
-        return exec(() -> custRelationConfigService.webAddFactorCustRelation(factorCustType, wosCustType, factorCustNoList, wosCustNoList), "添加保理方客户关系", logger);
+    public @ResponseBody String addFactorCustRelation(String factorCustType,String wosCustType,String factorCustNoList,String wosCustNoList,Long custNo) {
+        logger.info("添加保理方客户关系，入参：factorCustType="+factorCustType+"，wosCustType="+wosCustType+"，factorCustNoList="+factorCustNoList+"，wosCustStr="+wosCustNoList+"，custNo="+custNo);
+        return exec(() -> custRelationConfigService.webAddFactorCustRelation(factorCustType, wosCustType, factorCustNoList, wosCustNoList,custNo), "添加保理方客户关系", logger);
     }
     
     /***
@@ -99,9 +99,9 @@ public class CustRelationConfigController {
      * @param custType 客户类型
      */
     @RequestMapping(value = "/saveCustAduitTempFile", method = RequestMethod.POST)
-    public @ResponseBody String saveCustAduitTempFile(Long relateCustNo,String fileIds,String custType){
-        logger.info("添加客户文件关系，入参：relateCustNo="+relateCustNo+"，fileIds="+fileIds+"，custType="+custType);
-        return exec(() -> custRelationConfigService.webSaveCustAduitTempFile(relateCustNo, fileIds, custType), "添加客户文件关系", logger);
+    public @ResponseBody String saveCustAduitTempFile(Long relateCustNo,String fileIds,String custType,Long custNo){
+        logger.info("添加客户文件关系，入参：relateCustNo="+relateCustNo+"，fileIds="+fileIds+"，custType="+custType+"，custNo="+custNo);
+        return exec(() -> custRelationConfigService.webSaveCustAduitTempFile(relateCustNo, fileIds, custType,custNo), "添加客户文件关系", logger);
     }
     
     /***
@@ -133,9 +133,9 @@ public class CustRelationConfigController {
      * @return
      */
     @RequestMapping(value = "/findCustRelateAduitRecord", method = RequestMethod.POST)
-    public @ResponseBody String findCustRelateAduitRecord(Long custNo){
-        logger.info("入参：custNo:" + custNo);
-        return exec(() -> custRelationConfigService.webFindCustRelateAduitRecord(custNo), "查询审批记录", logger);
+    public @ResponseBody String findCustRelateAduitRecord(Long custNo,Long selectCustNo,String relateType){
+        logger.info("入参：custNo:" + custNo+"，selectCustNo:"+selectCustNo);
+        return exec(() -> custRelationConfigService.webFindCustRelateAduitRecord(custNo,selectCustNo,relateType), "查询审批记录", logger);
     }
     
     
