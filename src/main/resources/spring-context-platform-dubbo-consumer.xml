@@ -32,6 +32,8 @@
 					com.betterjr.modules.notice;
 					com.betterjr.modules.document;
 					com.betterjr.modules.workflow;
+					com.betterjr.modules.contract;
+					com.betterjr.modules.base;
 					com.betterjr.modules.sys.security">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
