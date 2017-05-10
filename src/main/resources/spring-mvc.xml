@@ -27,6 +27,7 @@
 	               com.betterjr.modules.blacklist;
 	               com.betterjr.modules.contract;
 	               com.betterjr.modules.base;
+	               com.betterjr.modules.signcert;
 	               com.betterjr.modules.sys.controller" use-default-filters="false">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />

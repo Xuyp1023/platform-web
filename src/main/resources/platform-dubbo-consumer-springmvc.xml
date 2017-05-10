@@ -18,6 +18,7 @@
 	           com.betterjr.modules.blacklist,
 	           com.betterjr.modules.contract,
 	           com.betterjr.modules.base,
+	           com.betterjr.modules.signcert,
 	           com.betterjr.modules.workflow" />
 
 </beans>
