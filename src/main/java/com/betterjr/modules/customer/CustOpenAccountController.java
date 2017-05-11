@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -389,7 +388,7 @@ public class CustOpenAccountController {
     }
 
     @RequestMapping(value = "/queryCustInfoByPlatformSelect", method = RequestMethod.POST)
-    public @ResponseBody String queryCustInfoByPlatformSelect(final HttpRequest request) {
+    public @ResponseBody String queryCustInfoByPlatformSelect(final HttpServletRequest request) {
         logger.info("平台查询客户信息");
 
         return exec(() -> custOpenAccountService.webCustInfoByPlatformSelect(), "平台查询客户信息失败", logger);
