@@ -111,6 +111,18 @@ public class CustFileController {
         
     }
     
+    @RequestMapping(value = "/findResolveFileById", method = RequestMethod.POST)
+    public @ResponseBody String findResolveFileById(Long id) {
+        
+        logger.info("融资资料信息查询,入参：id=" +id);
+        return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            public String handle() {
+                return fileItemService.webfindResolveFile(id);
+            }
+        }, "融资资料信息查询失败", logger);
+        
+    }
+    
     /**
      * 发送解析文件的类型
      * @param anResolveFile
