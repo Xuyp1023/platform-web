@@ -41,8 +41,9 @@ public class ContractSignerAccountController {
     }
 
     @RequestMapping(value = "/querySignerAccountInfo", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String querySignerAccountInfo(final HttpServletRequest request, final Long anCustNo) {
-        return exec(() -> contractSignerAccountService.webQuerySignerAccountInfo(anCustNo), "获取操作员信息出错！", logger);
+    public @ResponseBody String querySignerAccountInfo(final HttpServletRequest request, final Long anCustNo, final int flag, final int pageNum,
+            final int pageSize) {
+        return exec(() -> contractSignerAccountService.webQuerySignerAccountInfo(anCustNo, flag, pageNum, pageSize), "获取操作员信息出错！", logger);
     }
 
     @RequestMapping(value = "/checkSignerAccount", method = RequestMethod.POST, produces = "application/json")

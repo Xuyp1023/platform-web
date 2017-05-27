@@ -46,8 +46,9 @@ public class ContractCorpAccountController {
     }
 
     @RequestMapping(value = "/queryCorpAccountInfo", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryCorpAccountInfo(final HttpServletRequest request, final Long anCustNo) {
-        return exec(() -> contractCorpAccountService.webQueryCorpAccountInfo(anCustNo), "获取公司帐户信息出错！", logger);
+    public @ResponseBody String queryCorpAccountInfo(final HttpServletRequest request, final Long anCustNo, final int flag, final int pageNum,
+            final int pageSize) {
+        return exec(() -> contractCorpAccountService.webQueryCorpAccountInfo(anCustNo, flag, pageNum, pageSize), "获取公司帐户信息出错！", logger);
     }
 
     @RequestMapping(value = "/saveCorpSigner", method = RequestMethod.POST, produces = "application/json")
