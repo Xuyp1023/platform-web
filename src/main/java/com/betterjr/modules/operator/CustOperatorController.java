@@ -243,5 +243,12 @@ public class CustOperatorController {
         logger.info("查询当前机构下面的操作员,入参: " + clerk);
         return exec(() -> custOperatorService.webFindCustOperatorByClerk(clerk), "查询当前机构下面的操作员失败", logger);
     }
+    
+    @RequestMapping(value = "/queryCustOperatorByPage", method = RequestMethod.POST)
+    public @ResponseBody String queryCustOperatorByPage(HttpServletRequest request) {
+        Map anMap = Servlets.getParametersStartingWith(request, "");
+        logger.info("入参:" + anMap);
+        return exec(() -> custOperatorService.webQueryCustOperatorByPage(anMap), "查询复核审批员信息", logger);
+    }
 
 }
