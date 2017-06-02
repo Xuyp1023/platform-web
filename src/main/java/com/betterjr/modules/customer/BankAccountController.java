@@ -56,7 +56,13 @@ public class BankAccountController {
         logger.debug("银行帐户信息-银行帐户流水修改 入参:reqParam=" + reqParam + " id=" + id);
         return exec(() -> bankAccountService.webSaveBankAccountTmp(reqParam, id, fileList), "银行帐户信息-银行帐户流水修改 错误", logger);
     }
-
+    
+    @RequestMapping(value = "/queryBankAccountKeyAndValue", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String queryBankAccountKeyAndValue(HttpServletRequest request, Long custNo) {
+    	logger.debug("银行帐户信息-银行帐户列表 入参:custNo=" + custNo);
+    	return exec(() -> bankAccountService.webQueryBankAccountKeyAndValue(custNo), "银行帐户信息-银行帐户列表 查询错误", logger);
+    }
+    
     @RequestMapping(value = "/addChangeBankAccountTmp", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String addChangeBankAccountTmp(HttpServletRequest request, String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
@@ -169,7 +175,13 @@ public class BankAccountController {
 
     @RequestMapping(value = "/findInsteadRecord", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String findInsteadRecord(HttpServletRequest request, Long insteadRecordId) {
-        logger.debug("银行帐户信息-代录记录详情  入参: insteadRecordId=" + insteadRecordId);
-        return exec(() -> bankAccountService.webFindInsteadRecord(insteadRecordId), "银行帐户信息-代录记录详情  错误", logger);
+    	logger.debug("银行帐户信息-代录记录详情  入参: insteadRecordId=" + insteadRecordId);
+    	return exec(() -> bankAccountService.webFindInsteadRecord(insteadRecordId), "银行帐户信息-代录记录详情  错误", logger);
+    }
+    
+    @RequestMapping(value = "/findCustMechBankAccount", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String findCustMechBankAccount(HttpServletRequest request, String bankAcco) {
+        logger.debug("银行帐户信息-代录记录详情  入参: bankAcco=" + bankAcco);
+        return exec(() -> bankAccountService.webFindCustMechBankAccount(bankAcco), "银行帐户信息-代录记录详情  错误", logger);
     }
 }
