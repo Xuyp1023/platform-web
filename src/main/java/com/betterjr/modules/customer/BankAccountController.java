@@ -18,6 +18,7 @@ import com.alibaba.dubbo.rpc.RpcException;
 import com.betterjr.common.exception.BytterException;
 import com.betterjr.common.web.AjaxObject;
 import com.betterjr.common.web.Servlets;
+import com.betterjr.mapper.pagehelper.Page;
 
 /**
  * 
@@ -183,5 +184,11 @@ public class BankAccountController {
     public @ResponseBody String findCustMechBankAccount(HttpServletRequest request, String bankAcco) {
         logger.debug("银行帐户信息-代录记录详情  入参: bankAcco=" + bankAcco);
         return exec(() -> bankAccountService.webFindCustMechBankAccount(bankAcco), "银行帐户信息-代录记录详情  错误", logger);
+    }
+    
+    @RequestMapping(value = "/findBankCode", method = RequestMethod.POST, produces = "application/json")
+    public @ResponseBody String findBankCode(HttpServletRequest request) {
+        Map anMap = Servlets.getParametersStartingWith(request, "");
+        return exec(() -> bankAccountService.webFindSysBankCodeList(anMap), "查询联行号", logger);
     }
 }
