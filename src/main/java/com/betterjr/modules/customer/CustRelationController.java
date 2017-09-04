@@ -176,5 +176,13 @@ public class CustRelationController {
         logger.info("保理公司查询客户");
         return exec(() -> custRelationService.webQueryCustInfoByFactor(relateType, flag, pageNum, pageSize), "保理公司查询客户信息失败", logger);
     }
+    
+
+    @RequestMapping(value = "/queryBankKeyAndValue", method = RequestMethod.POST)
+    public @ResponseBody String queryBankKeyAndValue(Long custNo) {
+        logger.info("企业合作银行下拉列表查询,入参: " + custNo);
+
+        return exec(() -> custRelationService.webQueryBankInfoKeyAndValue(custNo), "企业合作银行下拉列表查询失败", logger);
+    }
 
 }
