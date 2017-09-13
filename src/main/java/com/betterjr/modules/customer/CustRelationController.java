@@ -172,9 +172,9 @@ public class CustRelationController {
     }
     
     @RequestMapping(value = "/queryCustInfoByFactor", method = RequestMethod.POST)
-    public @ResponseBody String queryCustInfoByFactor(final String relateType, final String flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryCustInfoByFactor(final String relateType,String businStatus, final String flag, final int pageNum, final int pageSize) {
         logger.info("保理公司查询客户");
-        return exec(() -> custRelationService.webQueryCustInfoByFactor(relateType, flag, pageNum, pageSize), "保理公司查询客户信息失败", logger);
+        return exec(() -> custRelationService.webQueryCustInfoByFactor(relateType,businStatus, flag, pageNum, pageSize), "保理公司查询客户信息失败", logger);
     }
     
 
