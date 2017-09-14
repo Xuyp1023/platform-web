@@ -53,6 +53,12 @@ public class CustRelationConfigController {
         return exec(() -> custRelationConfigService.webQueryCustRelation(custNo,flag,pageNum,pageSize,""), "分页查询客户关系信息", logger);
     }
     
+    
+    @RequestMapping(value = "/queryCustRelationByCore", method = RequestMethod.POST)
+    public @ResponseBody String queryCustRelationByCore(Long custNo,String relationType,String flag,int pageNum,int pageSize) {
+        logger.info("添加客户关系，入参：custNo="+custNo);
+        return exec(() -> custRelationConfigService.webQueryCustRelation(custNo,flag,pageNum,pageSize,relationType), "分页查询客户关系信息", logger);
+    }
     // 查询当前客户的类型
     @RequestMapping(value = "/findCustTypeByLogin", method = RequestMethod.POST)
     public @ResponseBody String findCustTypeByLogin() {
