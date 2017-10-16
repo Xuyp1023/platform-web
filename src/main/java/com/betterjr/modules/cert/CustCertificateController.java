@@ -31,10 +31,12 @@ public class CustCertificateController {
      * @return
      */
     @RequestMapping(value = "/queryCertificateInfo", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryCertificateInfo(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryCertificateInfo(final HttpServletRequest request, final int flag,
+            final int pageNum, final int pageSize) {
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
         logger.debug("数字证书信息-查询 入参:anParam=" + param);
-        return exec(() -> certDubboClientService.queryCustCertificate(param, flag, pageNum, pageSize), "数字证书信息-查询 出错", logger);
+        return exec(() -> certDubboClientService.queryCustCertificate(param, flag, pageNum, pageSize), "数字证书信息-查询 出错",
+                logger);
     }
 
     /**
@@ -67,12 +69,13 @@ public class CustCertificateController {
      * @return
      */
     @RequestMapping(value = "/modifyWechatCertificateInfo", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String modifyWechatCertificateInfo(final HttpServletRequest request, final String serialNo, final String orginSerialNo) {
+    public @ResponseBody String modifyWechatCertificateInfo(final HttpServletRequest request, final String serialNo,
+            final String orginSerialNo) {
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
         logger.debug("数字证书信息-修改 入参: id=" + serialNo + "anParam=" + param);
-        return exec(() -> certDubboClientService.modifyWechatCustCertificate(serialNo, orginSerialNo, param), "数字证书信息-修改 出错", logger);
+        return exec(() -> certDubboClientService.modifyWechatCustCertificate(serialNo, orginSerialNo, param),
+                "数字证书信息-修改 出错", logger);
     }
-
 
     /**
      * 数字证书信息-详情
@@ -102,7 +105,8 @@ public class CustCertificateController {
      * @return
      */
     @RequestMapping(value = "/publishCertificateInfo", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String publishCertificateInfo(final HttpServletRequest request, final String serialNo, final String publishMode) {
+    public @ResponseBody String publishCertificateInfo(final HttpServletRequest request, final String serialNo,
+            final String publishMode) {
         logger.debug("数字证书信息-发布 入参: serialNo=" + serialNo);
         return exec(() -> certDubboClientService.publishCustCertificate(serialNo, publishMode), "数字证书信息-发布 出错", logger);
     }
@@ -113,7 +117,8 @@ public class CustCertificateController {
      * @return
      */
     @RequestMapping(value = "/revokeCertificateInfo", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String revokeCertificateInfo(final HttpServletRequest request, final String serialNo, final String reason) {
+    public @ResponseBody String revokeCertificateInfo(final HttpServletRequest request, final String serialNo,
+            final String reason) {
         logger.debug("数字证书信息-回收 入参: serialNo=" + serialNo + " reason=" + reason);
         return exec(() -> certDubboClientService.revokeCustCertificate(serialNo, reason), "数字证书信息-回收 出错", logger);
     }

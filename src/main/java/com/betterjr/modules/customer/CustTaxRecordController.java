@@ -22,7 +22,7 @@ import com.betterjr.common.web.Servlets;
 public class CustTaxRecordController {
 
     private static final Logger logger = LoggerFactory.getLogger(CustTaxRecordController.class);
-    
+
     @Reference(interfaceClass = ICustTaxService.class)
     private ICustTaxService custTaxDubboService;
 
@@ -44,7 +44,7 @@ public class CustTaxRecordController {
             return AjaxObject.newError("纳税信息查询失败").toJson();
         }
     }
-    
+
     @RequestMapping(value = "/addCustTaxRecord", method = RequestMethod.POST)
     public @ResponseBody String addCustTaxRecord(HttpServletRequest request, String fileList) {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
@@ -64,7 +64,7 @@ public class CustTaxRecordController {
             return AjaxObject.newError("纳税信息录入失败").toJson();
         }
     }
-    
+
     @RequestMapping(value = "/saveCustTaxRecord", method = RequestMethod.POST)
     public @ResponseBody String saveCustTaxRecord(HttpServletRequest request, Long id, String fileList) {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
@@ -84,7 +84,7 @@ public class CustTaxRecordController {
             return AjaxObject.newError("纳税信息保存失败").toJson();
         }
     }
-    
+
     @RequestMapping(value = "/saveDeleteCustTaxRecorde", method = RequestMethod.POST)
     public @ResponseBody String saveDeleteCustTaxRecorde(Long id) {
         logger.info("纳税信息删除,入参:id" + id);

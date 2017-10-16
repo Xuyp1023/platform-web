@@ -28,7 +28,8 @@ public class CustCertificateDownloadController {
     private CustCertDubboClientService certDubboClientService;
 
     @RequestMapping(value = "/downloadCertificate")
-    public void fileDownload(final String token, final HttpServletResponse response) throws UnsupportedEncodingException {
+    public void fileDownload(final String token, final HttpServletResponse response)
+            throws UnsupportedEncodingException {
         certDubboClientService.downloadCertificate(token, response);
     }
 }

@@ -75,10 +75,12 @@ public class BaseInfoController {
      * @return
      */
     @RequestMapping(value = "/queryValidCustList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryValidCustList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryValidCustList(final HttpServletRequest request, final int flag, final int pageNum,
+            final int pageSize) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("入参:anParam=" + anParam);
-        return exec(() -> baseInfoService.webQueryValidCustInfo(anParam, flag, pageNum, pageSize), "公司列表-查询所有有效公司出错", logger);
+        return exec(() -> baseInfoService.webQueryValidCustInfo(anParam, flag, pageNum, pageSize), "公司列表-查询所有有效公司出错",
+                logger);
     }
 
     /**
@@ -87,12 +89,13 @@ public class BaseInfoController {
      * @return
      */
     @RequestMapping(value = "/queryInvalidCustList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryInvalidCustList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryInvalidCustList(final HttpServletRequest request, final int flag,
+            final int pageNum, final int pageSize) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("入参:anParam=" + anParam);
-        return exec(() -> baseInfoService.webQueryInvalidCustInfo(anParam, flag, pageNum, pageSize), "公司列表-查询所有未生效公司出错", logger);
+        return exec(() -> baseInfoService.webQueryInvalidCustInfo(anParam, flag, pageNum, pageSize), "公司列表-查询所有未生效公司出错",
+                logger);
     }
-
 
     /**
      * 公司基本信息-查询
@@ -127,9 +130,11 @@ public class BaseInfoController {
      * @return
      */
     @RequestMapping(value = "/saveChangeApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveChangeApply(final HttpServletRequest request, final Long applyId, final String fileList) {
+    public @ResponseBody String saveChangeApply(final HttpServletRequest request, final Long applyId,
+            final String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-        logger.debug("公司基本信息-变更修改 入参:reqParam=" + reqParam.toString() + " applyId=" + String.valueOf(applyId) + " fileList=" + fileList);
+        logger.debug("公司基本信息-变更修改 入参:reqParam=" + reqParam.toString() + " applyId=" + String.valueOf(applyId)
+                + " fileList=" + fileList);
 
         return exec(() -> baseInfoService.webSaveChangeApply(reqParam, applyId, fileList), "公司基本信息-变更修改 错误", logger);
     }
@@ -153,10 +158,12 @@ public class BaseInfoController {
      * @return
      */
     @RequestMapping(value = "/queryChangeApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryChangeApply(final Long custNo, final int flag, final int pageNum, final int pageSize) {
-        logger.debug("公司基本信息-变更列表 入参:custNo=" + String.valueOf(custNo) + " flag=" + String.valueOf(flag) + " pageNum=" + String.valueOf(pageNum)
-        + " pageSize=" + String.valueOf(pageSize));
-        return exec(() -> baseInfoService.webQueryChangeApply(custNo, flag, pageNum, pageSize), "公司基本信息-变更列表 错误", logger);
+    public @ResponseBody String queryChangeApply(final Long custNo, final int flag, final int pageNum,
+            final int pageSize) {
+        logger.debug("公司基本信息-变更列表 入参:custNo=" + String.valueOf(custNo) + " flag=" + String.valueOf(flag) + " pageNum="
+                + String.valueOf(pageNum) + " pageSize=" + String.valueOf(pageSize));
+        return exec(() -> baseInfoService.webQueryChangeApply(custNo, flag, pageNum, pageSize), "公司基本信息-变更列表 错误",
+                logger);
     }
 
     /**
@@ -166,12 +173,14 @@ public class BaseInfoController {
      * @return
      */
     @RequestMapping(value = "/addInsteadRecord", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addInsteadRecord(final HttpServletRequest request, final Long insteadRecordId, final String fileList) {
+    public @ResponseBody String addInsteadRecord(final HttpServletRequest request, final Long insteadRecordId,
+            final String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-        logger.debug(
-                "公司基本信息-添加代录 入参:reqParam=" + reqParam.toString() + " insteadRecordId=" + String.valueOf(insteadRecordId) + " fileList=" + fileList);
+        logger.debug("公司基本信息-添加代录 入参:reqParam=" + reqParam.toString() + " insteadRecordId="
+                + String.valueOf(insteadRecordId) + " fileList=" + fileList);
 
-        return exec(() -> baseInfoService.webAddInsteadRecord(reqParam, insteadRecordId, fileList), "公司基本信息-添加代录 错误", logger);
+        return exec(() -> baseInfoService.webAddInsteadRecord(reqParam, insteadRecordId, fileList), "公司基本信息-添加代录 错误",
+                logger);
     }
 
     /**
@@ -181,12 +190,14 @@ public class BaseInfoController {
      * @return
      */
     @RequestMapping(value = "/saveInsteadRecord", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveInsteadRecord(final HttpServletRequest request, final Long insteadRecordId, final String fileList) {
+    public @ResponseBody String saveInsteadRecord(final HttpServletRequest request, final Long insteadRecordId,
+            final String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-        logger.debug(
-                "公司基本信息-代录修改 入参:reqParam=" + reqParam.toString() + " insteadRecordId=" + String.valueOf(insteadRecordId) + " fileList=" + fileList);
+        logger.debug("公司基本信息-代录修改 入参:reqParam=" + reqParam.toString() + " insteadRecordId="
+                + String.valueOf(insteadRecordId) + " fileList=" + fileList);
 
-        return exec(() -> baseInfoService.webSaveInsteadRecord(reqParam, insteadRecordId, fileList), "公司基本信息-代录修改 错误", logger);
+        return exec(() -> baseInfoService.webSaveInsteadRecord(reqParam, insteadRecordId, fileList), "公司基本信息-代录修改 错误",
+                logger);
     }
 
     /**

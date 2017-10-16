@@ -30,7 +30,8 @@ public class CustTradePassDubboClientService {
         return tradePassService.webCheckVerifyCode(anVerifyCode);
     }
 
-    public String webSaveModifyTradePass(final String anNewPassword, final String anOkPassword, final String anOldPassword) {
+    public String webSaveModifyTradePass(final String anNewPassword, final String anOkPassword,
+            final String anOldPassword) {
         return tradePassService.webSaveModifyTradePass(anNewPassword, anOkPassword, anOldPassword);
     }
 }

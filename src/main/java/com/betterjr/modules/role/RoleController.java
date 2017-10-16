@@ -28,80 +28,83 @@ import com.betterjr.modules.role.dubboclient.RoleDubboClientService;
 public class RoleController {
 
     private static final Logger logger = LoggerFactory.getLogger(RoleController.class);
-    
+
     @Autowired
     private RoleDubboClientService roleService;
-    
+
     @RequestMapping(value = "/addRole", method = RequestMethod.POST)
-    public @ResponseBody String addRole(String roleName,String roleType,String businStatus) {
+    public @ResponseBody String addRole(String roleName, String roleType, String businStatus) {
         try {
-            return roleService.webAddRole(roleName,roleType,businStatus);
+            return roleService.webAddRole(roleName, roleType, businStatus);
         }
         catch (RpcException btEx) {
-            logger.error(btEx.getMessage(),btEx);
-            if(BytterException.isCauseBytterException(btEx)){
+            logger.error(btEx.getMessage(), btEx);
+            if (BytterException.isCauseBytterException(btEx)) {
                 return AjaxObject.newError(btEx.getCause().getMessage()).toJson();
             }
             return AjaxObject.newError("角色添加异常").toJson();
-        }catch (Exception ex){
-            logger.error("角色添加异常："+ex.getMessage());
+        }
+        catch (Exception ex) {
+            logger.error("角色添加异常：" + ex.getMessage());
             return AjaxObject.newError("角色添加异常").toJson();
         }
     }
-    
+
     @RequestMapping(value = "/updateRole", method = RequestMethod.POST)
-    public @ResponseBody String updateRole(String roleId,String roleName,String roleType,String businStatus) {
+    public @ResponseBody String updateRole(String roleId, String roleName, String roleType, String businStatus) {
         try {
-            return roleService.webUploadRole(roleId,roleName,roleType,businStatus);
+            return roleService.webUploadRole(roleId, roleName, roleType, businStatus);
         }
         catch (RpcException btEx) {
-            logger.error(btEx.getMessage(),btEx);
-            if(BytterException.isCauseBytterException(btEx)){
+            logger.error(btEx.getMessage(), btEx);
+            if (BytterException.isCauseBytterException(btEx)) {
                 return AjaxObject.newError(btEx.getCause().getMessage()).toJson();
             }
             return AjaxObject.newError("角色编辑异常").toJson();
-        }catch (Exception ex){
-            logger.error("角色编辑异常："+ex.getMessage());
+        }
+        catch (Exception ex) {
+            logger.error("角色编辑异常：" + ex.getMessage());
             return AjaxObject.newError("角色编辑异常").toJson();
         }
     }
-    
+
     @RequestMapping(value = "/queryRole", method = RequestMethod.POST)
-    public @ResponseBody String queryRole(HttpServletRequest request,int pageNum,int pageSize) {
+    public @ResponseBody String queryRole(HttpServletRequest request, int pageNum, int pageSize) {
         Map anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("入参：" + anMap);
         try {
             return roleService.webQueryRole(anMap, pageNum, pageSize);
         }
         catch (RpcException btEx) {
-            logger.error(btEx.getMessage(),btEx);
-            if(BytterException.isCauseBytterException(btEx)){
+            logger.error(btEx.getMessage(), btEx);
+            if (BytterException.isCauseBytterException(btEx)) {
                 return AjaxObject.newError(btEx.getCause().getMessage()).toJson();
             }
             return AjaxObject.newError("角色查询异常").toJson();
-        }catch (Exception ex){
-            logger.error("角色查询异常："+ex.getMessage());
+        }
+        catch (Exception ex) {
+            logger.error("角色查询异常：" + ex.getMessage());
             return AjaxObject.newError("角色查询异常").toJson();
         }
     }
-    
+
     @RequestMapping(value = "/findAllRole", method = RequestMethod.POST)
     public @ResponseBody String findAllRole() {
         try {
             return roleService.webFindRole();
         }
         catch (RpcException btEx) {
-            logger.error(btEx.getMessage(),btEx);
-            if(BytterException.isCauseBytterException(btEx)){
+            logger.error(btEx.getMessage(), btEx);
+            if (BytterException.isCauseBytterException(btEx)) {
                 return AjaxObject.newError(btEx.getCause().getMessage()).toJson();
             }
             return AjaxObject.newError("findAllRole异常").toJson();
-        }catch (Exception ex){
-            logger.error("findAllRole异常："+ex.getMessage());
+        }
+        catch (Exception ex) {
+            logger.error("findAllRole异常：" + ex.getMessage());
             return AjaxObject.newError("findAllRole异常").toJson();
         }
     }
-    
 
     /***
      * 删除角色信息
@@ -114,18 +117,17 @@ public class RoleController {
             return roleService.webDelRole(roleId);
         }
         catch (RpcException btEx) {
-            logger.error(btEx.getMessage(),btEx);
-            if(BytterException.isCauseBytterException(btEx)){
+            logger.error(btEx.getMessage(), btEx);
+            if (BytterException.isCauseBytterException(btEx)) {
                 return AjaxObject.newError(btEx.getCause().getMessage()).toJson();
             }
             return AjaxObject.newError("删除角色信息异常").toJson();
-        }catch (Exception ex){
-            logger.error("删除角色信息异常："+ex.getMessage());
+        }
+        catch (Exception ex) {
+            logger.error("删除角色信息异常：" + ex.getMessage());
             return AjaxObject.newError("删除角色信息异常").toJson();
         }
     }
-    
-
 
     /***
      * 查询默认角色
@@ -137,13 +139,14 @@ public class RoleController {
             return roleService.webQueryRoleDefault();
         }
         catch (RpcException btEx) {
-            logger.error(btEx.getMessage(),btEx);
-            if(BytterException.isCauseBytterException(btEx)){
+            logger.error(btEx.getMessage(), btEx);
+            if (BytterException.isCauseBytterException(btEx)) {
                 return AjaxObject.newError(btEx.getCause().getMessage()).toJson();
             }
             return AjaxObject.newError("查询默认角色异常").toJson();
-        }catch (Exception ex){
-            logger.error("查询默认角色异常："+ex.getMessage());
+        }
+        catch (Exception ex) {
+            logger.error("查询默认角色异常：" + ex.getMessage());
             return AjaxObject.newError("查询默认角色异常").toJson();
         }
     }

@@ -3,6 +3,7 @@ package com.betterjr.modules.document;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,7 +42,7 @@ public class CustFileController {
 
     @Reference(interfaceClass = IAgencyAuthFileGroupService.class)
     private IAgencyAuthFileGroupService authFileGroupService;
-    
+
     /**
      * 文件资料下载
      * 
@@ -60,7 +61,7 @@ public class CustFileController {
             logger.error(ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * 创建解析文件的日志，并且通过消息解析文件
      * @param request
@@ -71,19 +72,20 @@ public class CustFileController {
      * @return
      */
     @RequestMapping(value = "/saveResolveFile", method = RequestMethod.POST)
-    public @ResponseBody String saveResolveFile(HttpServletRequest request, Long custNo,Long coreCustNo,Long id,String infoType) {
-        
-        try{
-            logger.info("文件解析添加日志记录,入参：" + custNo.toString()+" "+coreCustNo.toString()+"   "+id.toString());
-            
+    public @ResponseBody String saveResolveFile(HttpServletRequest request, Long custNo, Long coreCustNo, Long id,
+            String infoType) {
+
+        try {
+            logger.info("文件解析添加日志记录,入参：" + custNo.toString() + " " + coreCustNo.toString() + "   " + id.toString());
+
             CustFileItem fileItem = fileItemService.findOneAndButchId(id);
-            if(fileItem ==null || StringUtils.isBlank(fileItem.getFileType())){
+            if (fileItem == null || StringUtils.isBlank(fileItem.getFileType())) {
                 return AjaxObject.newError("文件解析日志插入失败,日志").toJson();
             }
-            if( ! (fileItem.getFileType().equals("xls") ||fileItem.getFileType().equals("xlsx"))){
+            if (!(fileItem.getFileType().equals("xls") || fileItem.getFileType().equals("xlsx"))) {
                 return AjaxObject.newError("文件解析失败，解析的文件应该是excel").toJson();
             }
-            CustResolveFile resolveFile=new CustResolveFile();
+            CustResolveFile resolveFile = new CustResolveFile();
             resolveFile.setBusinStatus("0");
             resolveFile.setCoreCustNo(coreCustNo);
             resolveFile.setCustNo(custNo);
@@ -92,45 +94,48 @@ public class CustFileController {
             resolveFile.setFileLength(fileItem.getFileLength());
             resolveFile.setFileType(fileItem.getFileType());
             resolveFile.setInfoType(infoType);
-            resolveFile=fileItemService.webSaveAddResolveFile(resolveFile);
-            //发送MQ消息
-            Long timetemp=System.currentTimeMillis();
-            logger.info("文件解析添加日志记录,发送消息开始时间"+timetemp );
-            boolean flag=sendResolveMessage(resolveFile);
-            logger.info("文件解析添加日志记录,发送消息结束时间时间"+System.currentTimeMillis()+"   一共耗时："+(System.currentTimeMillis()-timetemp)+"" );
-            if(flag){
+            resolveFile = fileItemService.webSaveAddResolveFile(resolveFile);
+            // 发送MQ消息
+            Long timetemp = System.currentTimeMillis();
+            logger.info("文件解析添加日志记录,发送消息开始时间" + timetemp);
+            boolean flag = sendResolveMessage(resolveFile);
+            logger.info("文件解析添加日志记录,发送消息结束时间时间" + System.currentTimeMillis() + "   一共耗时："
+                    + (System.currentTimeMillis() - timetemp) + "");
+            if (flag) {
                 return AjaxObject.newOk("文件解析日志插入成功", resolveFile).toJson();
-            }else{
-                return AjaxObject.newError("文件解析日志插入成功,但消息发送失败,日志ID："+resolveFile.getId()).toJson();
+            } else {
+                return AjaxObject.newError("文件解析日志插入成功,但消息发送失败,日志ID：" + resolveFile.getId()).toJson();
             }
-            
-        }catch(Exception ex){
-            logger.error(ex.getMessage(), "文件解析添加日志记录"+ex);
+
+        }
+        catch (Exception ex) {
+            logger.error(ex.getMessage(), "文件解析添加日志记录" + ex);
             return AjaxObject.newError("文件解析失败!!!").toJson();
         }
-        
+
     }
-    
+
     @RequestMapping(value = "/findResolveFileById", method = RequestMethod.POST)
     public @ResponseBody String findResolveFileById(Long id) {
-        
-        logger.info("融资资料信息查询,入参：id=" +id);
+
+        logger.info("融资资料信息查询,入参：id=" + id);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return fileItemService.webfindResolveFile(id);
             }
         }, "融资资料信息查询失败", logger);
-        
+
     }
-    
+
     /**
      * 发送解析文件的类型
      * @param anResolveFile
      */
     private boolean sendResolveMessage(CustResolveFile anResolveFile) {
-        
-       return fileItemService.sendResolveMessage(anResolveFile);
-        
+
+        return fileItemService.sendResolveMessage(anResolveFile);
+
     }
 
     /**
@@ -240,7 +245,8 @@ public class CustFileController {
      * @throws IOException 
      */
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
-    public void fileUpload(HttpServletRequest request, HttpServletResponse anResponse, String fileTypeName) throws IOException {
+    public void fileUpload(HttpServletRequest request, HttpServletResponse anResponse, String fileTypeName)
+            throws IOException {
         logger.info("用户文件上传.");
         String tmpResult;
         try {
@@ -249,9 +255,9 @@ public class CustFileController {
             String tmpFileName = mFile.getOriginalFilename();
             String tmpFileType = FileUtils.extractFileExt(tmpFileName);
             if (!FileUtils.isSupportedUploadFileType(tmpFileType)) {
-                tmpResult = AjaxObject.newError("不支持该文件类型，支持列表：jpg,jpeg,png,gif,doc,docx,pdf,xls,xlsx,zip,rar").toJson();
-            }
-            else {
+                tmpResult = AjaxObject.newError("不支持该文件类型，支持列表：jpg,jpeg,png,gif,doc,docx,pdf,xls,xlsx,zip,rar")
+                        .toJson();
+            } else {
                 tmpResult = storeService.webSaveStreamToStore(mFile.getInputStream(), fileTypeName, tmpFileName);
             }
         }
@@ -267,7 +273,6 @@ public class CustFileController {
         anResponse.getWriter().write(tmpResult);
         anResponse.flushBuffer();
     }
-    
 
     /**
      * 文件资料下载
@@ -280,6 +285,7 @@ public class CustFileController {
     @RequestMapping(value = "/findFileTypePermitInfo")
     public @ResponseBody String findFileTypePermitInfo(String fileTypeName) {
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return authFileGroupService.webFindFileTypePermitInfo(fileTypeName);
             }

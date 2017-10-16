@@ -53,8 +53,10 @@ public class CustTradePassController {
      * 修改交易密码
      */
     @RequestMapping(value = "/saveModifyTradePass", method = RequestMethod.POST)
-    public @ResponseBody String saveModifyTradePass(final String newPassword, final String okPassword, final String oldPassword) {
-        return exec(() -> tradePassService.webSaveModifyTradePass(newPassword, okPassword, oldPassword), "修改交易密码失败！", logger);
+    public @ResponseBody String saveModifyTradePass(final String newPassword, final String okPassword,
+            final String oldPassword) {
+        return exec(() -> tradePassService.webSaveModifyTradePass(newPassword, okPassword, oldPassword), "修改交易密码失败！",
+                logger);
     }
 
 }

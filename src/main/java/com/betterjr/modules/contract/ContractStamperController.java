@@ -36,16 +36,19 @@ public class ContractStamperController {
     private IContractStamperService contractStamperService;
 
     @RequestMapping(value = "/queryOwnStamper", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryOwnStamper(final HttpServletRequest request, final Long custNo, final int flag, final int pageNum,
-            final int pageSize) {
-        return exec(() -> contractStamperService.webQueryOwnStamper(custNo, flag, pageNum, pageSize), "查询合同印章列表出错！", logger);
+    public @ResponseBody String queryOwnStamper(final HttpServletRequest request, final Long custNo, final int flag,
+            final int pageNum, final int pageSize) {
+        return exec(() -> contractStamperService.webQueryOwnStamper(custNo, flag, pageNum, pageSize), "查询合同印章列表出错！",
+                logger);
     }
 
     @RequestMapping(value = "/queryAllStamper", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryAllStamper(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryAllStamper(final HttpServletRequest request, final int flag, final int pageNum,
+            final int pageSize) {
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
         logger.debug("入参:param=" + param);
-        return exec(() -> contractStamperService.webQueryAllStamper(param, flag, pageNum, pageSize), "查询合同印章列表出错！", logger);
+        return exec(() -> contractStamperService.webQueryAllStamper(param, flag, pageNum, pageSize), "查询合同印章列表出错！",
+                logger);
     }
 
     @RequestMapping(value = "/findCheckStamper", method = RequestMethod.POST, produces = "application/json")
@@ -70,7 +73,8 @@ public class ContractStamperController {
     }
 
     @RequestMapping(value = "/saveAddStamper", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveAddStamper(final HttpServletRequest request, final String originFileId, final String fileId) {
+    public @ResponseBody String saveAddStamper(final HttpServletRequest request, final String originFileId,
+            final String fileId) {
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
         logger.debug("入参:param=" + param);
         return exec(() -> contractStamperService.webSaveAddStamper(param, originFileId, fileId), "添加合同印章出错！", logger);

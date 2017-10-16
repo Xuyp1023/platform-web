@@ -44,17 +44,20 @@ public class InsteadController {
      * PC代录申请-申请代录
      */
     @RequestMapping(value = "/addOpenAccountInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addOpenAccountInsteadApply(final String custName, final Long operId, final String fileList) {
-        return exec(() -> insteadService.webAddOpenAccountInsteadApply(custName, operId, fileList), "PC申请代录开户出错", logger);
+    public @ResponseBody String addOpenAccountInsteadApply(final String custName, final Long operId,
+            final String fileList) {
+        return exec(() -> insteadService.webAddOpenAccountInsteadApply(custName, operId, fileList), "PC申请代录开户出错",
+                logger);
     }
-    
+
     /**
      * 代录申请-申请修改
      *
      * @return
      */
     @RequestMapping(value = "/saveInsteadApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveInsteadApply(final HttpServletRequest request, final Long id, final String fileList) {
+    public @ResponseBody String saveInsteadApply(final HttpServletRequest request, final Long id,
+            final String fileList) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         return exec(() -> insteadService.webSaveInsteadApply(anParam, id, fileList), "代录申请-修改代录出错", logger);
     }
@@ -76,10 +79,12 @@ public class InsteadController {
      * @return
      */
     @RequestMapping(value = "/queryInsteadApplyList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryInsteadApplyList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryInsteadApplyList(final HttpServletRequest request, final int flag,
+            final int pageNum, final int pageSize) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("代录申请-查询代录申请列表[所有] 入参:anParam=" + anParam);
-        return exec(() -> insteadService.webQueryInsteadApplyList(anParam, flag, pageNum, pageSize), "代录申请-查询代录申请列表[所有] 出错", logger);
+        return exec(() -> insteadService.webQueryInsteadApplyList(anParam, flag, pageNum, pageSize),
+                "代录申请-查询代录申请列表[所有] 出错", logger);
     }
 
     /**
@@ -88,10 +93,12 @@ public class InsteadController {
      * @return
      */
     @RequestMapping(value = "/queryInsteadApplyOwnList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryInsteadApplyOwnList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryInsteadApplyOwnList(final HttpServletRequest request, final int flag,
+            final int pageNum, final int pageSize) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("代录申请-查询代录申请列表[自己发起的申请] 入参:anParam=" + anParam);
-        return exec(() -> insteadService.webQueryInsteadApplyOwnList(anParam, flag, pageNum, pageSize), "代录申请-查询代录申请列表[自己发起的申请] 出错", logger);
+        return exec(() -> insteadService.webQueryInsteadApplyOwnList(anParam, flag, pageNum, pageSize),
+                "代录申请-查询代录申请列表[自己发起的申请] 出错", logger);
     }
 
     /**
@@ -100,10 +107,12 @@ public class InsteadController {
      * @return
      */
     @RequestMapping(value = "/queryInsteadApplyAuditList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryInsteadApplyAuditList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryInsteadApplyAuditList(final HttpServletRequest request, final int flag,
+            final int pageNum, final int pageSize) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("代录申请-查询代录申请列表[待审核] 入参:anParam=" + anParam);
-        return exec(() -> insteadService.webQueryInsteadApplyAuditList(anParam, flag, pageNum, pageSize), "代录申请-查询代录申请列表[待审核] 出错", logger);
+        return exec(() -> insteadService.webQueryInsteadApplyAuditList(anParam, flag, pageNum, pageSize),
+                "代录申请-查询代录申请列表[待审核] 出错", logger);
     }
 
     /**
@@ -112,10 +121,12 @@ public class InsteadController {
      * @return
      */
     @RequestMapping(value = "/queryInsteadApplyReviewList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryInsteadApplyReviewList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryInsteadApplyReviewList(final HttpServletRequest request, final int flag,
+            final int pageNum, final int pageSize) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("代录申请-查询代录申请列表[待复核] 入参:anParam=" + anParam);
-        return exec(() -> insteadService.webQueryInsteadApplyReviewList(anParam, flag, pageNum, pageSize), "代录申请-查询代录申请列表[待复核] 出错", logger);
+        return exec(() -> insteadService.webQueryInsteadApplyReviewList(anParam, flag, pageNum, pageSize),
+                "代录申请-查询代录申请列表[待复核] 出错", logger);
     }
 
     /**
@@ -124,10 +135,12 @@ public class InsteadController {
      * @return
      */
     @RequestMapping(value = "/queryInsteadApplyConfirmList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryInsteadApplyConfirmList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryInsteadApplyConfirmList(final HttpServletRequest request, final int flag,
+            final int pageNum, final int pageSize) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("代录申请-查询代录申请列表[待确认] 入参:anParam=" + anParam);
-        return exec(() -> insteadService.webQueryInsteadApplyConfirmList(anParam, flag, pageNum, pageSize), "代录申请-查询代录申请列表[待确认] 出错", logger);
+        return exec(() -> insteadService.webQueryInsteadApplyConfirmList(anParam, flag, pageNum, pageSize),
+                "代录申请-查询代录申请列表[待确认] 出错", logger);
     }
 
     /**
@@ -160,7 +173,6 @@ public class InsteadController {
         logger.debug("代录申请 审核驳回 入参:id=" + id + " reason=" + reason);
         return exec(() -> insteadService.webAuditRejectInsteadApply(id, reason), "代录申请 审核驳回 出错", logger);
     }
-
 
     /**
      * 代录申请 复核通过
@@ -290,8 +302,7 @@ public class InsteadController {
         logger.debug("代录项目 作废 入参:id=" + id);
         return exec(() -> insteadService.webCancelInsteadRecord(id, reason), "代录项目 作废 出错", logger);
     }
-    
-    
+
     /**
      * 查询代录申请
      */
@@ -299,7 +310,7 @@ public class InsteadController {
     public @ResponseBody String findInsteadApplyByAccountTmpId(final Long id) {
         return exec(() -> insteadService.webFindInsteadApplyByAccountTmpId(id), "查询代录申请出错", logger);
     }
-    
+
     /**
      * 代录激活操作
      */

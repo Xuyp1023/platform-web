@@ -36,10 +36,12 @@ public class CertificateController {
      * @return
      */
     @RequestMapping(value = "/queryCertificateInfo", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryCertificateInfo(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryCertificateInfo(final HttpServletRequest request, final int flag,
+            final int pageNum, final int pageSize) {
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
         logger.debug("数字证书信息-查询 入参:anParam=" + param);
-        return exec(() -> x509CertDubboClientService.queryCertificateInfo(param, flag, pageNum, pageSize), "数字证书信息-查询 出错", logger);
+        return exec(() -> x509CertDubboClientService.queryCertificateInfo(param, flag, pageNum, pageSize),
+                "数字证书信息-查询 出错", logger);
     }
 
     /**
@@ -82,7 +84,8 @@ public class CertificateController {
      * @return
      */
     @RequestMapping(value = "/findCertificateInfo", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String findCertificateInfo(final HttpServletRequest request, final Long id, final String serialNo) {
+    public @ResponseBody String findCertificateInfo(final HttpServletRequest request, final Long id,
+            final String serialNo) {
         logger.debug("数字证书信息-详情 入参:id=" + id + " serialNo=" + serialNo);
         return exec(() -> x509CertDubboClientService.findCertificateInfo(id, serialNo), "数字证书信息-详情 出错", logger);
     }
@@ -98,14 +101,14 @@ public class CertificateController {
         return exec(() -> x509CertDubboClientService.findCertificateInfo(id), "数字证书信息-详情 出错", logger);
     }
 
-
     /**
      * 数字证书信息-作废
      *
      * @return
      */
     @RequestMapping(value = "/cancelCertificateInfo", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String cancelCertificateInfo(final HttpServletRequest request, final Long id, final String serialNo) {
+    public @ResponseBody String cancelCertificateInfo(final HttpServletRequest request, final Long id,
+            final String serialNo) {
         logger.debug("数字证书信息-作废 入参:id=" + id + " serialNo=" + serialNo);
         return exec(() -> x509CertDubboClientService.cancelCertificateInfo(id, serialNo), "数字证书信息-作废 出错", logger);
     }

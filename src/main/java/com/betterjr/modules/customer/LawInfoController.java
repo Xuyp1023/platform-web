@@ -26,7 +26,7 @@ import com.betterjr.common.web.Servlets;
 @RequestMapping("/Platform/LawInfo")
 public class LawInfoController {
     private static final Logger logger = LoggerFactory.getLogger(LawInfoController.class);
-    
+
     @Reference(interfaceClass = ICustMechLawService.class)
     private ICustMechLawService lawService;
 
@@ -35,7 +35,7 @@ public class LawInfoController {
         logger.debug("入参:custNo=" + String.valueOf(custNo));
         return exec(() -> lawService.webFindLawInfo(custNo), "法人信息-查询详情 错误", logger);
     }
-    
+
     @RequestMapping(value = "/addChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String addChangeApply(HttpServletRequest request, String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
@@ -53,11 +53,12 @@ public class LawInfoController {
     @RequestMapping(value = "/saveChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String saveChangeApply(HttpServletRequest request, Long applyId, String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-        logger.debug("法人信息-变更修改 入参:reqParam=" + reqParam.toString() + " applyId=" + String.valueOf(applyId) + " fileList=" + fileList);
+        logger.debug("法人信息-变更修改 入参:reqParam=" + reqParam.toString() + " applyId=" + String.valueOf(applyId)
+                + " fileList=" + fileList);
 
         return exec(() -> lawService.webSaveChangeApply(reqParam, applyId, fileList), "法人信息-变更修改 错误", logger);
     }
-    
+
     /**
      * 法人信息-变更详情
      * 
@@ -72,8 +73,8 @@ public class LawInfoController {
 
     @RequestMapping(value = "/queryChangeApply", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String queryChangeApply(Long custNo, int flag, int pageNum, int pageSize) {
-        logger.debug("法人信息-变更列表-查询 入参:custNo=" + String.valueOf(custNo) + " flag=" + String.valueOf(flag) + " pageNum=" + String.valueOf(pageNum)
-                + " pageSize=" + String.valueOf(pageSize));
+        logger.debug("法人信息-变更列表-查询 入参:custNo=" + String.valueOf(custNo) + " flag=" + String.valueOf(flag) + " pageNum="
+                + String.valueOf(pageNum) + " pageSize=" + String.valueOf(pageSize));
         return exec(() -> lawService.webQueryChangeApply(custNo, flag, pageNum, pageSize), "法人信息-变更列表-查询 错误", logger);
     }
 
@@ -86,8 +87,8 @@ public class LawInfoController {
     @RequestMapping(value = "/addInsteadRecord", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String addInsteadRecord(HttpServletRequest request, Long insteadRecordId, String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-        logger.debug(
-                "法人信息-添加代录 入参:reqParam=" + reqParam.toString() + " insteadRecordId=" + String.valueOf(insteadRecordId) + " fileList=" + fileList);
+        logger.debug("法人信息-添加代录 入参:reqParam=" + reqParam.toString() + " insteadRecordId="
+                + String.valueOf(insteadRecordId) + " fileList=" + fileList);
 
         return exec(() -> lawService.webAddInsteadRecord(reqParam, insteadRecordId, fileList), "法人信息-添加代录 错误", logger);
     }
@@ -101,8 +102,8 @@ public class LawInfoController {
     @RequestMapping(value = "/saveInsteadRecord", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String saveInsteadRecord(HttpServletRequest request, Long insteadRecordId, String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
-        logger.debug(
-                "法人信息-代录修改 入参:reqParam=" + reqParam.toString() + " insteadRecordId=" + String.valueOf(insteadRecordId) + " fileList=" + fileList);
+        logger.debug("法人信息-代录修改 入参:reqParam=" + reqParam.toString() + " insteadRecordId="
+                + String.valueOf(insteadRecordId) + " fileList=" + fileList);
 
         return exec(() -> lawService.webSaveInsteadRecord(reqParam, insteadRecordId, fileList), "法人信息-代录修改 错误", logger);
     }

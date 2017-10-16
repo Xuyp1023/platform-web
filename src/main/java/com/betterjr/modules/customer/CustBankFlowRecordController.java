@@ -20,36 +20,39 @@ import com.betterjr.common.web.Servlets;
 @RequestMapping(value = "/Platform/CustBankFlowRecord")
 public class CustBankFlowRecordController {
 
-private static final Logger logger = LoggerFactory.getLogger(CustBankFlowRecordController.class);
-    
+    private static final Logger logger = LoggerFactory.getLogger(CustBankFlowRecordController.class);
+
     @Reference(interfaceClass = ICustBankFlowService.class)
     private ICustBankFlowService custBankFlowService;
-    
+
     @RequestMapping(value = "/addBankFlowRecord", method = RequestMethod.POST)
-    public @ResponseBody String  addBankFlowRecord(HttpServletRequest request, String fileList) {
+    public @ResponseBody String addBankFlowRecord(HttpServletRequest request, String fileList) {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("银行流水增加,入参：" + anMap.toString());
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custBankFlowService.webAddBankFlowRecord(anMap, fileList);
             }
         }, "银行流水增加失败", logger);
     }
-    
+
     @RequestMapping(value = "/queryBankFlowRecord", method = RequestMethod.POST)
     public @ResponseBody String queryBankFlowRecord(Long custNo, String flag, int pageNum, int pageSize) {
         logger.info("银行流水查询,入参：custNo=" + custNo);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custBankFlowService.webQueryBankFlowRecordList(custNo, flag, pageNum, pageSize);
             }
         }, "订银行流水查询失败", logger);
     }
-    
+
     @RequestMapping(value = "/saveDeleteBankFlowRecord", method = RequestMethod.POST)
     public @ResponseBody String saveDeleteBankFlowRecord(Long id) {
         logger.info("银行流水删除,入参：id=" + id);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custBankFlowService.webSaveDeleteBankFlowRecord(id);
             }

@@ -65,7 +65,8 @@ public class ShareholderController {
     public @ResponseBody String saveChangeShareholderTmp(HttpServletRequest request, String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("股东信息-临时流水 修改 入参:reqParam=" + reqParam);
-        return exec(() -> shareholderService.webSaveChangeShareholderTmp(reqParam, fileList), "股东信息-临时流水 修改 错误", logger);
+        return exec(() -> shareholderService.webSaveChangeShareholderTmp(reqParam, fileList), "股东信息-临时流水 修改 错误",
+                logger);
     }
 
     @RequestMapping(value = "/deleteChangeShareholderTmp", method = RequestMethod.POST, produces = "application/json")
@@ -107,9 +108,11 @@ public class ShareholderController {
     }
 
     @RequestMapping(value = "/queryChangeApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryChangeApply(HttpServletRequest request, Long custNo, int flag, int pageNum, int pageSize) {
+    public @ResponseBody String queryChangeApply(HttpServletRequest request, Long custNo, int flag, int pageNum,
+            int pageSize) {
         logger.debug("股东信息-变更列表  入参:custNo=" + custNo);
-        return exec(() -> shareholderService.webQueryChangeApply(custNo, flag, pageNum, pageSize), "股东信息-变更列表查询  错误", logger);
+        return exec(() -> shareholderService.webQueryChangeApply(custNo, flag, pageNum, pageSize), "股东信息-变更列表查询  错误",
+                logger);
     }
 
     @RequestMapping(value = "/findChangeApply", method = RequestMethod.POST, produces = "application/json")
@@ -119,35 +122,43 @@ public class ShareholderController {
     }
 
     @RequestMapping(value = "/addInsteadShareholderTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addInsteadShareholderTmp(HttpServletRequest request, Long insteadRecordId, String fileList) {
+    public @ResponseBody String addInsteadShareholderTmp(HttpServletRequest request, Long insteadRecordId,
+            String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("股东信息-添加代录新增流水  入参:reqParam=" + reqParam + " insteadRecordId=" + insteadRecordId);
-        return exec(() -> shareholderService.webAddInsteadShareholderTmp(reqParam, insteadRecordId, fileList), "股东信息-添加代录新增流水  错误", logger);
+        return exec(() -> shareholderService.webAddInsteadShareholderTmp(reqParam, insteadRecordId, fileList),
+                "股东信息-添加代录新增流水  错误", logger);
     }
 
     @RequestMapping(value = "/saveInsteadShareholderTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveInsteadShareholderTmp(HttpServletRequest request, Long insteadRecordId, String fileList) {
+    public @ResponseBody String saveInsteadShareholderTmp(HttpServletRequest request, Long insteadRecordId,
+            String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("股东信息-添加代录修改流水  入参:reqParam=" + reqParam + " insteadRecordId=" + insteadRecordId);
-        return exec(() -> shareholderService.webSaveInsteadShareholderTmp(reqParam, insteadRecordId, fileList), "股东信息-添加代录新增流水  错误", logger);
+        return exec(() -> shareholderService.webSaveInsteadShareholderTmp(reqParam, insteadRecordId, fileList),
+                "股东信息-添加代录新增流水  错误", logger);
     }
 
     @RequestMapping(value = "/deleteInsteadShareholderTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String deleteInsteadShareholderTmp(HttpServletRequest request, Long refId, Long insteadRecordId) {
+    public @ResponseBody String deleteInsteadShareholderTmp(HttpServletRequest request, Long refId,
+            Long insteadRecordId) {
         logger.debug("股东信息-添加代录删除流水  入参:refId=" + refId + " insteadRecordId=" + insteadRecordId);
-        return exec(() -> shareholderService.webDeleteInsteadShareholderTmp(refId, insteadRecordId), "股东信息-添加代录删除流水  错误", logger);
+        return exec(() -> shareholderService.webDeleteInsteadShareholderTmp(refId, insteadRecordId),
+                "股东信息-添加代录删除流水  错误", logger);
     }
 
     @RequestMapping(value = "/cancelInsteadShareholderTmp", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String cancelInsteadShareholderTmp(HttpServletRequest request, Long insteadRecordId, Long id) {
         logger.debug("股东信息-删除代录流水  入参: id=" + id);
-        return exec(() -> shareholderService.webCancelInsteadShareholderTmp(id, insteadRecordId), "股东信息-删除代录流水  错误", logger);
+        return exec(() -> shareholderService.webCancelInsteadShareholderTmp(id, insteadRecordId), "股东信息-删除代录流水  错误",
+                logger);
     }
 
     @RequestMapping(value = "/queryInsteadShareholderTmp", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String queryInsteadShareholderTmp(HttpServletRequest request, Long insteadRecordId) {
         logger.debug("股东信息-查询代录流水列表  入参:insteadRecordId=" + insteadRecordId);
-        return exec(() -> shareholderService.webQueryInsteadShareholderTmp(insteadRecordId), "股东信息-查询代录流水列表  错误", logger);
+        return exec(() -> shareholderService.webQueryInsteadShareholderTmp(insteadRecordId), "股东信息-查询代录流水列表  错误",
+                logger);
     }
 
     @RequestMapping(value = "/addInsteadRecord", method = RequestMethod.POST, produces = "application/json")
@@ -161,7 +172,8 @@ public class ShareholderController {
     public @ResponseBody String saveInsteadRecord(HttpServletRequest request, Long insteadRecordId) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("股东信息-修改代录记录  入参:reqParam=" + reqParam + " insteadRecordId=" + insteadRecordId);
-        return exec(() -> shareholderService.webSaveInsteadRecord(reqParam, insteadRecordId), "股东信息-修改代录记录  错误", logger);
+        return exec(() -> shareholderService.webSaveInsteadRecord(reqParam, insteadRecordId), "股东信息-修改代录记录  错误",
+                logger);
     }
 
     @RequestMapping(value = "/findInsteadRecord", method = RequestMethod.POST, produces = "application/json")

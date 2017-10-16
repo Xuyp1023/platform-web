@@ -30,7 +30,8 @@ public class CustRelationController {
     public @ResponseBody String saveRelation(Long custNo, String providerList, String factorList, String postscript) {
         logger.info("开通保理融资业务申请,入参: " + custNo + " and " + providerList + " and " + factorList + " and " + postscript);
 
-        return exec(() -> custRelationService.webSaveCustRelation(custNo, providerList, factorList, postscript), "开通保理融资业务申请提交失败", logger);
+        return exec(() -> custRelationService.webSaveCustRelation(custNo, providerList, factorList, postscript),
+                "开通保理融资业务申请提交失败", logger);
     }
 
     @RequestMapping(value = "/queryAuditWorkflow", method = RequestMethod.POST)
@@ -44,14 +45,16 @@ public class CustRelationController {
     public @ResponseBody String queryRelationAccept(String businStatus, String flag, int pageNum, int pageSize) {
         logger.info("客户白名单受理列表查询,入参: " + businStatus);
 
-        return exec(() -> custRelationService.webQueryRelationAccept(businStatus, flag, pageNum, pageSize), "客户白名单受理列表查询失败", logger);
+        return exec(() -> custRelationService.webQueryRelationAccept(businStatus, flag, pageNum, pageSize),
+                "客户白名单受理列表查询失败", logger);
     }
 
     @RequestMapping(value = "/queryAudit", method = RequestMethod.POST)
     public @ResponseBody String queryRelationAudit(String businStatus, String flag, int pageNum, int pageSize) {
         logger.info("客户白名单审批列表查询,入参: " + businStatus);
 
-        return exec(() -> custRelationService.webQueryRelationAudit(businStatus, flag, pageNum, pageSize), "客户白名单审批列表查询失败", logger);
+        return exec(() -> custRelationService.webQueryRelationAudit(businStatus, flag, pageNum, pageSize),
+                "客户白名单审批列表查询失败", logger);
     }
 
     @RequestMapping(value = "/saveAccept", method = RequestMethod.POST)
@@ -151,32 +154,36 @@ public class CustRelationController {
 
         return exec(() -> custRelationService.webQueryFactorRelation(custNo), "客户与保理机构关系查询失败", logger);
     }
-    
+
     @RequestMapping(value = "/querySimpleDataByFactorAndCore", method = RequestMethod.POST)
     public @ResponseBody String querySimpleDataByFactorAndCore(Long coreCustNo) {
         logger.info("核心企业的客户与保理机构关系查询");
 
-        return exec(() -> custRelationService.webQuerySimpleDataByFactorAndCore(coreCustNo), "核心企业的客户与保理机构关系查询失败", logger);
+        return exec(() -> custRelationService.webQuerySimpleDataByFactorAndCore(coreCustNo), "核心企业的客户与保理机构关系查询失败",
+                logger);
 
     }
+
     @RequestMapping(value = "/queryCoreCust", method = RequestMethod.POST)
     public @ResponseBody String queryCoreCust(Long coreCustNo) {
         logger.info("核心企业下所有客户查询");
         return exec(() -> custRelationService.webQueryCoreCust(coreCustNo), "核心企业的所有客户关系查询失败", logger);
     }
-    
+
     @RequestMapping(value = "/queryAllCust", method = RequestMethod.POST)
     public @ResponseBody String queryAllCust() {
         logger.info("所有客户查询");
         return exec(() -> custRelationService.webQueryAllCust(), "所有客户关系查询失败", logger);
     }
-    
+
     @RequestMapping(value = "/queryCustInfoByFactor", method = RequestMethod.POST)
-    public @ResponseBody String queryCustInfoByFactor(final String relateType,String businStatus, final String flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryCustInfoByFactor(final String relateType, String businStatus, final String flag,
+            final int pageNum, final int pageSize) {
         logger.info("保理公司查询客户");
-        return exec(() -> custRelationService.webQueryCustInfoByFactor(relateType,businStatus, flag, pageNum, pageSize), "保理公司查询客户信息失败", logger);
+        return exec(
+                () -> custRelationService.webQueryCustInfoByFactor(relateType, businStatus, flag, pageNum, pageSize),
+                "保理公司查询客户信息失败", logger);
     }
-    
 
     @RequestMapping(value = "/queryBankKeyAndValue", method = RequestMethod.POST)
     public @ResponseBody String queryBankKeyAndValue(Long custNo) {
