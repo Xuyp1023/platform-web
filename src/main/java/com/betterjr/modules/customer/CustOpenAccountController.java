@@ -69,7 +69,8 @@ public class CustOpenAccountController {
     }
 
     @RequestMapping(value = "/saveAccInfo", method = RequestMethod.POST)
-    public @ResponseBody String saveOpenAccountInfo(final HttpServletRequest request, final Long id, final String fileList) {
+    public @ResponseBody String saveOpenAccountInfo(final HttpServletRequest request, final Long id,
+            final String fileList) {
         final Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("客户开户资料暂存,入参：" + anMap.toString());
         try {
@@ -90,7 +91,8 @@ public class CustOpenAccountController {
     }
 
     @RequestMapping(value = "/saveAccApply", method = RequestMethod.POST)
-    public @ResponseBody String saveOpenAccountApply(final HttpServletRequest request, final Long id, final String fileList) {
+    public @ResponseBody String saveOpenAccountApply(final HttpServletRequest request, final Long id,
+            final String fileList) {
         final Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("开户申请,入参：" + anMap.toString());
         try {
@@ -170,7 +172,8 @@ public class CustOpenAccountController {
     }
 
     @RequestMapping(value = "/saveAccInfoInstead", method = RequestMethod.POST)
-    public @ResponseBody String saveOpenAccountInfoByInstead(final HttpServletRequest request, final Long insteadRecordId, final String fileList) {
+    public @ResponseBody String saveOpenAccountInfoByInstead(final HttpServletRequest request,
+            final Long insteadRecordId, final String fileList) {
         final Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("代录开户资料提交,入参：" + anMap.toString());
         try {
@@ -263,7 +266,7 @@ public class CustOpenAccountController {
      * 检查组织机构代码证是否存在
      */
     @RequestMapping(value = "/checkCustExistsByIdentNo", method = RequestMethod.POST)
-    public @ResponseBody String checkCustExistsByIdentNo(final String identNo){
+    public @ResponseBody String checkCustExistsByIdentNo(final String identNo) {
         logger.info("检查组织机构代码证是否存在,入参: " + identNo);
         return exec(() -> custOpenAccountService.webCheckCustExistsByIdentNo(identNo), "检查组织机构代码证是否存在失败", logger);
     }
@@ -274,7 +277,8 @@ public class CustOpenAccountController {
     @RequestMapping(value = "/checkCustExistsByBusinLicence", method = RequestMethod.POST)
     public @ResponseBody String checkCustExistsByBusinLicence(final String businLicence) {
         logger.info("检查营业执照号码是否存在,入参: " + businLicence);
-        return exec(() -> custOpenAccountService.webCheckCustExistsByBusinLicence(businLicence), "检查营业执照号码是否存在失败", logger);
+        return exec(() -> custOpenAccountService.webCheckCustExistsByBusinLicence(businLicence), "检查营业执照号码是否存在失败",
+                logger);
     }
 
     /**
@@ -308,10 +312,12 @@ public class CustOpenAccountController {
      * 开户申请提交
      */
     @RequestMapping(value = "/saveOpenAccountApplySubmit", method = RequestMethod.POST)
-    public @ResponseBody String saveOpenAccountApplySubmit(final HttpServletRequest request, final Long operId, final String fileList) {
+    public @ResponseBody String saveOpenAccountApplySubmit(final HttpServletRequest request, final Long operId,
+            final String fileList) {
         final Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("开户申请提交,入参: " + anMap.toString());
-        return exec(() -> custOpenAccountService.webSaveOpenAccountApplySubmit(anMap, operId, fileList), "开户申请提交失败", logger);
+        return exec(() -> custOpenAccountService.webSaveOpenAccountApplySubmit(anMap, operId, fileList), "开户申请提交失败",
+                logger);
     }
 
     /**
@@ -329,7 +335,6 @@ public class CustOpenAccountController {
     public @ResponseBody String findOpenAccoutnTmp() {
         return exec(() -> custOpenAccountService.webFindOpenAccoutnTmp(), "信息查询失败", logger);
     }
-
 
     /**
      * 微信查询开户资料
@@ -354,7 +359,8 @@ public class CustOpenAccountController {
      */
     @RequestMapping(value = "/saveSingleFileLink", method = RequestMethod.POST)
     public @ResponseBody String saveSingleFileLink(final Long id, final String fileTypeName, final String fileMediaId) {
-        return exec(() -> custOpenAccountService.webSaveSingleFileLink(id, fileTypeName, fileMediaId), "开户资料附件保存", logger);
+        return exec(() -> custOpenAccountService.webSaveSingleFileLink(id, fileTypeName, fileMediaId), "开户资料附件保存",
+                logger);
     }
 
     /**
@@ -362,7 +368,7 @@ public class CustOpenAccountController {
      */
     @RequestMapping(value = "/findAccountFileByBatChNo", method = RequestMethod.POST)
     public @ResponseBody String findAccountFileByBatChNo(final Long batchNo) {
-        logger.info("附件查询,入参：" + batchNo );
+        logger.info("附件查询,入参：" + batchNo);
         try {
 
             return custOpenAccountService.webFindAccountFileByBatChNo(batchNo);
@@ -384,7 +390,8 @@ public class CustOpenAccountController {
     public @ResponseBody String queryCustInfoByPlatform(final String flag, final int pageNum, final int pageSize) {
         logger.info("平台查询客户信息");
 
-        return exec(() -> custOpenAccountService.webQueryCustInfoByPlatform(flag, pageNum, pageSize), "平台查询客户信息失败", logger);
+        return exec(() -> custOpenAccountService.webQueryCustInfoByPlatform(flag, pageNum, pageSize), "平台查询客户信息失败",
+                logger);
     }
 
     @RequestMapping(value = "/queryCustInfoByPlatformSelect", method = RequestMethod.POST)

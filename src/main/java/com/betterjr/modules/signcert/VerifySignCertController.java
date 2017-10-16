@@ -37,10 +37,12 @@ public class VerifySignCertController {
     private IVerifySignCertService verifySignCertService;
 
     @RequestMapping(value = "/queryCertList", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryCertList(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryCertList(final HttpServletRequest request, final int flag, final int pageNum,
+            final int pageSize) {
         final Map<String, Object> param = Servlets.getParametersStartingWith(request, "");
         logger.debug("签名证书信息-查询 入参:anParam=" + param);
-        return exec(() -> verifySignCertService.webQueryCertList(param, flag, pageNum, pageSize), "签名证书信息 查询错误", logger);
+        return exec(() -> verifySignCertService.webQueryCertList(param, flag, pageNum, pageSize), "签名证书信息 查询错误",
+                logger);
     }
 
     @RequestMapping(value = "/addCert", method = RequestMethod.POST, produces = "application/json")

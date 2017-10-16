@@ -39,7 +39,8 @@ public class ChangeController {
     public @ResponseBody String queryChangeApplyList(HttpServletRequest request, int flag, int pageNum, int pageSize) {
         Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("入参:anParam=" + anParam);
-        return exec(() -> changeService.webQueryChangeApplyList(anParam, flag, pageNum, pageSize), "变更申请列表-查询出错", logger);
+        return exec(() -> changeService.webQueryChangeApplyList(anParam, flag, pageNum, pageSize), "变更申请列表-查询出错",
+                logger);
     }
 
     /**

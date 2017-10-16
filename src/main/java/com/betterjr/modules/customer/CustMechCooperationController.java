@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.betterjr.common.web.ControllerExceptionHandler;
-import com.betterjr.common.web.Servlets;
 import com.betterjr.common.web.ControllerExceptionHandler.ExceptionHandler;
+import com.betterjr.common.web.Servlets;
 
 @Controller
 @RequestMapping("/Platform/CustMechCooperation")
@@ -30,6 +30,7 @@ public class CustMechCooperationController {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("合作企业录入,入参:" + anMap.toString());
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custCooperationDuuboService.webAddCooperation(anMap);
             }
@@ -40,6 +41,7 @@ public class CustMechCooperationController {
     public @ResponseBody String queryCooperationList(Long custNo, String flag, int pageNum, int pageSize) {
         logger.info("合作企业查询,入参:custNo=" + custNo);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custCooperationDuuboService.webQueryCooperationList(custNo, flag, pageNum, pageSize);
             }
@@ -51,16 +53,18 @@ public class CustMechCooperationController {
         Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("合作企业保存,入参:id=" + id + anMap.toString());
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custCooperationDuuboService.webSaveCooperation(anMap, id);
             }
         }, "合作企业保存失败", logger);
     }
-    
+
     @RequestMapping(value = "/saveDeleteCooperation", method = RequestMethod.POST)
     public @ResponseBody String saveDeleteCooperation(Long id) {
         logger.info("合作企业删除,入参:id=" + id);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
+            @Override
             public String handle() {
                 return custCooperationDuuboService.webSaveDeleteCooperation(id);
             }

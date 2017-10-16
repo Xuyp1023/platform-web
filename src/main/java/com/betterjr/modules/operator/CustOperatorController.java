@@ -66,7 +66,8 @@ public class CustOperatorController {
      * @return
      */
     @RequestMapping(value = "/updateCustOperator", method = RequestMethod.POST)
-    public @ResponseBody String updateCustOperator(final HttpServletRequest request, final String custList, final String fileList) {
+    public @ResponseBody String updateCustOperator(final HttpServletRequest request, final String custList,
+            final String fileList) {
         final Map anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("入参：" + anMap);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
@@ -86,7 +87,8 @@ public class CustOperatorController {
      * @return
      */
     @RequestMapping(value = "/queryCustOperator", method = RequestMethod.POST)
-    public @ResponseBody String queryCustOperator(final HttpServletRequest request, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryCustOperator(final HttpServletRequest request, final int pageNum,
+            final int pageSize) {
         final Map anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("入参：" + anMap);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
@@ -232,9 +234,10 @@ public class CustOperatorController {
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             @Override
             public String handle() {
-                return AjaxObject.newOk("获取公司操作员成功", custOperatorDubboClientService.queryOperatorByCustNo(custNo).stream().map(operator -> {
-                    return new SimpleDataEntity(operator.getName(), String.valueOf(operator.getId()));
-                }).collect(Collectors.toList())).toJson();
+                return AjaxObject.newOk("获取公司操作员成功",
+                        custOperatorDubboClientService.queryOperatorByCustNo(custNo).stream().map(operator -> {
+                            return new SimpleDataEntity(operator.getName(), String.valueOf(operator.getId()));
+                        }).collect(Collectors.toList())).toJson();
             }
         }, "获取操作机构关联的客户信息", logger);
     }

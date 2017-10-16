@@ -107,9 +107,11 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/queryChangeApply", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryChangeApply(HttpServletRequest request, Long custNo, int flag, int pageNum, int pageSize) {
+    public @ResponseBody String queryChangeApply(HttpServletRequest request, Long custNo, int flag, int pageNum,
+            int pageSize) {
         logger.debug("高管信息-变更列表  入参:custNo=" + custNo);
-        return exec(() -> managerService.webQueryChangeApply(custNo, flag, pageNum, pageSize), "高管信息-变更列表查询  错误", logger);
+        return exec(() -> managerService.webQueryChangeApply(custNo, flag, pageNum, pageSize), "高管信息-变更列表查询  错误",
+                logger);
     }
 
     @RequestMapping(value = "/findChangeApply", method = RequestMethod.POST, produces = "application/json")
@@ -119,23 +121,28 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/addInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addInsteadManagerTmp(HttpServletRequest request, Long insteadRecordId, String fileList) {
+    public @ResponseBody String addInsteadManagerTmp(HttpServletRequest request, Long insteadRecordId,
+            String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("高管信息-添加代录新增流水  入参:reqParam=" + reqParam + " insteadRecordId=" + insteadRecordId);
-        return exec(() -> managerService.webAddInsteadManagerTmp(reqParam, insteadRecordId, fileList), "高管信息-添加代录新增流水  错误", logger);
+        return exec(() -> managerService.webAddInsteadManagerTmp(reqParam, insteadRecordId, fileList),
+                "高管信息-添加代录新增流水  错误", logger);
     }
 
     @RequestMapping(value = "/saveInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveInsteadManagerTmp(HttpServletRequest request, Long insteadRecordId, String fileList) {
+    public @ResponseBody String saveInsteadManagerTmp(HttpServletRequest request, Long insteadRecordId,
+            String fileList) {
         final Map<String, Object> reqParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("高管信息-添加代录修改流水  入参:reqParam=" + reqParam + " insteadRecordId=" + insteadRecordId);
-        return exec(() -> managerService.webSaveInsteadManagerTmp(reqParam, insteadRecordId, fileList), "高管信息-添加代录新增流水  错误", logger);
+        return exec(() -> managerService.webSaveInsteadManagerTmp(reqParam, insteadRecordId, fileList),
+                "高管信息-添加代录新增流水  错误", logger);
     }
 
     @RequestMapping(value = "/deleteInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody String deleteInsteadManagerTmp(HttpServletRequest request, Long refId, Long insteadRecordId) {
         logger.debug("高管信息-添加代录删除流水  入参:refId=" + refId + " insteadRecordId=" + insteadRecordId);
-        return exec(() -> managerService.webDeleteInsteadManagerTmp(refId, insteadRecordId), "高管信息-添加代录删除流水  错误", logger);
+        return exec(() -> managerService.webDeleteInsteadManagerTmp(refId, insteadRecordId), "高管信息-添加代录删除流水  错误",
+                logger);
     }
 
     @RequestMapping(value = "/cancelInsteadManagerTmp", method = RequestMethod.POST, produces = "application/json")

@@ -35,9 +35,11 @@ public class NotificationProfileConstroller {
      * @return
      */
     @RequestMapping(value = "/queryNotificationProfile", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryUnreadNotification(final HttpServletRequest request, final Long custNo, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryUnreadNotification(final HttpServletRequest request, final Long custNo,
+            final int flag, final int pageNum, final int pageSize) {
         logger.debug("消息模板列表-查询 入参:custNo=" + custNo);
-        return exec(() -> profileService.webQueryNotificationProfile(custNo, flag, pageNum, pageSize), "消息模板列表-查询 出错", logger);
+        return exec(() -> profileService.webQueryNotificationProfile(custNo, flag, pageNum, pageSize), "消息模板列表-查询 出错",
+                logger);
     }
 
     /**
@@ -46,7 +48,8 @@ public class NotificationProfileConstroller {
      * @return
      */
     @RequestMapping(value = "/setEnabledNotificationProfile", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String setEnabledNotificationProfile(final HttpServletRequest request, final Long id, final Long custNo) {
+    public @ResponseBody String setEnabledNotificationProfile(final HttpServletRequest request, final Long id,
+            final Long custNo) {
         logger.debug("设置模板启用状态 入参:id=" + id);
         return exec(() -> profileService.webSetEnabledNotificationProfile(id, custNo), "设置模板启用状态 出错", logger);
     }
@@ -57,7 +60,8 @@ public class NotificationProfileConstroller {
      * @return
      */
     @RequestMapping(value = "/setDisabledNotificationProfile", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String setDisabledNotificationProfile(final HttpServletRequest request, final Long id, final Long custNo) {
+    public @ResponseBody String setDisabledNotificationProfile(final HttpServletRequest request, final Long id,
+            final Long custNo) {
         logger.debug("设置模板禁用状态 入参:id=" + id);
         return exec(() -> profileService.webSetDisabledNotificationProfile(id, custNo), "设置模板禁用状态 出错", logger);
     }
@@ -68,7 +72,8 @@ public class NotificationProfileConstroller {
      * @return
      */
     @RequestMapping(value = "/queryChannelProfile", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryChannelProfile(final HttpServletRequest request, final Long profileId, final Long custNo) {
+    public @ResponseBody String queryChannelProfile(final HttpServletRequest request, final Long profileId,
+            final Long custNo) {
         logger.debug("通道模板列表-查询 入参:profileId=" + profileId);
         return exec(() -> profileService.webQueryNotificationChannelProfile(profileId, custNo), "通道模板列表-查询 出错", logger);
     }
@@ -79,10 +84,12 @@ public class NotificationProfileConstroller {
      * @return
      */
     @RequestMapping(value = "/saveChannelProfile", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveChannelProfile(final HttpServletRequest request, final Long channelProfileId, final Long custNo) {
+    public @ResponseBody String saveChannelProfile(final HttpServletRequest request, final Long channelProfileId,
+            final Long custNo) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("通道模板-保存 入参:anParam=" + anParam + " channelProfileId=" + channelProfileId);
-        return exec(() -> profileService.webSaveNotificationChannelProfile(anParam, channelProfileId, custNo), "通道模板-保存 出错", logger);
+        return exec(() -> profileService.webSaveNotificationChannelProfile(anParam, channelProfileId, custNo),
+                "通道模板-保存 出错", logger);
     }
 
     /**
@@ -91,9 +98,11 @@ public class NotificationProfileConstroller {
      * @return
      */
     @RequestMapping(value = "/queryProfileVariable", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryProfileVariable(final HttpServletRequest request, final Long channelProfileId, final Long custNo) {
+    public @ResponseBody String queryProfileVariable(final HttpServletRequest request, final Long channelProfileId,
+            final Long custNo) {
         logger.debug("通道模板变量规则-查询 入参:channelProfileId=" + channelProfileId);
 
-        return exec(() -> profileService.webQueryNotificationProfileVariable(channelProfileId, custNo), "通道模板变量规则-查询 出错", logger);
+        return exec(() -> profileService.webQueryNotificationProfileVariable(channelProfileId, custNo),
+                "通道模板变量规则-查询 出错", logger);
     }
 }

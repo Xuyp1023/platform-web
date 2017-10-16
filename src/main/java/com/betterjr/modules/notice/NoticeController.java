@@ -30,7 +30,8 @@ public class NoticeController {
      * @return
      */
     @RequestMapping(value = "/queryUnreadNotice", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryUnreadNotice(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryUnreadNotice(final HttpServletRequest request, final int flag, final int pageNum,
+            final int pageSize) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("未读公告列表-查询 入参:anParam=" + anParam);
         return exec(() -> noticeService.webQueryUnreadNotice(anParam, flag, pageNum, pageSize), "未读公告列表-查询 出错", logger);
@@ -42,7 +43,8 @@ public class NoticeController {
      * @return
      */
     @RequestMapping(value = "/queryReadNotice", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryReadNotice(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryReadNotice(final HttpServletRequest request, final int flag, final int pageNum,
+            final int pageSize) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("已读公告列表-查询 入参:anParam=" + anParam);
         return exec(() -> noticeService.webQueryReadNotice(anParam, flag, pageNum, pageSize), "已读公告列表-查询 出错", logger);
@@ -96,7 +98,8 @@ public class NoticeController {
      * @return
      */
     @RequestMapping(value = "/queryNotice", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String queryNotice(final HttpServletRequest request, final int flag, final int pageNum, final int pageSize) {
+    public @ResponseBody String queryNotice(final HttpServletRequest request, final int flag, final int pageNum,
+            final int pageSize) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("已读公告列表-查询 入参:anParam=" + anParam);
         return exec(() -> noticeService.webQueryNotice(anParam, flag, pageNum, pageSize), "已读公告列表-查询 出错", logger);
@@ -108,7 +111,8 @@ public class NoticeController {
      * @return
      */
     @RequestMapping(value = "/addPublishNotice", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addPublishNotice(final HttpServletRequest request, final String targetCust, final String fileList) {
+    public @ResponseBody String addPublishNotice(final HttpServletRequest request, final String targetCust,
+            final String fileList) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("添加并发布公告 入参:anParam=" + anParam + " targetCust=" + targetCust + " fileList=" + fileList);
         return exec(() -> noticeService.webAddPublishNotice(anParam, targetCust, fileList), "添加并发布公告 出错", logger);
@@ -120,7 +124,8 @@ public class NoticeController {
      * @return
      */
     @RequestMapping(value = "/addStoreNotice", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String addStoreNotice(final HttpServletRequest request, final String targetCust, final String fileList) {
+    public @ResponseBody String addStoreNotice(final HttpServletRequest request, final String targetCust,
+            final String fileList) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("添加并暂存公告 入参:anParam=" + anParam + " targetCust=" + targetCust + " fileList=" + fileList);
         return exec(() -> noticeService.webAddStoreNotice(anParam, targetCust, fileList), "添加并暂存公告  出错", logger);
@@ -132,7 +137,8 @@ public class NoticeController {
      * @return
      */
     @RequestMapping(value = "/savePublishNotice", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String savePublishNotice(final HttpServletRequest request, final Long id, final String targetCust, final String fileList) {
+    public @ResponseBody String savePublishNotice(final HttpServletRequest request, final Long id,
+            final String targetCust, final String fileList) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("修改并发布公告 入参:anParam=" + anParam + " targetCust=" + targetCust + " fileList=" + fileList);
         return exec(() -> noticeService.webSavePublishNotice(anParam, id, targetCust, fileList), "修改并发布公告  出错", logger);
@@ -144,7 +150,8 @@ public class NoticeController {
      * @return
      */
     @RequestMapping(value = "/saveStoreNotice", method = RequestMethod.POST, produces = "application/json")
-    public @ResponseBody String saveStoreNotice(final HttpServletRequest request, final Long id, final String targetCust, final String fileList) {
+    public @ResponseBody String saveStoreNotice(final HttpServletRequest request, final Long id,
+            final String targetCust, final String fileList) {
         final Map<String, Object> anParam = Servlets.getParametersStartingWith(request, "");
         logger.debug("修改并暂存公告 入参:anParam=" + anParam + " targetCust=" + targetCust + " fileList=" + fileList);
         return exec(() -> noticeService.webSaveStoreNotice(anParam, id, targetCust, fileList), "修改并暂存公告  出错", logger);
