@@ -48,13 +48,14 @@ public class CustOperatorController {
      * @return
      */
     @RequestMapping(value = "/addCustOperator", method = RequestMethod.POST)
-    public @ResponseBody String addCustOperator(final HttpServletRequest request, final String custList) {
-        final Map anMap = Servlets.getParametersStartingWith(request, "");
+    public @ResponseBody String addCustOperator(final HttpServletRequest request, final String custList,
+            final String fileList) {
+        final Map<String, Object> anMap = Servlets.getParametersStartingWith(request, "");
         logger.info("入参：" + anMap);
         return ControllerExceptionHandler.exec(new ExceptionHandler() {
             @Override
             public String handle() {
-                return custOperatorService.webAddCustOperator(anMap, custList);
+                return custOperatorService.webAddCustOperator(anMap, custList, fileList);
             }
         }, "新增操作员异常", logger);
     }
